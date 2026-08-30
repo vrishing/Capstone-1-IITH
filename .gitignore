@@ -4,5 +4,5 @@ data/
 qdrant_data/
 __pycache__/
 .vscode/
-*.docx/
+*.docx
 *.png
