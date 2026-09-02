@@ -11,6 +11,7 @@ a finished trustworthy system.
 Run: python 03_ask.py
 Needs GEMINI_API_KEY set (see .env) and internet access.
 """
+from __future__ import annotations
 import os
 
 from dotenv import load_dotenv

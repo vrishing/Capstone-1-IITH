@@ -3,7 +3,7 @@ MVP-1 config — edit the values in this file before running anything.
 Everything downstream (fetch, chunk, index, ask) reads from here so you
 only have to change your corpus definition in one place.
 """
-
+from __future__ import annotations
 import os
 from dotenv import load_dotenv
 

@@ -6,6 +6,7 @@ with BGE-M3, and stores them in Qdrant tagged with config.PLAYLIST_ID.
 
 Run after 06_asr_to_chunks.py has created the chunk files.
 """
+from __future__ import annotations
 import json
 from pathlib import Path
 

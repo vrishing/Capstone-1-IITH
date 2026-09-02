@@ -8,6 +8,7 @@ dense-only (will add BM25 / entity indexing once this works).
 Run: python 02_chunk_and_index.py
 Needs internet access the FIRST time only, to download the BGE-M3 weights.
 """
+from __future__ import annotations
 import glob
 import json
 import os

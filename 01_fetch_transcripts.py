@@ -4,6 +4,7 @@ Step 1 — pull YouTube's own transcript for EVERY video in the given playlist.
 Uses yt-dlp to fetch the list of video IDs from config.YOUTUBE_PLAYLIST_ID,
 then fetches the transcript for each one that has captions.
 """
+from __future__ import annotations
 import json
 import os
 from yt_dlp import YoutubeDL
