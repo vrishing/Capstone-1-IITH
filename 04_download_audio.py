@@ -44,8 +44,8 @@ def download_audio(video_id: str, output_dir: str) -> str:
 
 def main():
     os.makedirs(config.ASR_OUTPUT_DIR, exist_ok=True)
-    print(f"Fetching playlist {config.PLAYLIST_ID}...")
-    video_ids = get_playlist_videos(config.PLAYLIST_ID)
+    print(f"Fetching playlist {config.YOUTUBE_PLAYLIST_ID}...")
+    video_ids = get_playlist_videos(config.YOUTUBE_PLAYLIST_ID)
     print(f"Found {len(video_ids)} videos")
     
     for i, vid in enumerate(video_ids, start=1):

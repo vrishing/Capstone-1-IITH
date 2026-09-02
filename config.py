@@ -5,6 +5,9 @@ only have to change your corpus definition in one place.
 """
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 # --- Step 0: pick your pilot corpus -----------------------------------
 # 3 YouTube video IDs from ONE playlist. The video ID is the part after
 # "v=" in a YouTube URL, e.g. https://www.youtube.com/watch?v=XXXXXXXXXXX
@@ -48,7 +51,7 @@ COLLECTION_NAME = "transcript_chunks"
 # --- Generation -------------------------------------------------------
 ANTHROPIC_MODEL = "claude-sonnet-5"
 GEMINI_MODEL_NAME = "gemini-3.6-flash"
-TOP_K = 5  # how many evidence chunks to retrieve per question
+TOP_K = 10  # how many evidence chunks to retrieve per question
 
 
 # ASR Ensemble (completely free, self-hosted)
@@ -57,6 +60,7 @@ INDICONFORMER_ENABLED = True  # AI4Bharat, covers all 22 Indian languages, MIT l
 WHISPER_INDIC_ENABLED = True  # OpenAI Whisper + AI4Bharat fine-tune, free fallback
 ASR_ENSEMBLE_STRATEGY = "highest_confidence"  # pick IndicConformer or Whisper output with best score
 TARGET_LANGUAGE = "te"  # Telugu (change to "sa" for Sanskrit if needed, or "hi" for Hindi)
+TRANSCRIPT_LANGS = ["te", "te-IN", "en"]
 
 
 VERIFIER_MODEL = "gemini-3.6-flash"  # ~$0.00001 per request (cheapest option)

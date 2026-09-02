@@ -6,6 +6,39 @@ import torch
 
 import config
 
+import json
+import os
+
+def load_youtube_transcript(video_id: str) -> dict | None:
+    """Load the YouTube transcript from data/transcripts/{video_id}.json if it exists."""
+    transcript_path = os.path.join("data/transcripts", f"{video_id}.json")
+    if not os.path.exists(transcript_path):
+        return None
+    
+    try:
+        with open(transcript_path, encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Concatenate all text entries
+        full_text = " ".join([entry["text"] for entry in data.get("entries", [])])
+        
+        # Assign confidence based on whether it's manually uploaded or auto-generated
+        # Manual transcripts are usually perfect; auto-generated are often ~85-90% accurate.
+        if data.get("is_generated", True):
+            confidence = 0.85  # Auto-generated YouTube captions
+        else:
+            confidence = 0.95  # Manually uploaded transcripts (very high quality)
+        
+        return {
+            'text': full_text,
+            'confidence': confidence,
+            'engine': 'youtube_transcript',
+            'is_generated': data.get("is_generated", True)
+        }
+    except Exception as e:
+        print(f"[Warning] Could not load YouTube transcript for {video_id}: {e}")
+        return None
+
 class IndicConformerASR:
     """AI4Bharat's IndicConformer — free, open-source, covers all 22 Indian languages."""
     def __init__(self, language_code="te"):
@@ -71,23 +104,36 @@ class WhisperIndic:
             print(f"[Whisper error] {e}")
             return {'text': '', 'confidence': 0.0, 'engine': 'whisper_indic', 'error': str(e)}
 
-def transcribe_one_video(video_id: str, audio_path: str, indiconformer: IndicConformerASR, whisper: WhisperIndic) -> dict:
-    """Run ensemble on one video, pick highest-confidence output."""
+def transcribe_one_video(video_id: str, audio_path: str, 
+                         indiconformer: IndicConformerASR, 
+                         whisper: WhisperIndic) -> dict:
     print(f"  [transcribing] {video_id}...")
-    
+
     outputs = []
+
+    # 1. Try YouTube transcript
+    yt_output = load_youtube_transcript(video_id)
+    if yt_output:
+        outputs.append(yt_output)
+    
+    # 2. Run IndicConformer
     if config.INDICONFORMER_ENABLED:
         outputs.append(indiconformer.transcribe(audio_path))
+    
+    # 3. Run Whisper
     if config.WHISPER_INDIC_ENABLED:
         outputs.append(whisper.transcribe(audio_path))
+
+    # Filter out empty outputs
+    valid_outputs = [o for o in outputs if o.get('text', '').strip()]
     
-    if not outputs or all(o.get('text', '') == '' for o in outputs):
-        print(f"    [WARNING] both engines failed for {video_id}")
-        return {'video_id': video_id, 'text': '', 'engine_used': 'none', 'confidence': 0.0, 'all_outputs': outputs}
-    
-    # Pick the one with highest confidence (and non-empty text)
-    valid_outputs = [o for o in outputs if o.get('text', '') != '']
-    best = max(valid_outputs, key=lambda x: x['confidence']) if valid_outputs else outputs[0]
+    if not valid_outputs:
+        print(f"    [WARNING] All engines failed for {video_id}")
+        return {'video_id': video_id, 'text': '', 'engine_used': 'none', 
+                'confidence': 0.0, 'all_outputs': outputs}
+
+    # Pick the one with highest confidence
+    best = max(valid_outputs, key=lambda x: x['confidence'])
     
     return {
         'video_id': video_id,

@@ -3,3 +3,10 @@ qdrant-client
 sentence-transformers
 google-genai
 python-dotenv
+torch
+faster-whisper
+transformers
+librosa
+pydub
+yt-dlp
+ffmpeg

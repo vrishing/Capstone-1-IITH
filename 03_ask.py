@@ -14,6 +14,7 @@ Needs GEMINI_API_KEY set (see .env) and internet access.
 import os
 
 from dotenv import load_dotenv
+load_dotenv()
 from google import genai
 from google.genai import types
 from qdrant_client import QdrantClient
@@ -22,21 +23,20 @@ from sentence_transformers import SentenceTransformer
 
 import config
 
-load_dotenv()
 
-SYSTEM_PROMPT = """You are answering questions using ONLY the evidence \
-chunks provided below. Each chunk is numbered and comes from a specific \
+SYSTEM_PROMPT = """You are answering questions using ONLY the evidence 
+chunks provided below. Each chunk is numbered and comes from a specific 
 video and timestamp in a closed video corpus.
 
 Rules:
-1. Every factual sentence in your answer MUST be supported by at least \
-one of the numbered evidence chunks. Cite the chunk number in square \
+1. Every factual sentence in your answer MUST be supported by at least 
+one of the numbered evidence chunks. Cite the chunk number in square 
 brackets after each factual sentence, like this: [chunk 2].
-2. Do NOT use any knowledge you have from outside these chunks, even if \
-you are confident it is correct. If the chunks don't fully answer the \
+2. Do NOT use any knowledge you have from outside these chunks, even if 
+you are confident it is correct. If the chunks don't fully answer the 
 question, say so explicitly rather than filling the gap from memory.
-3. If the evidence chunks do not contain enough information to answer \
-the question at all, respond with exactly: "I don't have enough \
+3. If the evidence chunks do not contain enough information to answer 
+the question at all, respond with exactly: "I don't have enough 
 information in this corpus to answer that." Do not guess.
 """
 
@@ -67,7 +67,7 @@ def format_evidence(results) -> str:
 
 
 def main():
-    api_key = os.environ.get("GEMINI_API_KEY")
+    api_key = config.GEMINI_API_KEY
     if not api_key:
         print("[FAIL] set GEMINI_API_KEY in a .env file")
         return
