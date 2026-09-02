@@ -16,8 +16,8 @@ import os
 
 from dotenv import load_dotenv
 load_dotenv()
-from google import genai
-from google.genai import types
+import google.generativeai as genai
+from google.generativeai import types
 from qdrant_client import QdrantClient
 from qdrant_client.models import FieldCondition, Filter, MatchValue
 from sentence_transformers import SentenceTransformer
@@ -79,7 +79,7 @@ def main():
 
     model = SentenceTransformer(model_name)
     qdrant = QdrantClient(path=config.QDRANT_PATH)
-    gemini_client = genai.Client(api_key=api_key)
+    genai.configure(api_key=api_key)
 
     print(f"\nReady. Corpus = '{config.PLAYLIST_ID}'. Type a question (or 'quit').\n")
 
@@ -99,11 +99,13 @@ def main():
         evidence = format_evidence(results)
 
         try:
-            response = gemini_client.models.generate_content(
-                model=gemini_model,
-                contents=f"Evidence chunks:\n\n{evidence}\n\nQuestion: {question}",
-                config=types.GenerateContentConfig(
-                    system_instruction=SYSTEM_PROMPT,
+            gemini_model_instance = genai.GenerativeModel(
+                model_name=gemini_model,
+                system_instruction=SYSTEM_PROMPT,
+            )
+            response = gemini_model_instance.generate_content(
+                f"Evidence chunks:\n\n{evidence}\n\nQuestion: {question}",
+                generation_config=types.GenerationConfig(
                     temperature=0.0,
                     max_output_tokens=1000,
                 ),
