@@ -17,7 +17,8 @@ import os
 # PLAYLIST_ID = ""
 # A label for this corpus — this becomes the metadata filter that makes
 # retrieval "closed-corpus" instead of open. Pick something stable.
-PLAYLIST_ID = "mit-prob"
+PLAYLIST_ID = "mb-test"
+YOUTUBE_PLAYLIST_ID = "PLD0OXwSZSSA8"  # the real playlist to download
 # PLAYLIST_ID = "mit-prob"
 
 # Preferred transcript language codes to try, in order. YouTube exposes
