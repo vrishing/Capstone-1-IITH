@@ -3,6 +3,9 @@ venv/
 data/
 qdrant_data/
 __pycache__/
+downloads/
+temp_noisy_audio/
+local_temp/
 .vscode/
 *.docx
 *.png

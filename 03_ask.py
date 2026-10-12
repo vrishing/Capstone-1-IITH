@@ -16,13 +16,12 @@ import os
 
 from dotenv import load_dotenv
 load_dotenv()
-import google.generativeai as genai
-from google.generativeai import types
 from qdrant_client import QdrantClient
 from qdrant_client.models import FieldCondition, Filter, MatchValue
 from sentence_transformers import SentenceTransformer
 
 import config
+from llm_client import generate
 
 
 SYSTEM_PROMPT = """You are answering questions using ONLY the evidence 
@@ -79,7 +78,6 @@ def main():
 
     model = SentenceTransformer(model_name)
     qdrant = QdrantClient(path=config.QDRANT_PATH)
-    genai.configure(api_key=api_key)
 
     print(f"\nReady. Corpus = '{config.PLAYLIST_ID}'. Type a question (or 'quit').\n")
 
@@ -99,18 +97,14 @@ def main():
         evidence = format_evidence(results)
 
         try:
-            gemini_model_instance = genai.GenerativeModel(
-                model_name=gemini_model,
-                system_instruction=SYSTEM_PROMPT,
-            )
-            response = gemini_model_instance.generate_content(
+            answer_text = generate(
                 f"Evidence chunks:\n\n{evidence}\n\nQuestion: {question}",
-                generation_config=types.GenerationConfig(
-                    temperature=0.0,
-                    max_output_tokens=1000,
-                ),
+                model=gemini_model,
+                api_key=api_key,
+                system_instruction=SYSTEM_PROMPT,
+                temperature=0.0,
+                max_output_tokens=5000,
             )
-            answer_text = response.text
 
             print(f"\n{answer_text}\n")
             print("Sources retrieved this turn:")

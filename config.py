@@ -1,72 +1,68 @@
 """
-MVP-1 config — edit the values in this file before running anything.
-Everything downstream (fetch, chunk, index, ask) reads from here so you
-only have to change your corpus definition in one place.
+Single source of truth for settings. Secrets come from .env (never write keys here).
+Paths are anchored to this file's folder, so scripts behave the same from any working directory.
 """
 from __future__ import annotations
+
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv()
-# --- Step 0: pick your pilot corpus -----------------------------------
-# 3 YouTube video IDs from ONE playlist. The video ID is the part after
-# "v=" in a YouTube URL, e.g. https://www.youtube.com/watch?v=XXXXXXXXXXX
-# VIDEO_IDS = [
-#     "j9WZyLZCBzs",
-#     "TluTv5V0RmE",
-#     "19Ql_Q3l0GA",
-# ]
 
-# PLAYLIST_ID = ""
-# A label for this corpus — this becomes the metadata filter that makes
-# retrieval "closed-corpus" instead of open. Pick something stable.
-PLAYLIST_ID = "mb-test"
-YOUTUBE_PLAYLIST_ID = "PLD0OXwSZSSA8"  # the real playlist to download
-# PLAYLIST_ID = "mit-prob"
+ROOT = Path(__file__).resolve().parent
 
-# Preferred transcript language codes to try, in order. YouTube exposes
-# both manually-uploaded and auto-generated caption tracks per language;
-# the fetch script tries each of these in turn.
-TRANSCRIPT_LANGS = ["te", "te-IN", "en"]  # Telugu first, English fallback
 
-# --- Chunking -----------------------------------------------------------
-CHUNK_SECONDS = 60          # target chunk length
-CHUNK_OVERLAP_SECONDS = 10  # overlap so we don't cut a sentence in half
+def _p(*parts: str) -> str:
+    return str(ROOT.joinpath(*parts))
 
-# --- Embedding ------------------------------------------------------------
-# BGE-M3 matches the model chosen in the full architecture. It's a ~2GB
-# download the first time you run it. If you want something that downloads
-# faster to get moving today, swap in:
-#   "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-# and upgrade to BGE-M3 later — the rest of the code doesn't change.
+
+# --- Corpus -------------------------------------------------------------
+# PLAYLIST_ID is the real YouTube playlist ID (the full list= value in the URL) and is the
+# closed-corpus metadata filter. PLAYLIST_NAME is a human-readable label only.
+PLAYLIST_ID = "PLD0OXwSZSSA8" 
+PLAYLIST_NAME = "mb-test"
+YOUTUBE_PLAYLIST_ID = PLAYLIST_ID  # alias read by 01/04/run_pipeline; remove once 01/04 are retired
+
+TARGET_LANGUAGE = "te"
+# YouTube captions are a baseline for comparison only, so Telugu tracks only (no English fallback).
+TRANSCRIPT_LANGS = ["te", "te-IN"]
+
+# --- ASR (IndicConformer only) --------------------------------------------
+ASR_DECODER = "ctc"        # "ctc" or "rnnt"; changing it reruns the ASR stage for every video
+ASR_MAX_CHUNK_S = 8.0      # longest audio piece sent to the model (hard ceiling is about 30 s)
+ASR_TOP_DB = 35.0          # silence threshold for cutting
+ASR_PAD_S = 0.2            # silence kept around each chunk
+HF_TOKEN = os.environ.get("HF_TOKEN")
+
+# --- Pipeline state and data ------------------------------------------------
+ASR_OUTPUT_DIR = _p("data", "asr_output")   # wav audio and *_asr.json
+CAPTIONS_DIR = _p("data", "transcripts")    # baseline captions
+MANIFEST_PATH = _p("data", "manifest.db")
+MAX_ATTEMPTS = 3
+
+# --- Evidence spans (transitional: read by 06) ----------------------------------
+# Replaced by SPAN_MIN_S = 45 / SPAN_MAX_S = 90 with no overlap when the span builder is written.
+CHUNK_SECONDS = 60
+CHUNK_OVERLAP_SECONDS = 10
+
+# --- Embedding and vector store ---------------------------------------------------
 EMBED_MODEL_NAME = "BAAI/bge-m3"
-EMBED_DIM = 1024  # BGE-M3's dense output size; change if you swap models
-
-# --- Vector store ---------------------------------------------------------
-# Local, on-disk Qdrant — no server to run for MVP-1. Same client API
-# works against a real Qdrant server later with one line changed.
-QDRANT_PATH = "./qdrant_data"
+EMBED_DIM = 1024  # BGE-M3 dense size; change if you swap models
+QDRANT_PATH = _p("qdrant_data")
 COLLECTION_NAME = "transcript_chunks"
 
-# --- Generation -------------------------------------------------------
-ANTHROPIC_MODEL = "claude-sonnet-5"
-GEMINI_MODEL_NAME = "gemini-3.6-flash"
-TOP_K = 10  # how many evidence chunks to retrieve per question
-
-
-# ASR Ensemble (completely free, self-hosted)
-ASR_ENGINES = ["indiconformer", "whisper_indic"]  # both free, open source
-INDICONFORMER_ENABLED = True  # AI4Bharat, covers all 22 Indian languages, MIT license
-WHISPER_INDIC_ENABLED = True  # OpenAI Whisper + AI4Bharat fine-tune, free fallback
-ASR_ENSEMBLE_STRATEGY = "highest_confidence"  # pick IndicConformer or Whisper output with best score
-TARGET_LANGUAGE = "te"  # Telugu (change to "sa" for Sanskrit if needed, or "hi" for Hindi)
-TRANSCRIPT_LANGS = ["te", "te-IN", "en"]
-
-
-VERIFIER_MODEL = "gemini-3.6-flash"  # ~$0.00001 per request (cheapest option)
-# Alternative: "gemini-1.5-pro" if you need stronger reasoning (still <$0.05 per request)
-VERIFIER_ENABLED = True
-ABSTAIN_ON_UNSUPPORTED = True  # if True, refuse any answer with unsupported sentences
+# --- Generation and verification (Gemini through llm_client.py) -----------------------
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+GEMINI_MODEL_NAME = "gemini-3.6-flash"
+TOP_K = 10
 
-ASR_OUTPUT_DIR = "./data/asr_output"
+# Read by the verifier (not built yet).
+VERIFIER_MODEL = "gemini-3.6-flash"
+VERIFIER_ENABLED = True
+ABSTAIN_ON_UNSUPPORTED = True
+VERIFIER_ON_PARTIAL = "warn"     # partly supported answers are shown with a caution warning
+VERIFIER_ON_ERROR = "abstain"    # fail closed if the verifier itself errors
+VERIFIER_MAX_RETRIES = 2
+ABSTAIN_MESSAGE = "I could not find enough support in the specified playlist."

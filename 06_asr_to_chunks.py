@@ -87,10 +87,12 @@ def main():
             asr_data = json.load(f)
         
         duration = get_audio_duration(audio_path)
-        entries = estimate_timestamps(asr_data['text'], duration)
-        chunks = merge_into_chunks(entries)
+        # entries = estimate_timestamps(asr_data['text'], duration)
+        # chunks = merge_into_chunks(entries)
+        entries = asr_data.get('segments') or estimate_timestamps(asr_data['text'], duration)
+        chunks = merge_into_chunks(entries, config.CHUNK_SECONDS, config.CHUNK_OVERLAP_SECONDS)
         
-        out_path = asr_path.replace('_asr.json', '_chunks.json')
+        out_path = str(asr_path).replace('_asr.json', '_chunks.json')
         with open(out_path, 'w', encoding='utf-8') as f:
             json.dump({
                 'video_id': video_id,
