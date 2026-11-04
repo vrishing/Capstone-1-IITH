@@ -66,3 +66,15 @@ VERIFIER_ON_PARTIAL = "warn"     # partly supported answers are shown with a cau
 VERIFIER_ON_ERROR = "abstain"    # fail closed if the verifier itself errors
 VERIFIER_MAX_RETRIES = 2
 ABSTAIN_MESSAGE = "I could not find enough support in the specified playlist."
+
+
+# --- Glossary (built per playlist from Wikipedia and Wikidata by glossary_builder.py) -----------
+# Paste this block into config.py, below the Corpus section (it uses PLAYLIST_ID and _p).
+# One folder per playlist, so a second playlist gets its own glossary without touching this one.
+GLOSSARY_DIR = _p("glossary", PLAYLIST_ID)          # candidates, reports and the API cache live here
+DOMAIN_PACK_PATH = _p("glossary", PLAYLIST_ID, "domain_pack.json")   # which Wikipedia categories to use
+ALIAS_TABLE_PATH = _p("glossary", PLAYLIST_ID, "aliases.csv")        # the live table the corrector reads
+PROTECTED_WORDS_PATH = _p("glossary", PLAYLIST_ID, "protected_words.txt")  # for the corrector; not used by the builder
+# Wikimedia asks every script to identify itself with a contact. The builder refuses to run until
+# you replace CHANGE_ME@example.com with your real email (or a URL).
+GLOSSARY_USER_AGENT = "PravachanamRAG/0.1 ("+ os.environ.get("EMAIL_WIKIMEDIA")+")"

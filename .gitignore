@@ -6,6 +6,7 @@ __pycache__/
 downloads/
 temp_noisy_audio/
 local_temp/
+glossary/*/_cache/
 .vscode/
 *.docx
 *.png
