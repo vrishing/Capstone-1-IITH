@@ -38,8 +38,12 @@ CAPTIONS_DIR = _p("data", "transcripts")    # baseline captions
 MANIFEST_PATH = _p("data", "manifest.db")
 MAX_ATTEMPTS = 3
 
-# --- Evidence spans (transitional: read by 06) ----------------------------------
-# Replaced by SPAN_MIN_S = 45 / SPAN_MAX_S = 90 with no overlap when the span builder is written.
+# --- Evidence spans (spans.py) ---------------------------------------------------
+SPAN_MIN_S = 45.0     # a span closes at the first pause of at least SPAN_PAUSE_S after this length
+SPAN_MAX_S = 90.0     # hard ceiling; spans never overlap
+SPAN_PAUSE_S = 1.0    # gap between ASR segments that counts as a long pause
+SPANS_DIR = _p("data", "spans")
+# Old fixed windows, read only by the retired 06_asr_to_chunks.py.
 CHUNK_SECONDS = 60
 CHUNK_OVERLAP_SECONDS = 10
 

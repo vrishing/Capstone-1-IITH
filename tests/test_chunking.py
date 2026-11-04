@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from chunking import SR, chunk_by_silence, load_audio
 import soundfile as sf
@@ -49,3 +50,15 @@ def test_load_audio_downmixes_and_resamples(tmp_path):
     y = load_audio(str(tmp_path / "s.wav"))
     assert y.ndim == 1 and y.dtype == np.float32
     assert abs(len(y) - SR * len(stereo) / 44100) < 5
+
+
+def test_speech_bounds_expose_the_real_pause_that_chunk_gaps_under_report():
+    y = np.concatenate([speech(3), silence(2.0), speech(3)])
+    plain = chunk_by_silence(y, max_chunk_s=2.5, pad_s=0.2)
+    rich = chunk_by_silence(y, max_chunk_s=2.5, pad_s=0.2, with_speech=True)
+    assert [c[:2] for c in rich] == plain                       # default output is unchanged
+    assert all(c[0] <= c[2] < c[3] <= c[1] for c in rich)       # speech lies inside its chunk
+    pauses = [b[2] - a[3] for a, b in zip(rich, rich[1:])]
+    assert max(pauses) == pytest.approx(2.0, abs=0.2)           # the 2 s silence is visible
+    # Padding is capped at pad_s per side, so a chunk gap under-reports the pause by about 2 * pad_s.
+    assert max(b[0] - a[1] for a, b in zip(rich, rich[1:])) == pytest.approx(2.0 - 0.4, abs=0.25)

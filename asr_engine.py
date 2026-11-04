@@ -50,13 +50,15 @@ class IndicConformerASR:
         y = load_audio(audio_path)
         duration = len(y) / SR
         segments = []
-        for start_s, end_s in chunk_by_silence(y, self.max_chunk_s, self.top_db, self.pad_s):
+        for start_s, end_s, sp_s, sp_e in chunk_by_silence(y, self.max_chunk_s, self.top_db, self.pad_s,
+                                                           with_speech=True):
             if end_s - start_s < 0.2:
                 continue
             text = self._transcribe_chunk(y[int(start_s * SR):int(end_s * SR)], lang)
             if text:
                 segments.append({"text": text, "start": round(start_s, 2),
-                                 "duration": round(end_s - start_s, 2)})
+                                 "duration": round(end_s - start_s, 2),
+                                 "speech_start": round(sp_s, 2), "speech_end": round(sp_e, 2)})
         if debug_html_path:
             dump_debug_html([s["text"] for s in segments], debug_html_path)
         return {

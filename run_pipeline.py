@@ -86,7 +86,7 @@ def build_stages() -> dict[str, Stage]:
         "asr_done": Stage("asr_done", lambda v: [asr_path(v)], run_asr,
                           lambda: {"model": "indic-conformer-600m", "decoder": config.ASR_DECODER,
                                    "max_chunk_s": config.ASR_MAX_CHUNK_S, "top_db": config.ASR_TOP_DB,
-                                   "pad_s": config.ASR_PAD_S, "precision": "fp32",
+                                   "pad_s": config.ASR_PAD_S, "precision": "fp32", "timing": "speech_bounds_v1",
                                    "language": config.TARGET_LANGUAGE}),
         # "corrected": ..., "chunked": ..., "indexed": ...  (register as each is built)
     }

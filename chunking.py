@@ -40,8 +40,13 @@ def find_quietest_split(y: np.ndarray, start: int, end: int,
 
 
 def chunk_by_silence(y: np.ndarray, max_chunk_s: float, top_db: float = 35.0,
-                     pad_s: float = 0.2) -> list[tuple[float, float]]:
-    """Non-overlapping (start_s, end_s) chunks, each at most max_chunk_s + 2*pad_s long."""
+                     pad_s: float = 0.2, with_speech: bool = False) -> list[tuple]:
+    """Non-overlapping (start_s, end_s) chunks, each at most max_chunk_s + 2*pad_s long.
+
+    with_speech=True returns (start_s, end_s, speech_start_s, speech_end_s): the same chunk plus
+    where speech actually starts and ends inside it. Padding is split at the midpoint of the
+    silence between chunks, so neighbouring chunks touch and the real pause is only recoverable
+    from the speech bounds: pause = next.speech_start - this.speech_end."""
     if len(y) == 0 or float(np.max(np.abs(y))) < 1e-4:
         return []  # digital silence (librosa would call an all-zero signal one long speech run)
     intervals = librosa.effects.split(y, top_db=top_db)
@@ -87,5 +92,5 @@ def chunk_by_silence(y: np.ndarray, max_chunk_s: float, top_db: float = 35.0,
         next_s = groups[i + 1][0] if i + 1 < len(groups) else None
         lo = max(0, s - pad) if prev_e is None else max(s - pad, (prev_e + s) // 2)
         hi = min(total, e + pad) if next_s is None else min(e + pad, (e + next_s) // 2)
-        out.append((lo / SR, hi / SR))
+        out.append((lo / SR, hi / SR, s / SR, e / SR) if with_speech else (lo / SR, hi / SR))
     return out

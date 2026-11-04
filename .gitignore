@@ -15,3 +15,6 @@ PHASE1AND2.md
 PHASE2_UPDATE.MD
 multi_playlist.patch
 multi_playlist_files.zip
+romanize_spans.patch
+spans_largest_pause.patch
+true_pauses.patch
