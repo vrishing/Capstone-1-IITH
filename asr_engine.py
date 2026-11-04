@@ -34,14 +34,18 @@ class IndicConformerASR:
         ).to(self.device)
         self.model.eval()
 
-    def _transcribe_chunk(self, y_chunk) -> str:
+    def _transcribe_chunk(self, y_chunk, language_code: str) -> str:
         wav = self.torch.from_numpy(y_chunk).unsqueeze(0).to(self.device)
         with self.torch.no_grad():
-            out = self.model(wav, self.language_code, self.decoder_type)
+            out = self.model(wav, language_code, self.decoder_type)
         out = out[0] if isinstance(out, list) else out
         return str(out).strip()
 
-    def transcribe(self, audio_path: str, debug_html_path: str | None = None) -> dict:
+    def transcribe(self, audio_path: str, debug_html_path: str | None = None,
+                   language_code: str | None = None) -> dict:
+        """One multilingual model serves every language: language_code picks the output language
+        per call (default: the one given at construction)."""
+        lang = language_code or self.language_code
         t0 = time.time()
         y = load_audio(audio_path)
         duration = len(y) / SR
@@ -49,7 +53,7 @@ class IndicConformerASR:
         for start_s, end_s in chunk_by_silence(y, self.max_chunk_s, self.top_db, self.pad_s):
             if end_s - start_s < 0.2:
                 continue
-            text = self._transcribe_chunk(y[int(start_s * SR):int(end_s * SR)])
+            text = self._transcribe_chunk(y[int(start_s * SR):int(end_s * SR)], lang)
             if text:
                 segments.append({"text": text, "start": round(start_s, 2),
                                  "duration": round(end_s - start_s, 2)})
@@ -61,6 +65,7 @@ class IndicConformerASR:
             "duration_s": round(duration, 2),
             "latency_sec": round(time.time() - t0, 2),
             "engine": f"indiconformer_{self.decoder_type}",
+            "language": lang,
         }
 
 

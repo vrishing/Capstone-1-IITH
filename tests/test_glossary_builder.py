@@ -425,7 +425,7 @@ def test_pack_loading_rules(tmp_path):
         gb.load_pack(write_pack(tmp_path, pack_for_build(categories=[{"wiki": "en", "title": "C", "type": "", "use": True}])))
     with pytest.raises(gb.PackError, match="Nothing to harvest"):
         gb.load_pack(write_pack(tmp_path, pack_for_build(categories=[], wikidata_ids=[])))
-    with pytest.raises(gb.PackError, match="Telugu"):
+    with pytest.raises(gb.PackError, match="active playlist is 'te'"):
         gb.load_pack(write_pack(tmp_path, pack_for_build(language="hi")))
     with pytest.raises(gb.PackError, match="wikidata_ids"):
         gb.load_pack(write_pack(tmp_path, pack_for_build(wikidata_ids=[{"id": "Krishna", "type": "person"}])))
@@ -686,7 +686,7 @@ def test_promote_rejects_bad_rows_with_line_numbers(tmp_path):
     s = gb.promote(cands, tmp_path / "aliases.csv")
     assert s["added"] == 1
     assert [(i["line"], i["reason"]) for i in s["invalid"]] == [
-        (3, "term has no Telugu characters"), (4, "entity_id is not like Q123"), (5, "type is empty"),
+        (3, "term has no characters in the te script"), (4, "entity_id is not like Q123"), (5, "type is empty"),
         (6, "needs_context must be 0 or 1"), (7, "empty term"),
     ]
 
@@ -885,3 +885,48 @@ def test_curated_still_skips_ambiguous_spellings(tmp_path):
     p.write_bytes(gb._csv_bytes(gb.CANDIDATE_COLUMNS, rows, bom=True))
     s = gb.promote(p, tmp_path / "a.csv", accept="curated")
     assert s["skipped_ambiguous"] == 2 and s["added"] == 0
+
+
+# --------------------------------------------------------------------------------------
+# Other languages: the builder follows set_language() (config.TARGET_LANGUAGE)
+# --------------------------------------------------------------------------------------
+@pytest.fixture
+def hindi():
+    gb.set_language("hi")
+    yield
+    gb.set_language("te")
+
+
+def test_hindi_surfaces_keep_devanagari_and_drop_other_scripts(hindi):
+    dropped = {"no_telugu_script": 0, "empty_after_cleaning": 0, "phrase_redirect": 0}
+    e = {"qid": "Q185790", "te_label": "अर्जुन", "te_title": "अर्जुन", "te_aliases": ["Arjuna", "పార్థుడు", "पार्थ"]}
+    out = gb._surfaces(e, {"अर्जुन": ["धनंजय"]}, dropped)
+    by = {r["surface"]: r for r in out}
+    assert set(by) == {"अर्जुन", "पार्थ", "धनंजय"}
+    assert by["अर्जुन"]["origins"] == ["wikidata_label_hi", "wikipedia_title_hi"]
+    assert "hiwiki:अर्जुन" in by["अर्जुन"]["sources"]
+    assert by["धनंजय"]["origins"] == ["wikipedia_redirect_hi"]
+    assert dropped["no_telugu_script"] == 2          # the Latin and the Telugu alias
+
+
+def test_hindi_curated_promotion_excludes_redirects_and_checks_script(hindi, tmp_path):
+    rows = [_cand("अर्जुन", "wikidata_label_hi", entity="Q185790"),
+            _cand("धनंजय", "wikipedia_redirect_hi", entity="Q185790"),
+            _cand("అర్జునుడు", "wikidata_label_hi", entity="Q185791")]
+    p = tmp_path / "c.csv"
+    p.write_bytes(gb._csv_bytes(gb.CANDIDATE_COLUMNS, rows, bom=True))
+    s = gb.promote(p, tmp_path / "a.csv", accept="curated")
+    assert {r["term"] for r in read_rows(tmp_path / "a.csv")} == {"अर्जुन"}
+    assert s["not_selected"] == 1 and s["invalid"][0]["reason"] == "term has no characters in the hi script"
+
+
+def test_pack_language_must_match_active_playlist(hindi, tmp_path):
+    with pytest.raises(gb.PackError, match="active playlist is 'hi'"):
+        gb.load_pack(write_pack(tmp_path, pack_for_build(language="te")))
+    assert gb.load_pack(write_pack(tmp_path, pack_for_build(language="hi")))["language"] == "hi"
+
+
+def test_unknown_language_is_refused():
+    with pytest.raises(gb.PackError, match="Unsupported language"):
+        gb.set_language("en")
+    assert gb.LANG == "te"

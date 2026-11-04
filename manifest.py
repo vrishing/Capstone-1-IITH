@@ -23,6 +23,10 @@ from typing import Callable
 STAGES = ["downloaded", "asr_done", "corrected", "chunked", "indexed"]
 
 
+class Unavailable(Exception):
+    """A permanent failure (private, removed or members-only video). Never retried automatically."""
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -72,7 +76,7 @@ class Manifest:
                 """CREATE TABLE IF NOT EXISTS manifest(
                     video_id    TEXT NOT NULL,
                     stage       TEXT NOT NULL,
-                    status      TEXT NOT NULL,          -- 'done' | 'failed'
+                    status      TEXT NOT NULL,          -- 'done' | 'failed' | 'unavailable'
                     fingerprint TEXT,
                     updated_at  TEXT NOT NULL,
                     error       TEXT,
@@ -130,6 +134,22 @@ class Manifest:
                 (video_id, stage, fp, _now(), error[:2000]),
             )
 
+    def mark_unavailable(self, video_id: str, stage: str, fp: str, error: str) -> None:
+        with self.conn:
+            self.conn.execute(
+                """INSERT INTO manifest(video_id,stage,status,fingerprint,updated_at,error,attempts)
+                   VALUES(?,?,'unavailable',?,?,?,1)
+                   ON CONFLICT(video_id,stage) DO UPDATE SET
+                     status='unavailable', fingerprint=excluded.fingerprint,
+                     updated_at=excluded.updated_at, error=excluded.error,
+                     attempts=manifest.attempts+1""",
+                (video_id, stage, fp, _now(), error[:2000]),
+            )
+
+    def is_unavailable(self, video_id: str, stage: str) -> bool:
+        row = self.get(video_id, stage)
+        return bool(row and row["status"] == "unavailable")
+
     def last_completed(self, video_id: str) -> str | None:
         last = None
         for s in STAGES:
@@ -140,15 +160,29 @@ class Manifest:
                 break
         return last
 
-    def summary(self) -> dict:
-        out = {s: {"done": 0, "failed": 0} for s in STAGES}
-        for r in self.conn.execute("SELECT stage,status,COUNT(*) c FROM manifest GROUP BY stage,status"):
-            out[r["stage"]][r["status"]] = r["c"]
+    def _where_ids(self, video_ids) -> tuple[str, tuple]:
+        if video_ids is None:
+            return "", ()
+        ids = tuple(video_ids)
+        if not ids:
+            return " AND 0", ()
+        return f" AND video_id IN ({','.join('?' * len(ids))})", ids
+
+    def summary(self, video_ids=None) -> dict:
+        """Counts per stage and status; video_ids limits it to one playlist."""
+        out = {s: {"done": 0, "failed": 0, "unavailable": 0} for s in STAGES}
+        where, params = self._where_ids(video_ids)
+        for r in self.conn.execute(
+                f"SELECT stage,status,COUNT(*) c FROM manifest WHERE 1{where} GROUP BY stage,status", params):
+            if r["stage"] in out:
+                out[r["stage"]][r["status"]] = r["c"]
         return out
 
-    def failures(self) -> list[dict]:
+    def failures(self, video_ids=None, status: str = "failed") -> list[dict]:
+        where, params = self._where_ids(video_ids)
         rows = self.conn.execute(
-            "SELECT video_id,stage,attempts,error FROM manifest WHERE status='failed' ORDER BY video_id"
+            f"SELECT video_id,stage,attempts,error FROM manifest WHERE status=?{where} ORDER BY video_id",
+            (status, *params),
         ).fetchall()
         return [dict(r) for r in rows]
 
@@ -165,11 +199,17 @@ class Stage:
 
 def run_stage(m: Manifest, stage: Stage, video_id: str, max_attempts: int = 3,
               retry_failed: bool = False) -> str:
-    """Returns 'skipped' | 'done' | 'failed' | 'gave_up'. Checks status first; writes it last."""
+    """Returns 'skipped' | 'done' | 'failed' | 'gave_up' | 'unavailable'. Checks status first; writes it last.
+
+    'unavailable' (private or removed video) is permanent: it is skipped on later runs and only
+    tried again with retry_failed=True.
+    """
     fp = fingerprint(stage.settings())
     outs = stage.outputs(video_id)
     if m.is_done(video_id, stage.name, fp, outs):
         return "skipped"
+    if not retry_failed and m.is_unavailable(video_id, stage.name):
+        return "unavailable"
     if not retry_failed and m.failed_attempts(video_id, stage.name, fp) >= max_attempts:
         return "gave_up"
     try:
@@ -179,6 +219,9 @@ def run_stage(m: Manifest, stage: Stage, video_id: str, max_attempts: int = 3,
             raise RuntimeError(f"stage {stage.name} produced no output: {missing}")
         m.mark_done(video_id, stage.name, fp)   # status written only after outputs exist
         return "done"
+    except Unavailable as e:
+        m.mark_unavailable(video_id, stage.name, fp, str(e))
+        return "unavailable"
     except Exception as e:  # KeyboardInterrupt / SIGKILL are NOT caught: no row is written
         m.mark_failed(video_id, stage.name, fp, f"{type(e).__name__}: {e}")
         return "failed"
@@ -190,6 +233,6 @@ def process_video(m: Manifest, stages: dict[str, Stage], video_id: str, through:
     for name in STAGES[: STAGES.index(through) + 1]:
         res = run_stage(m, stages[name], video_id, max_attempts, retry_failed)
         results[name] = res
-        if res in ("failed", "gave_up"):
+        if res in ("failed", "gave_up", "unavailable"):
             break   # never run a later stage on top of a failed one
     return results

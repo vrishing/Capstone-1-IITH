@@ -19,15 +19,11 @@ def _p(*parts: str) -> str:
 
 
 # --- Corpus -------------------------------------------------------------
-# PLAYLIST_ID is the real YouTube playlist ID (the full list= value in the URL) and is the
-# closed-corpus metadata filter. PLAYLIST_NAME is a human-readable label only.
-PLAYLIST_ID = "PLD0OXwSZSSA8" 
-PLAYLIST_NAME = "mb-test"
-YOUTUBE_PLAYLIST_ID = PLAYLIST_ID  # alias read by 01/04/run_pipeline; remove once 01/04 are retired
-
-TARGET_LANGUAGE = "te"
-# YouTube captions are a baseline for comparison only, so Telugu tracks only (no English fallback).
-TRANSCRIPT_LANGS = ["te", "te-IN"]
+# Playlists live in playlists.json, one entry per playlist with its own language. The active one is
+# chosen by `--playlist <name|url>` on run_pipeline.py, or the PLAYLIST environment variable (for
+# glossary_builder.py and other scripts), or the registry's "default". select_playlist() below sets
+# PLAYLIST_ID, TARGET_LANGUAGE, TRANSCRIPT_LANGS and the glossary paths from that entry.
+_FALLBACK = {"id": "PLD0OXwSZSSA8", "language": "te", "name": "mb-test"}  # used only if playlists.json is missing
 
 # --- ASR (IndicConformer only) --------------------------------------------
 ASR_DECODER = "ctc"        # "ctc" or "rnnt"; changing it reruns the ASR stage for every video
@@ -69,12 +65,37 @@ ABSTAIN_MESSAGE = "I could not find enough support in the specified playlist."
 
 
 # --- Glossary (built per playlist from Wikipedia and Wikidata by glossary_builder.py) -----------
-# Paste this block into config.py, below the Corpus section (it uses PLAYLIST_ID and _p).
-# One folder per playlist, so a second playlist gets its own glossary without touching this one.
-GLOSSARY_DIR = _p("glossary", PLAYLIST_ID)          # candidates, reports and the API cache live here
-DOMAIN_PACK_PATH = _p("glossary", PLAYLIST_ID, "domain_pack.json")   # which Wikipedia categories to use
-ALIAS_TABLE_PATH = _p("glossary", PLAYLIST_ID, "aliases.csv")        # the live table the corrector reads
-PROTECTED_WORDS_PATH = _p("glossary", PLAYLIST_ID, "protected_words.txt")  # for the corrector; not used by the builder
-# Wikimedia asks every script to identify itself with a contact. The builder refuses to run until
-# you replace CHANGE_ME@example.com with your real email (or a URL).
-GLOSSARY_USER_AGENT = "PravachanamRAG/0.1 ("+ os.environ.get("EMAIL_WIKIMEDIA")+")"
+# One folder per playlist; the paths are set by select_playlist(). Wikimedia asks every script to
+# identify itself: put EMAIL_WIKIMEDIA=you@example.com in .env (the builder refuses the placeholder).
+GLOSSARY_USER_AGENT = "PravachanamRAG/0.1 (" + os.environ.get("EMAIL_WIKIMEDIA", "CHANGE_ME@example.com") + ")"
+
+
+# --- Active playlist -------------------------------------------------------------------------
+def select_playlist(key_or_url: str | None = None) -> dict:
+    """Point every playlist-dependent setting at one registry entry. Returns the entry."""
+    global PLAYLIST_KEY, PLAYLIST_ID, PLAYLIST_NAME, YOUTUBE_PLAYLIST_ID, TARGET_LANGUAGE
+    global TRANSCRIPT_LANGS, PLAYLIST_META_PATH, SAMPLE_IDS_PATH
+    global GLOSSARY_DIR, DOMAIN_PACK_PATH, ALIAS_TABLE_PATH, PROTECTED_WORDS_PATH
+    import playlists
+    reg = playlists.load()
+    if not reg["playlists"] and not key_or_url:
+        key, entry = "default", dict(_FALLBACK)
+    else:
+        key, entry = playlists.resolve(key_or_url)
+    PLAYLIST_KEY = key
+    PLAYLIST_ID = entry["id"]
+    PLAYLIST_NAME = entry.get("name", key)
+    YOUTUBE_PLAYLIST_ID = PLAYLIST_ID
+    TARGET_LANGUAGE = playlists.check_language(entry["language"])
+    # YouTube captions are a baseline for comparison only: target-language tracks, no English fallback.
+    TRANSCRIPT_LANGS = [TARGET_LANGUAGE, f"{TARGET_LANGUAGE}-IN"]
+    PLAYLIST_META_PATH = _p("data", "playlists", f"{PLAYLIST_ID}.json")        # titles, durations
+    SAMPLE_IDS_PATH = _p("data", "playlists", f"{PLAYLIST_ID}_sample.txt")     # glossary sample; keep out of eval
+    GLOSSARY_DIR = _p("glossary", PLAYLIST_ID)
+    DOMAIN_PACK_PATH = _p("glossary", PLAYLIST_ID, "domain_pack.json")
+    ALIAS_TABLE_PATH = _p("glossary", PLAYLIST_ID, "aliases.csv")
+    PROTECTED_WORDS_PATH = _p("glossary", PLAYLIST_ID, "protected_words.txt")
+    return entry
+
+
+select_playlist(os.environ.get("PLAYLIST") or None)

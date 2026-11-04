@@ -15,7 +15,19 @@ try:  # optional: ffmpeg binaries installed via pip
 except ImportError:
     pass
 
-from manifest import atomic_write_json
+from manifest import Unavailable, atomic_write_json
+
+# yt-dlp error text that means the video will never download (owner made it private, removed it,
+# or it needs a membership). These become the manifest status 'unavailable' instead of a retry.
+_PERMANENT = ("private video", "video is private", "video unavailable", "has been removed",
+              "no longer available", "members-only", "join this channel", "account associated",
+              "has been terminated", "copyright claim", "deleted video")
+_PLACEHOLDER_TITLES = {"[private video]", "[deleted video]"}
+
+
+def is_permanent_error(message: str) -> bool:
+    msg = (message or "").lower()
+    return any(p in msg for p in _PERMANENT)
 
 
 def list_playlist(playlist_id: str) -> dict:
@@ -26,7 +38,8 @@ def list_playlist(playlist_id: str) -> dict:
     with YoutubeDL(opts) as ydl:
         info = ydl.extract_info(f"https://www.youtube.com/playlist?list={playlist_id}", download=False)
     videos = [
-        {"id": e["id"], "title": e.get("title"), "duration": e.get("duration")}
+        {"id": e["id"], "title": e.get("title"), "duration": e.get("duration"),
+         "listed_unavailable": (e.get("title") or "").strip().lower() in _PLACEHOLDER_TITLES}
         for e in info.get("entries", []) if e and e.get("id")
     ]
     return {"playlist_id": playlist_id, "playlist_name": info.get("title"), "videos": videos}
@@ -40,9 +53,16 @@ def download_audio(video_id: str, out_wav: str) -> None:
     os.makedirs(out_dir, exist_ok=True)
     opts = {"format": "bestaudio/best", "outtmpl": os.path.join(out_dir, f"{video_id}.src.%(ext)s"),
             "quiet": True, "noprogress": True}
-    with YoutubeDL(opts) as ydl:
-        info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=True)
-        src = ydl.prepare_filename(info)
+    from yt_dlp.utils import DownloadError
+
+    try:
+        with YoutubeDL(opts) as ydl:
+            info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=True)
+            src = ydl.prepare_filename(info)
+    except DownloadError as e:
+        if is_permanent_error(str(e)):
+            raise Unavailable(str(e)) from None
+        raise
     tmp = out_wav + ".tmp"
     subprocess.run(
         ["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-ar", "16000", "-ac", "1",

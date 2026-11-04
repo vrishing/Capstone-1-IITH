@@ -1,10 +1,14 @@
 """
 Resumable pipeline runner.
 
-  python run_pipeline.py --ids data/dev_subset.txt          # download + ASR for the dev subset
-  python run_pipeline.py                                    # whole playlist (config.YOUTUBE_PLAYLIST_ID)
-  python run_pipeline.py --status                           # manifest summary and failures
-  python run_pipeline.py --ids data/dev_subset.txt --retry-failed
+  python run_pipeline.py --add-playlist "<playlist url>" --lang hi --key nptel-dsa   # register a playlist
+  python run_pipeline.py --playlist mahabharata --sample 10      # whole playlist, 10 spread videos first
+  python run_pipeline.py --playlist nptel-dsa                    # another playlist, its own language
+  python run_pipeline.py --playlist mahabharata --status         # summary for one playlist
+  python run_pipeline.py --ids data/dev_subset.txt               # explicit IDs (language of --playlist)
+  python run_pipeline.py --playlist mahabharata --retry-failed   # also re-checks 'unavailable' videos
+
+Without --playlist the registry's default (playlists.json) is used.
 
 Kill it at any time (Ctrl+C or kill -9) and run the same command again: finished
 stages are skipped, the interrupted one restarts from scratch.
@@ -13,13 +17,14 @@ Stages corrected / chunked / indexed are registered here as they get built.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import sys
 
 import config
-from manifest import (STAGES, Manifest, Stage, atomic_write_json, clean_tmp_files,
-                      fingerprint, process_video)
+from manifest import (STAGES, Manifest, Stage, atomic_write_bytes, atomic_write_json,
+                      clean_tmp_files, fingerprint, process_video)
 
 REQUIRED = ["ASR_OUTPUT_DIR", "CAPTIONS_DIR", "TRANSCRIPT_LANGS", "TARGET_LANGUAGE", "HF_TOKEN",
             "ASR_DECODER", "ASR_MAX_CHUNK_S", "ASR_TOP_DB", "ASR_PAD_S", "MANIFEST_PATH", "MAX_ATTEMPTS"]
@@ -58,7 +63,7 @@ def get_engine():
 
 
 def run_asr(v: str) -> None:
-    res = get_engine().transcribe(wav_path(v))   # raises on failure
+    res = get_engine().transcribe(wav_path(v), language_code=config.TARGET_LANGUAGE)  # raises on failure
     segs = res["segments"]
     words = sum(len(s["text"].split()) for s in segs)
     if res["duration_s"] > 120 and words == 0:
@@ -100,22 +105,96 @@ def read_ids(path: str) -> list[str]:
     return list(dict.fromkeys(ids))  # de-duplicate, keep order
 
 
-def print_status(m: Manifest) -> None:
-    print("stage        done  failed")
-    for s, c in m.summary().items():
-        print(f"{s:<12} {c['done']:>5} {c['failed']:>7}")
-    for f in m.failures():
+def meta_path() -> str:
+    return getattr(config, "PLAYLIST_META_PATH",
+                   os.path.join(os.path.dirname(config.MANIFEST_PATH) or ".", "playlist_meta.json"))
+
+
+def cached_playlist() -> dict | None:
+    p = meta_path()
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    return None
+
+
+def fetch_playlist() -> dict:
+    """List the playlist online and cache it; fall back to the cached copy if listing fails."""
+    from downloader import list_playlist
+    try:
+        pl = list_playlist(config.YOUTUBE_PLAYLIST_ID)
+    except Exception as e:
+        pl = cached_playlist()
+        if pl is None:
+            raise
+        print(f"playlist listing failed ({type(e).__name__}); using the cached list of {len(pl['videos'])} videos")
+        return pl
+    pl["language"] = config.TARGET_LANGUAGE
+    atomic_write_json(meta_path(), pl)
+    return pl
+
+
+def order_with_sample(ids: list[str], n: int) -> list[str]:
+    """Put a fixed, evenly spread sample first. The sample is saved once and reused, so the
+    videos kept out of evaluation never change between runs."""
+    import playlists
+    path = getattr(config, "SAMPLE_IDS_PATH", None)
+    sample: list[str] = []
+    if path and os.path.exists(path):
+        sample = [v for v in read_ids(path) if v in ids]
+    if not sample:
+        sample = playlists.spread_sample(ids, n)
+        if path:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            atomic_write_bytes(path, ("# glossary sample: exclude from evaluation\n"
+                                      + "\n".join(sample) + "\n").encode("utf-8"))
+        print(f"glossary sample ({len(sample)} videos) saved to {path}")
+    return sample + [v for v in ids if v not in sample]
+
+
+def print_status(m: Manifest, ids: list[str] | None = None) -> None:
+    label = f" for {getattr(config, 'PLAYLIST_KEY', '')} ({len(ids)} videos)" if ids is not None else ""
+    print(f"status{label}")
+    print("stage        done  failed  unavailable")
+    summ = m.summary(ids)
+    for s, c in summ.items():
+        print(f"{s:<12} {c['done']:>5} {c['failed']:>7} {c['unavailable']:>12}")
+    for f in m.failures(ids, "unavailable"):
+        print(f"  UNAVAILABLE {f['video_id']}: {f['error'][:120]}")
+    for f in m.failures(ids):
         print(f"  FAILED {f['video_id']} @ {f['stage']} (attempts {f['attempts']}): {f['error']}")
+    if ids is not None:
+        dl = summ["downloaded"]
+        settled = dl["done"] + dl["unavailable"]
+        state = "COMPLETE" if settled == len(ids) else f"INCOMPLETE ({len(ids) - settled} not downloaded yet)"
+        print(f"downloads: {dl['done']} downloaded + {dl['unavailable']} unavailable of {len(ids)} -> {state}")
 
 
 def main(argv=None, stages: dict[str, Stage] | None = None) -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--playlist", help="registry name, playlist URL or ID (default: playlists.json default)")
+    ap.add_argument("--add-playlist", metavar="URL", help="register a new playlist and exit")
+    ap.add_argument("--lang", help="with --add-playlist: IndicConformer language code (hi, ta, te, ...)")
+    ap.add_argument("--key", help="with --add-playlist: short name to use with --playlist")
+    ap.add_argument("--make-default", action="store_true", help="with --add-playlist: make it the default")
+    ap.add_argument("--sample", type=int, default=0,
+                    help="process N evenly spread videos first (saved as the glossary sample)")
     ap.add_argument("--ids", help="file with one video id (or URL) per line")
     ap.add_argument("--through", default="asr_done", choices=STAGES)
     ap.add_argument("--retry-failed", action="store_true")
     ap.add_argument("--limit", type=int, help="process only the first N videos")
     ap.add_argument("--status", action="store_true")
     args = ap.parse_args(argv)
+
+    if args.add_playlist:
+        return add_playlist(args)
+    if args.playlist:
+        import playlists
+        try:
+            config.select_playlist(args.playlist)
+        except playlists.RegistryError as e:
+            print(str(e), file=sys.stderr)
+            return 2
 
     missing = [n for n in REQUIRED if not hasattr(config, n)]
     if not args.ids and not args.status and not hasattr(config, "YOUTUBE_PLAYLIST_ID"):
@@ -126,7 +205,11 @@ def main(argv=None, stages: dict[str, Stage] | None = None) -> int:
 
     m = Manifest(config.MANIFEST_PATH)
     if args.status:
-        print_status(m)
+        if args.ids:
+            print_status(m, read_ids(args.ids))
+        else:
+            pl = cached_playlist() if hasattr(config, "PLAYLIST_META_PATH") else None
+            print_status(m, [v["id"] for v in pl["videos"]] if pl else None)
         return 0
 
     stages = stages or build_stages()
@@ -142,19 +225,62 @@ def main(argv=None, stages: dict[str, Stage] | None = None) -> int:
     if args.ids:
         ids = read_ids(args.ids)
     else:
-        from downloader import list_playlist
-        pl = list_playlist(config.YOUTUBE_PLAYLIST_ID)
-        atomic_write_json(os.path.join(os.path.dirname(config.MANIFEST_PATH) or ".", "playlist_meta.json"), pl)
+        pl = fetch_playlist()
         ids = [v["id"] for v in pl["videos"]]
+    all_ids = list(ids)
+    if args.sample:
+        ids = order_with_sample(ids, args.sample)
     if args.limit:
         ids = ids[: args.limit]
 
+    print(f"playlist {getattr(config, 'PLAYLIST_KEY', 'ids')}: "
+          f"{len(ids)} videos, language {config.TARGET_LANGUAGE}, through {args.through}")
     for i, v in enumerate(ids, 1):
         res = process_video(m, stages, v, args.through, config.MAX_ATTEMPTS, args.retry_failed)
         print(f"[{i}/{len(ids)}] {v}: " + ", ".join(f"{k}={r}" for k, r in res.items()), flush=True)
 
     print()
-    print_status(m)
+    print_status(m, all_ids)
+    return 0
+
+
+def add_playlist(args) -> int:
+    import playlists
+    try:
+        pid = playlists.parse_playlist_id(args.add_playlist)
+    except playlists.RegistryError as e:
+        print(str(e), file=sys.stderr)
+        return 2
+    pl = None
+    try:
+        from downloader import list_playlist
+        pl = list_playlist(pid)
+    except Exception as e:
+        print(f"could not list the playlist online ({type(e).__name__}: {e})", file=sys.stderr)
+    lang = args.lang
+    if not lang and pl:
+        lang = playlists.guess_language([pl.get("playlist_name") or ""] + [v["title"] or "" for v in pl["videos"]])
+        if lang:
+            print(f"language guessed from the titles' script: {lang} ({playlists.ASR_LANGUAGES[lang]}). "
+                  f"Pass --lang to override.")
+    if not lang:
+        print("Cannot tell the language from the titles (English or a shared script such as "
+              "Devanagari). Pass --lang, e.g. --lang hi.", file=sys.stderr)
+        return 2
+    try:
+        key, entry = playlists.add(args.add_playlist, lang, key=args.key,
+                                   name=(pl or {}).get("playlist_name"), make_default=args.make_default)
+        config.select_playlist(key)
+    except playlists.RegistryError as e:
+        print(str(e), file=sys.stderr)
+        return 2
+    if pl:
+        pl["language"] = entry["language"]
+        atomic_write_json(meta_path(), pl)
+        gone = sum(1 for v in pl["videos"] if v.get("listed_unavailable"))
+        print(f"{len(pl['videos'])} videos listed" + (f" ({gone} private or deleted)" if gone else ""))
+    print(f"registered {key!r}: {entry}")
+    print(f"next: python run_pipeline.py --playlist {key} --sample 10")
     return 0
 
 

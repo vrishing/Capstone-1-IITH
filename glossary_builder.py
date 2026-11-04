@@ -23,7 +23,9 @@ Needs internet and a real contact in GLOSSARY_USER_AGENT (Wikimedia policy). The
 refuses to run while the placeholder is still there. All API replies are cached on disk,
 so a rerun does not hit the network again.
 
-Telugu only for now: the domain pack must say "language": "te".
+Any Indic language: the target language comes from config.TARGET_LANGUAGE (the active playlist in
+playlists.json) through set_language(). Names like "te_label" and "missing_telugu.csv" are kept from the
+Telugu-only version; they mean "target language".
 """
 from __future__ import annotations
 
@@ -49,18 +51,39 @@ from typing import Callable, Iterable, Iterator
 ALIAS_COLUMNS = ["term", "entity_id", "roman", "type", "variants", "needs_context", "source", "notes"]
 CANDIDATE_COLUMNS = ALIAS_COLUMNS + ["origin", "decision"]
 
-# Where a Telugu spelling came from, best first. Label and title are the most trustworthy.
-ORIGIN_PRIORITY = [
-    "wikidata_label_te",
-    "wikipedia_title_te",
-    "wikidata_alias_te",
-    "wikipedia_redirect_te",
-]
-LABEL_ORIGINS = {"wikidata_label_te", "wikipedia_title_te"}
 SHORT_TERM_CHARS = 5  # spellings shorter than this are exact-match only in curated mode
 
-LANG = "te"
+# Unicode block(s) for each language's script. A spelling must contain at least one character
+# from its language's block, which drops Latin aliases and other-script noise.
+SCRIPT_RANGES = {
+    "hi": "\u0900-\u097F", "mr": "\u0900-\u097F", "ne": "\u0900-\u097F", "sa": "\u0900-\u097F",
+    "mai": "\u0900-\u097F", "kok": "\u0900-\u097F", "doi": "\u0900-\u097F", "brx": "\u0900-\u097F",
+    "bn": "\u0980-\u09FF", "as": "\u0980-\u09FF", "pa": "\u0A00-\u0A7F", "gu": "\u0A80-\u0AFF",
+    "or": "\u0B00-\u0B7F", "ta": "\u0B80-\u0BFF", "te": "\u0C00-\u0C7F", "kn": "\u0C80-\u0CFF",
+    "ml": "\u0D00-\u0D7F", "ur": "\u0600-\u06FF\u0750-\u077F", "ks": "\u0600-\u06FF\u0750-\u077F",
+    "sd": "\u0600-\u06FF\u0750-\u077F", "sat": "\u1C50-\u1C7F", "mni": "\uABC0-\uABFF\u0980-\u09FF",
+}
+# Words that mark a descriptive redirect ("X of Y") rather than a name. Optional per language;
+# every language also drops redirects longer than 6 words.
+PHRASE_MARKERS = {"te": ["లోని"]}
+
+
+def set_language(lang: str) -> None:
+    """Point every language-dependent setting at one language code (te, hi, ta, ...)."""
+    global LANG, ORIGIN_PRIORITY, LABEL_ORIGINS, REDIRECT_ORIGIN, TELUGU_RE
+    if lang not in SCRIPT_RANGES:
+        raise PackError(f"Unsupported language {lang!r}. Known: {', '.join(sorted(SCRIPT_RANGES))}.")
+    LANG = lang
+    # Where a target-language spelling came from, best first. Label and title are the most trustworthy.
+    ORIGIN_PRIORITY = [f"wikidata_label_{lang}", f"wikipedia_title_{lang}",
+                       f"wikidata_alias_{lang}", f"wikipedia_redirect_{lang}"]
+    LABEL_ORIGINS = set(ORIGIN_PRIORITY[:2])
+    REDIRECT_ORIGIN = ORIGIN_PRIORITY[3]
+    TELUGU_RE = re.compile(f"[{SCRIPT_RANGES[lang]}]")  # name kept; it is the target-script check
+
+
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+LANG = "te"
 BATCH = 50  # Wikimedia API limit for titles= and ids= per request
 
 LICENCES = {
@@ -69,7 +92,6 @@ LICENCES = {
     "named in each row's source column",
 }
 
-TELUGU_RE = re.compile(r"[\u0C00-\u0C7F]")
 QID_RE = re.compile(r"^Q\d+$")
 _PAREN_RE = re.compile(r"\s*\([^()]*\)\s*$")
 
@@ -390,7 +412,7 @@ def fetch_entities(fetcher: Fetcher, qids: list[str]) -> dict[str, dict | None]:
                 "en_label": _as_dict(labels.get("en")).get("value"),
                 "te_aliases": [a.get("value") for a in aliases.get(LANG, []) if a.get("value")],
                 "en_description": _as_dict(descs.get("en")).get("value"),
-                "te_sitelink": _as_dict(_as_dict(ent.get("sitelinks")).get("tewiki")).get("title"),
+                "te_sitelink": _as_dict(_as_dict(ent.get("sitelinks")).get(f"{LANG}wiki")).get("title"),
             }
             out[key] = detail
             out[detail["id"]] = detail
@@ -424,7 +446,8 @@ def load_pack(path: str | Path) -> dict:
     except json.JSONDecodeError as e:
         raise PackError(f"Domain pack {p} is not valid JSON: {e}") from e
     if raw.get("language", LANG) != LANG:
-        raise PackError(f"Only Telugu ('te') is supported for now; the pack says {raw.get('language')!r}.")
+        raise PackError(f"The pack is for language {raw.get('language')!r} but the active playlist is "
+                        f"{LANG!r}. Select the right playlist (PLAYLIST=<name>) or fix the pack.")
     cats = []
     for i, c in enumerate(raw.get("categories", [])):
         if not c.get("use", False):
@@ -561,23 +584,23 @@ def harvest(fetcher: Fetcher, pack: dict, log: Callable[[str], None] = print) ->
 
 def _is_phrase(s: str) -> bool:
     """A redirect that describes an entity ('X లోని Y' = 'Y of X') rather than names it."""
-    return "లోని" in s or len(s.split()) > 6
+    return any(m in s for m in PHRASE_MARKERS.get(LANG, [])) or len(s.split()) > 6
 
 
 def _surfaces(e: dict, redirects: dict, dropped: dict) -> list[dict]:
     """All Telugu spellings of one entity, deduplicated, best origin first."""
     raw: list[tuple[str, str, str]] = []  # (text, origin, source)
     if e.get("te_label"):
-        raw.append((e["te_label"], "wikidata_label_te", f'wikidata:{e["qid"]}/label'))
+        raw.append((e["te_label"], ORIGIN_PRIORITY[0], f'wikidata:{e["qid"]}/label'))
     if e.get("te_title"):
-        raw.append((e["te_title"], "wikipedia_title_te", f'tewiki:{e["te_title"]}'))
+        raw.append((e["te_title"], ORIGIN_PRIORITY[1], f'{LANG}wiki:{e["te_title"]}'))
     for a in e.get("te_aliases", []):
-        raw.append((a, "wikidata_alias_te", f'wikidata:{e["qid"]}/alias'))
+        raw.append((a, ORIGIN_PRIORITY[2], f'wikidata:{e["qid"]}/alias'))
     for r in redirects.get(e.get("te_title") or "", []):
         if _is_phrase(r):
             dropped["phrase_redirect"] += 1
             continue
-        raw.append((r, "wikipedia_redirect_te", f"tewiki-redirect:{r}"))
+        raw.append((r, REDIRECT_ORIGIN, f"{LANG}wiki-redirect:{r}"))
 
     by_surface: dict[str, dict] = {}
     for text, origin, source in raw:
@@ -696,7 +719,7 @@ def _invalid_reason(row: dict) -> str | None:
     if not term:
         return "empty term"
     if not TELUGU_RE.search(term):
-        return "term has no Telugu characters"
+        return f"term has no characters in the {LANG} script"
     if not QID_RE.match(row["entity_id"]):
         return "entity_id is not like Q123"
     if not row["type"]:
@@ -762,7 +785,7 @@ def promote(candidates_path: str | Path, aliases_path: str | Path, accept: str =
             continue
         if accept == "curated":
             # Labels, titles and aliases. Redirects are the noisiest source, so only if you accepted them.
-            selected = r["origin"] != "wikipedia_redirect_te" or decision == "accept"
+            selected = not r["origin"].startswith("wikipedia_redirect_") or decision == "accept"
         else:
             selected = {"label": r["origin"] in LABEL_ORIGINS, "decided": decision == "accept",
                         "all": True}[accept]
@@ -806,6 +829,9 @@ def promote(candidates_path: str | Path, aliases_path: str | Path, accept: str =
     return summary
 
 
+set_language(LANG)  # Telugu until config says otherwise
+
+
 # ======================================================================================
 # Command line
 # ======================================================================================
@@ -814,6 +840,7 @@ def _load_config():
         import config
         for name in ("GLOSSARY_DIR", "DOMAIN_PACK_PATH", "GLOSSARY_USER_AGENT", "ALIAS_TABLE_PATH", "PLAYLIST_ID"):
             getattr(config, name)
+        set_language(getattr(config, "TARGET_LANGUAGE", "te"))
         return config
     except ImportError as e:
         raise SystemExit(f"Cannot import config.py ({e}). Run from the project root with the venv active.")
