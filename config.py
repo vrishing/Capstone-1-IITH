@@ -58,6 +58,18 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GEMINI_MODEL_NAME = "gemini-3.6-flash"
 TOP_K = 10
 
+# --- Which LLM answers and verifies (llm_client.py) --------------------------------------------
+# "gemini" = Google's API. "openai" = a self-hosted model behind any OpenAI-compatible server
+# (vLLM, Ollama, llama.cpp). Put these in .env to switch without editing code:
+#   LLM_BACKEND=openai  LLM_BASE_URL=http://localhost:8000/v1  LLM_MODEL=<name the server serves>
+# Check the model first with:  python llm_client.py --check --role verifier
+LLM_BACKEND = os.environ.get("LLM_BACKEND", "gemini")
+LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "http://localhost:8000/v1")
+LLM_MODEL = os.environ.get("LLM_MODEL", "")
+LLM_VERIFIER_MODEL = os.environ.get("LLM_VERIFIER_MODEL", "")   # empty = same as LLM_MODEL
+LLM_API_KEY = os.environ.get("LLM_API_KEY") or None             # most local servers need none
+LLM_TIMEOUT_S = float(os.environ.get("LLM_TIMEOUT_S", "180"))    # shared GPUs can be slow
+
 # Read by the verifier (not built yet).
 VERIFIER_MODEL = "gemini-3.6-flash"
 VERIFIER_ENABLED = True

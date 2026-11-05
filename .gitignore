@@ -19,3 +19,4 @@ romanize_spans.patch
 spans_largest_pause.patch
 true_pauses.patch
 eval_harness.patch
+local_llm.patch
