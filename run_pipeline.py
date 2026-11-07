@@ -12,7 +12,8 @@ Without --playlist the registry's default (playlists.json) is used.
 
 Kill it at any time (Ctrl+C or kill -9) and run the same command again: finished
 stages are skipped, the interrupted one restarts from scratch.
-Stages corrected / chunked / indexed are registered here as they get built.
+Stages: downloaded, asr_done, corrected, chunked are registered; indexed is registered when it is built
+(use --through chunked until then).
 """
 from __future__ import annotations
 
@@ -43,6 +44,38 @@ def asr_path(v: str) -> str:
 
 def captions_path(v: str) -> str:
     return os.path.join(config.CAPTIONS_DIR, f"{v}.json")
+
+
+def _dir(name: str, sub: str) -> str:
+    return getattr(config, name, os.path.join(os.path.dirname(config.MANIFEST_PATH) or ".", sub))
+
+
+def corrected_path(v: str) -> str:
+    return os.path.join(_dir("CORRECTED_DIR", "corrected"), f"{v}_corrected.json")
+
+
+def spans_path(v: str) -> str:
+    return os.path.join(_dir("SPANS_DIR", "spans"), f"{v}_spans.json")
+
+
+def correction_cfg() -> dict:
+    return {"auto": getattr(config, "CORRECTION_AUTO_SCORE", 92.0),
+            "review": getattr(config, "CORRECTION_REVIEW_SCORE", 86.0),
+            "margin": getattr(config, "CORRECTION_MARGIN", 5.0),
+            "drop_leading_chars": getattr(config, "CORRECTION_DROP_LEADING_CHARS", 2),
+            "use_llm": getattr(config, "CORRECTION_USE_LLM", False)}
+
+
+def span_settings() -> dict:
+    return {"min_s": getattr(config, "SPAN_MIN_S", 45.0), "max_s": getattr(config, "SPAN_MAX_S", 90.0),
+            "pause_s": getattr(config, "SPAN_PAUSE_S", 1.0)}
+
+
+def _glossary():
+    import correction
+    return correction.get_glossary(getattr(config, "ALIAS_TABLE_PATH", None),
+                                   getattr(config, "PROTECTED_WORDS_PATH", None),
+                                   getattr(config, "DOMAIN_PACK_PATH", None))
 
 
 # ---------- stage implementations ----------
@@ -79,6 +112,29 @@ def run_asr(v: str) -> None:
     print(f"   [asr] {v}: {words} words, RTF {res['stats']['rtf']}, {len(low)} low-wps chunks")
 
 
+def run_correct(v: str) -> None:
+    import correction
+    cfg = correction_cfg()
+    gen = None
+    if cfg["use_llm"]:
+        from llm_client import generate_default
+        gen = lambda prompt: generate_default(prompt, role="verifier")
+    summ = correction.correct_file(asr_path(v), corrected_path(v), _glossary(), cfg, gen,
+                                   os.path.join(_dir("CORRECTED_DIR", "corrected"), "_llm_cache.json"))
+    print(f"   [correct] {v}: {summ['n_changes']} changes, {summ['n_review']} for review, "
+          f"{len(summ['dropped_leading'])} leading noise segment(s) dropped")
+
+
+def run_chunk(v: str) -> None:
+    from spans import spans_from_asr_file, write_spans
+    st = span_settings()
+    spans = spans_from_asr_file(corrected_path(v), st)   # picks up raw_segments, keeps raw_text per span
+    if not spans:
+        raise RuntimeError("no spans produced")
+    write_spans(spans_path(v), spans, st)
+    print(f"   [chunk] {v}: {len(spans)} spans")
+
+
 def build_stages() -> dict[str, Stage]:
     return {
         "downloaded": Stage("downloaded", lambda v: [wav_path(v)], run_download,
@@ -88,7 +144,12 @@ def build_stages() -> dict[str, Stage]:
                                    "max_chunk_s": config.ASR_MAX_CHUNK_S, "top_db": config.ASR_TOP_DB,
                                    "pad_s": config.ASR_PAD_S, "precision": "fp32", "timing": "speech_bounds_v1",
                                    "language": config.TARGET_LANGUAGE}),
-        # "corrected": ..., "chunked": ..., "indexed": ...  (register as each is built)
+        "corrected": Stage("corrected", lambda v: [corrected_path(v)], run_correct,
+                           lambda: __import__("correction").stage_settings(
+                               _glossary(), correction_cfg(), getattr(config, "TARGET_LANGUAGE", ""))),
+        "chunked": Stage("chunked", lambda v: [spans_path(v)], run_chunk,
+                         lambda: {"spans": "spans_v1", **span_settings()}),
+        # "indexed": ...  (register when it is built)
     }
 
 
@@ -218,7 +279,8 @@ def main(argv=None, stages: dict[str, Stage] | None = None) -> int:
         print(f"stages not implemented yet: {unbuilt}. Use --through with a built stage.", file=sys.stderr)
         return 2
 
-    removed = clean_tmp_files(config.ASR_OUTPUT_DIR, config.CAPTIONS_DIR)
+    removed = clean_tmp_files(config.ASR_OUTPUT_DIR, config.CAPTIONS_DIR,
+                              _dir("CORRECTED_DIR", "corrected"), _dir("SPANS_DIR", "spans"))
     if removed:
         print(f"removed {removed} leftover .tmp file(s) from an interrupted run")
 

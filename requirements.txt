@@ -1,7 +1,7 @@
 youtube-transcript-api
 qdrant-client
 sentence-transformers
-google-genai
+google-generativeai
 python-dotenv
 torch
 faster-whisper
@@ -9,4 +9,3 @@ transformers
 librosa
 pydub
 yt-dlp
-ffmpeg

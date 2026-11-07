@@ -1,0 +1,196 @@
+{
+  "built_at": "2026-11-04T15:40:23+00:00",
+  "topic": "Mahabharata",
+  "pack_sha256": "0c2894de4b25f60ab9552112cc0e164c6ea1e57101bb908e1bf1cffe530e8e97",
+  "categories": [
+    {
+      "wiki": "en",
+      "title": "Category:Kingdoms in the Mahabharata",
+      "type": "place",
+      "depth": 1,
+      "pages_found": 113,
+      "pages_with_wikidata": 107,
+      "categories_walked": 9,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Characters in the Mahabharata",
+      "type": "person",
+      "depth": 1,
+      "pages_found": 379,
+      "pages_with_wikidata": 378,
+      "categories_walked": 14,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Rakshasa in the Mahabharata",
+      "type": "person",
+      "depth": 1,
+      "pages_found": 7,
+      "pages_with_wikidata": 7,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Places in the Mahabharata",
+      "type": "place",
+      "depth": 1,
+      "pages_found": 99,
+      "pages_with_wikidata": 93,
+      "categories_walked": 3,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Bhagavad Gita",
+      "type": "text",
+      "depth": 0,
+      "pages_found": 27,
+      "pages_with_wikidata": 27,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Parvas in the Mahabharata",
+      "type": "text",
+      "depth": 0,
+      "pages_found": 20,
+      "pages_with_wikidata": 20,
+      "categories_walked": 1,
+      "truncated": false
+    }
+  ],
+  "counts": {
+    "entities": 543,
+    "entities_with_telugu": 269,
+    "entities_missing_telugu": 274,
+    "candidate_rows": 525,
+    "ambiguous_terms": 3,
+    "pages_without_wikidata": 13,
+    "wikidata_items_not_returned": 0,
+    "surfaces_dropped": {
+      "no_telugu_script": 6,
+      "empty_after_cleaning": 0,
+      "phrase_redirect": 0
+    }
+  },
+  "pages_without_wikidata": [
+    {
+      "wiki": "en",
+      "title": "Bahlika kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Bharatavarsha",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Darada kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Dwaraka kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Uttara Kuru kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Yaudheya kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Sunaka",
+      "category": "Category:Characters in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Bahlika kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Bharatavarsha",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Darada kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Dwaraka kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Uttara Kuru kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    },
+    {
+      "wiki": "en",
+      "title": "Yaudheya kingdom",
+      "category": "Category:Kingdoms in the Mahabharata"
+    }
+  ],
+  "wikidata_items_not_returned": [],
+  "rejected_te_links": [
+    {
+      "entity_id": "Q11169211",
+      "en_title": "Ashramavasika Parva",
+      "claimed_te_title": "సభా పర్వము",
+      "wikidata_tewiki": null
+    },
+    {
+      "entity_id": "Q11170195",
+      "en_title": "Sauptika Parva",
+      "claimed_te_title": "ద్రోణ పర్వము",
+      "wikidata_tewiki": null
+    },
+    {
+      "entity_id": "Q11170336",
+      "en_title": "Svargarohana Parva",
+      "claimed_te_title": "సభా పర్వము",
+      "wikidata_tewiki": "స్వర్గారోహణ పర్వము"
+    },
+    {
+      "entity_id": "Q14151721",
+      "en_title": "Anushasana Parva",
+      "claimed_te_title": "సభా పర్వము",
+      "wikidata_tewiki": "అనుశాసనిక పర్వము"
+    },
+    {
+      "entity_id": "Q14151810",
+      "en_title": "Ashvamedhika Parva",
+      "claimed_te_title": "సభా పర్వము",
+      "wikidata_tewiki": "అశ్వమేధ పర్వము"
+    }
+  ],
+  "api_requests": {
+    "network": 0,
+    "cache": 62,
+    "retries": 0
+  },
+  "licences": {
+    "wikidata": "CC0 1.0: labels, aliases and descriptions",
+    "wikipedia": "CC BY-SA 4.0: page titles and redirects; attribution is the Wikipedia page named in each row's source column"
+  },
+  "files": [
+    "aliases_candidates.csv",
+    "missing_telugu.csv",
+    "ambiguous.csv",
+    "build_report.json"
+  ]
+}

@@ -2,9 +2,14 @@
   "default": "mahabharata",
   "playlists": {
     "mahabharata": {
-      "id": "PLD0OXwSZSSA8",
+      "id": "PLBB64oZyWpq6zBssdEdo8TRX_sW--_qLI",
       "language": "te",
       "name": "Mahabharata pravachanam (Telugu)"
+    },
+    "nptelml": {
+      "id": "PLyqSpQzTE6M9d12n_D5z002YRPTzrmt_U",
+      "language": "hi",
+      "name": "Machine Learning (Ml) In Hindi"
     }
   }
 }

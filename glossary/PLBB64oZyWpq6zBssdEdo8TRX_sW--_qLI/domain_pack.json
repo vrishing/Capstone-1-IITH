@@ -1,0 +1,113 @@
+{
+  "_help": "Set use:true and a type (person, place, text, concept, ...) on the categories that match your playlist. depth = how many subcategory levels to follow. Delete the rest.",
+  "topic": "Mahabharata",
+  "language": "te",
+  "playlist_id": "PLBB64oZyWpq6zBssdEdo8TRX_sW--_qLI",
+  "categories": [
+    {
+      "wiki": "en",
+      "title": "Category:Kingdoms in the Mahabharata",
+      "type": "place",
+      "depth": 1,
+      "use": true,
+      "_pages": 73,
+      "_subcats": 8
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Characters in the Mahabharata",
+      "type": "person",
+      "depth": 1,
+      "use": true,
+      "_pages": 214,
+      "_subcats": 13
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Rakshasa in the Mahabharata",
+      "type": "person",
+      "depth": 1,
+      "use": true,
+      "_pages": 7,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Places in the Mahabharata",
+      "type": "place",
+      "depth": 1,
+      "use": true,
+      "_pages": 21,
+      "_subcats": 2
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Bhagavad Gita",
+      "type": "text",
+      "depth": 0,
+      "use": true,
+      "_pages": 27,
+      "_subcats": 2
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Parvas in the Mahabharata",
+      "type": "text",
+      "depth": 0,
+      "use": true,
+      "_pages": 20,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Mahabharata",
+      "type": "other",
+      "depth": 0,
+      "use": false,
+      "_pages": 92,
+      "_subcats": 8
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Kurukshetra War",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 8,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:People of the Kurukshetra War",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 14,
+      "_subcats": 3
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Kauravas",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 4,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Pandavas",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 6,
+      "_subcats": 0
+    }
+  ],
+  "wikidata_ids": [],
+  "no_fuzzy_types": [
+    "concept",
+    "other"
+  ],
+  "max_pages": 2000
+}

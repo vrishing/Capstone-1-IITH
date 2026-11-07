@@ -38,6 +38,14 @@ CAPTIONS_DIR = _p("data", "transcripts")    # baseline captions
 MANIFEST_PATH = _p("data", "manifest.db")
 MAX_ATTEMPTS = 3
 
+# --- Correction layer (correction.py) ---------------------------------------------
+CORRECTED_DIR = _p("data", "corrected")   # *_corrected.json: corrected text + raw_segments + change log
+CORRECTION_AUTO_SCORE = 92.0      # apply a fix at or above this similarity (0-100) ...
+CORRECTION_MARGIN = 5.0           # ... when the best entity leads the runner-up entity by this much
+CORRECTION_REVIEW_SCORE = 86.0    # from here up to the auto score: listed for review, text unchanged
+CORRECTION_USE_LLM = False        # True: an LLM accepts or rejects mid-confidence proposals (never writes text)
+CORRECTION_DROP_LEADING_CHARS = 2  # drop leading segments of at most this many characters (jingle/noise); 0 = keep
+
 # --- Evidence spans (spans.py) ---------------------------------------------------
 SPAN_MIN_S = 45.0     # a span closes at the first pause of at least SPAN_PAUSE_S after this length
 SPAN_MAX_S = 90.0     # hard ceiling; spans never overlap

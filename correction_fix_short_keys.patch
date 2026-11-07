@@ -1,0 +1,145 @@
+diff --git a/correction.py b/correction.py
+index afecf14..e7c51eb 100644
+--- a/correction.py
++++ b/correction.py
+@@ -11,6 +11,8 @@ Rules (frozen in the handoff):
+   - Inflection is kept: a mis-heard stem is fixed and the case ending stays as the speaker said it. This
+     path is strict: the stem key must be at least 6 letters and identical to the term's stem key, and the
+     ending must be one this same transcript shows on a correctly spelled form of a glossary name.
++  - A key shorter than 5 letters carries too little information (శ్రమ "effort" and శ్రీరామ share the key
++    "sram"): it is auto-applied only when the spelling itself differs by one character, else it is reviewed.
+   - Score is normalised edit similarity of the phonetic keys (0-100). Auto-apply at cfg["auto"] (92) when
+     the best entity leads the runner-up entity by cfg["margin"] (5). From cfg["review"] (86) up, or when
+     two entities are too close, the proposal goes to the review list and the text is NOT changed.
+@@ -45,7 +47,7 @@ from romanize import phonetic_key, script_of
+ 
+ ALGO_VERSION = "correction_v1"
+ DEFAULTS = {"auto": 92.0, "review": 86.0, "margin": 5.0, "min_key_len": 4, "max_suffix": 5,
+-            "min_stem_chars": 3, "min_inflect_key_len": 6, "drop_leading_chars": 2, "drop_leading_max": 3, "use_llm": False}
++            "min_stem_chars": 3, "min_inflect_key_len": 6, "min_auto_key_len": 5, "drop_leading_chars": 2, "drop_leading_max": 3, "use_llm": False}
+ MAX_PHRASE_WORDS = 4
+ 
+ 
+@@ -138,6 +140,7 @@ class Glossary:
+         self.phrases: list[Term] = []                # fuzzy-matchable multi-word terms
+         self.phrase_texts: set[str] = set()
+         self.stems: set[str] = set()                 # stems of every single-word term
++        self.protected_stems: set[str] = set()       # stems of the words in protected_words.txt
+         self.version = "empty"
+         self.n_rows = 0
+ 
+@@ -194,6 +197,10 @@ def load_glossary(alias_path: str | None, protected_path: str | None = None,
+         if v in gl.exact:
+             del gl.variants[v]
+     gl.protected.update(extra)
++    for w in extra:                                  # a protected name is also protected when inflected
++        ends = stem_ends(w)
++        if " " not in w and len(ends) >= 2 and ends[-2] >= DEFAULTS["min_stem_chars"]:
++            gl.protected_stems.add(w[:ends[-2]])
+     gl.n_rows = len(rows)
+     h = hashlib.sha256(blob)
+     h.update("\n".join(sorted(extra)).encode("utf-8"))
+@@ -270,7 +277,11 @@ class Corrector:
+                 return True
+         return False
+ 
+-    def _decide(self, hits: list[tuple]) -> tuple | None:
++    def _protected_inflection(self, w: str) -> bool:
++        mx = self.cfg["max_suffix"]
++        return any(w.startswith(st) and 1 <= len(w) - len(st) <= mx for st in self.gl.protected_stems)
++
++    def _decide(self, hits: list[tuple], raw: str | None = None, key: str = "") -> tuple | None:
+         """hits: (score, Term, new_text, kind). Returns (action, best, runner_up_score, reason) or None."""
+         if not hits:
+             return None
+@@ -283,9 +294,12 @@ class Corrector:
+         best = ranked[0]
+         runner = ranked[1][0] if len(ranked) > 1 else 0.0
+         if best[0] >= self.cfg["auto"]:
+-            if best[0] - runner >= self.cfg["margin"]:
+-                return ("apply", best, runner, "")
+-            return ("review", best, runner, "ambiguous: two entities score within the margin")
++            if best[0] - runner < self.cfg["margin"]:
++                return ("review", best, runner, "ambiguous: two entities score within the margin")
++            if (raw is not None and best[3] != "variant" and len(key) < self.cfg["min_auto_key_len"]
++                    and _lev(raw, best[2], 1) is None):
++                return ("review", best, runner, "short key: too little information to auto-apply")
++            return ("apply", best, runner, "")
+         if best[0] >= self.cfg["review"]:
+             return ("review", best, runner, "mid-confidence")
+         return None
+@@ -300,7 +314,7 @@ class Corrector:
+ 
+     def _propose_word(self, w: str) -> tuple | None:
+         gl = self.gl
+-        if not w or w in gl.protected or w in gl.exact or not script_of(w):
++        if not w or w in gl.protected or w in gl.exact or not script_of(w) or self._protected_inflection(w):
+             return None
+         if w in gl.variants:                          # a known misspelling: exact, score 100
+             ents = {t.entity_id: t for t in gl.variants[w]}
+@@ -323,7 +337,7 @@ class Corrector:
+                         best = (100.0, t.stem + w[i:], "inflected")
+             if best[0] >= review:
+                 hits.append((best[0], t, best[1], best[2]))
+-        return self._decide(hits)
++        return self._decide(hits, w, wk)
+ 
+     def propose_phrase(self, phrase: str) -> tuple | None:
+         key = "\x00" + phrase
+@@ -502,7 +516,7 @@ def stage_settings(gl: Glossary, cfg: dict, language: str = "") -> dict:
+     c = {**DEFAULTS, **cfg}
+     return {"algo": ALGO_VERSION, "glossary": gl.version, "auto": c["auto"], "review": c["review"],
+             "margin": c["margin"], "max_suffix": c["max_suffix"], "min_key_len": c["min_key_len"],
+-            "min_inflect_key_len": c["min_inflect_key_len"],
++            "min_inflect_key_len": c["min_inflect_key_len"], "min_auto_key_len": c["min_auto_key_len"],
+             "drop_leading_chars": c["drop_leading_chars"], "llm": bool(c["use_llm"]), "language": language}
+ 
+ 
+diff --git a/tests/test_correction.py b/tests/test_correction.py
+index e039328..e608bcf 100644
+--- a/tests/test_correction.py
++++ b/tests/test_correction.py
+@@ -135,6 +135,17 @@ def test_a_spelling_of_the_same_entity_is_never_rewritten_into_another(tmp_path)
+     assert fix(g, "పార్థుడు")[0] == "పార్థుడు"
+ 
+ 
++def test_short_keys_are_reviewed_not_auto_applied_unless_one_character_apart(tmp_path):
++    p = tmp_path / "a.csv"
++    write_aliases(p, [row("శ్రీరామ", "Q10", "Rama")])
++    g = load_glossary(str(p))
++    assert c.phonetic_key("శ్రమ") == c.phonetic_key("శ్రీరామ") == "sram"      # the real-world collision
++    text, changes, review = fix(g, "కష్టపడి శ్రమ చేశాడు")
++    assert text == "కష్టపడి శ్రమ చేశాడు" and changes == []
++    assert review[0]["reason"].startswith("short key")
++    assert fix(g, "శ్రీరమ")[0] == "శ్రీరామ"                                      # one character off: fine
++
++
+ # ---------- exact-only rows, variants, protection ----------
+ 
+ def test_needs_context_and_other_types_match_exactly_only(tmp_path):
+@@ -167,6 +178,16 @@ def test_protected_words_are_never_changed(tmp_path):
+     assert fix(load_glossary(str(p), str(prot)), "అర్జునూడు")[0] == "అర్జునూడు"
+ 
+ 
++def test_a_protected_name_is_also_protected_when_inflected(tmp_path):
++    p, prot = tmp_path / "a.csv", tmp_path / "protected_words.txt"
++    write_aliases(p, [row("వసుదేవుడు", "Q20", "Vasudeva")])
++    seen = "వసుదేవుని వసుదేవుడి "                  # correct forms in the same file teach the endings
++    words = "వాసుదేవుడు వాసుదేవుని వాసుదేవుడి"
++    assert fix(load_glossary(str(p)), seen + words)[0] == seen + "వసుదేవుడు వసుదేవుని వసుదేవుడి"
++    prot.write_text("వాసుదేవుడు\n", encoding="utf-8")
++    assert fix(load_glossary(str(p), str(prot)), seen + words)[0] == seen + words
++
++
+ def test_multi_word_terms_match_whole_groups_and_protect_their_words(tmp_path):
+     p = tmp_path / "a.csv"
+     write_aliases(p, [row("కురుక్షేత్ర యుద్ధము", "Q5", "Kurukshetra War", typ="place")])
+@@ -302,7 +323,7 @@ def test_glossary_version_and_thresholds_change_the_stage_fingerprint(tmp_path):
+     g2 = load_glossary(str(p))
+     f = lambda g, **k: fingerprint(c.stage_settings(g, k, "te"))
+     assert f(g1) != f(g2) and f(g1) == f(g1)
+-    assert f(g1) != f(g1, auto=90.0) and f(g1) != f(g1, use_llm=True) and f(g1) != f(g1, drop_leading_chars=0)
++    assert f(g1) != f(g1, min_auto_key_len=4) and f(g1) != f(g1, auto=90.0) and f(g1) != f(g1, use_llm=True) and f(g1) != f(g1, drop_leading_chars=0)
+ 
+ 
+ def test_get_glossary_reloads_when_the_file_changes(tmp_path):
