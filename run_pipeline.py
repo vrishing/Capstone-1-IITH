@@ -63,7 +63,38 @@ def correction_cfg() -> dict:
             "review": getattr(config, "CORRECTION_REVIEW_SCORE", 86.0),
             "margin": getattr(config, "CORRECTION_MARGIN", 5.0),
             "drop_leading_chars": getattr(config, "CORRECTION_DROP_LEADING_CHARS", 2),
-            "use_llm": getattr(config, "CORRECTION_USE_LLM", False)}
+            "use_llm": getattr(config, "CORRECTION_USE_LLM", False),
+            "llm_audit_auto": getattr(config, "CORRECTION_LLM_AUDIT_AUTO", True),
+            "llm_batch": getattr(config, "CORRECTION_LLM_BATCH", 50),
+            "language": getattr(config, "TARGET_LANGUAGE", ""),
+            "topic": playlist_topic()}
+
+
+def playlist_topic() -> str:
+    """What the playlist is about, for the LLM: the playlist name plus the glossary pack's topic."""
+    name = (getattr(config, "PLAYLIST_NAME", "") or "").strip()
+    topic = ""
+    pack = getattr(config, "DOMAIN_PACK_PATH", None)
+    if pack and os.path.exists(pack):
+        try:
+            with open(pack, encoding="utf-8") as f:
+                topic = (json.load(f).get("topic") or "").strip()
+        except (OSError, ValueError):
+            pass
+    if topic and topic.lower() not in name.lower():
+        return f"{name} ({topic})" if name else topic
+    return name or topic
+
+
+def llm_cache_path() -> str:
+    return os.path.join(_dir("CORRECTED_DIR", "corrected"), "_llm_cache.json")
+
+
+def correction_llm():
+    """The generate(prompt) function the corrector uses: JSON output, role 'verifier'."""
+    from llm_client import generate_default
+    return lambda prompt: generate_default(prompt, role="verifier", json_output=True,
+                                           max_output_tokens=8000)
 
 
 def span_settings() -> dict:
@@ -115,12 +146,8 @@ def run_asr(v: str) -> None:
 def run_correct(v: str) -> None:
     import correction
     cfg = correction_cfg()
-    gen = None
-    if cfg["use_llm"]:
-        from llm_client import generate_default
-        gen = lambda prompt: generate_default(prompt, role="verifier")
-    summ = correction.correct_file(asr_path(v), corrected_path(v), _glossary(), cfg, gen,
-                                   os.path.join(_dir("CORRECTED_DIR", "corrected"), "_llm_cache.json"))
+    gen = correction_llm() if cfg["use_llm"] else None
+    summ = correction.correct_file(asr_path(v), corrected_path(v), _glossary(), cfg, gen, llm_cache_path())
     print(f"   [correct] {v}: {summ['n_changes']} changes, {summ['n_review']} for review, "
           f"{len(summ['dropped_leading'])} leading noise segment(s) dropped")
 
@@ -294,6 +321,19 @@ def main(argv=None, stages: dict[str, Stage] | None = None) -> int:
         ids = order_with_sample(ids, args.sample)
     if args.limit:
         ids = ids[: args.limit]
+
+    if "corrected" in STAGES[: STAGES.index(args.through) + 1] and "corrected" in stages \
+            and correction_cfg()["use_llm"]:
+        # One playlist-wide LLM pass, so the per-video stage finds every verdict cached.
+        import correction
+        files = [asr_path(v) for v in ids if os.path.exists(asr_path(v))]
+        try:
+            correction.prefill_llm_cache(files, _glossary(), correction_cfg(), correction_llm(), llm_cache_path())
+        except Exception as e:
+            print(f"LLM review failed ({type(e).__name__}: {str(e)[:300]}). Verdicts answered so far are "
+                  f"saved. Run again later, or set CORRECTION_USE_LLM=0 to correct without the LLM.",
+                  file=sys.stderr)
+            return 2
 
     print(f"playlist {getattr(config, 'PLAYLIST_KEY', 'ids')}: "
           f"{len(ids)} videos, language {config.TARGET_LANGUAGE}, through {args.through}")

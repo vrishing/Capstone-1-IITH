@@ -43,7 +43,12 @@ CORRECTED_DIR = _p("data", "corrected")   # *_corrected.json: corrected text + r
 CORRECTION_AUTO_SCORE = 92.0      # apply a fix at or above this similarity (0-100) ...
 CORRECTION_MARGIN = 5.0           # ... when the best entity leads the runner-up entity by this much
 CORRECTION_REVIEW_SCORE = 86.0    # from here up to the auto score: listed for review, text unchanged
-CORRECTION_USE_LLM = False        # True: an LLM accepts or rejects mid-confidence proposals (never writes text)
+# LLM review of correction proposals: one verdict per distinct (heard word, fix) pair, batched and cached
+# in data/corrected/_llm_cache.json, so a playlist costs a few calls. It never writes text. Off unless
+# CORRECTION_USE_LLM=1 in .env. Inspect the verdicts first with: python correction.py llm-review
+CORRECTION_USE_LLM = os.environ.get("CORRECTION_USE_LLM", "0").strip().lower() in ("1", "true", "yes")
+CORRECTION_LLM_AUDIT_AUTO = True  # also ask about high-score fixes (catches real words that sound like names)
+CORRECTION_LLM_BATCH = 50         # pairs per LLM call (Gemini free tier: 20 calls per day per model)
 CORRECTION_DROP_LEADING_CHARS = 2  # drop leading segments of at most this many characters (jingle/noise); 0 = keep
 
 # --- Evidence spans (spans.py) ---------------------------------------------------
