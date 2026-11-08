@@ -67,5 +67,5 @@ def test_unbuilt_stage_is_refused(cfg, tmp_path, capsys):
     import run_pipeline
     (tmp_path / "ids.txt").write_text("AAAAAAAAAAA\n")
     assert run_pipeline.main(["--ids", str(tmp_path / "ids.txt"), "--through", "indexed"],
-                             stages={}) == 2
+                             stages={"downloaded": object()}) == 2
     assert "not implemented" in capsys.readouterr().err

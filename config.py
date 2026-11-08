@@ -64,7 +64,12 @@ CHUNK_OVERLAP_SECONDS = 10
 EMBED_MODEL_NAME = "BAAI/bge-m3"
 EMBED_DIM = 1024  # BGE-M3 dense size; change if you swap models
 QDRANT_PATH = _p("qdrant_data")
-COLLECTION_NAME = "transcript_chunks"
+COLLECTION_NAME = "transcript_chunks"   # old fixed-window index (retired scripts 02/07/03)
+SPANS_COLLECTION = "spans_v1"           # span index: dense + sparse, one collection for all playlists
+INDEX_DIR = _p("data", "index")         # per-video "indexed" markers and the cluster map
+EMBED_DEVICE = os.environ.get("EMBED_DEVICE", "auto")   # auto | cpu | cuda | cuda:N
+EMBED_MAX_LEN = 1024                    # tokens per span (BGE-M3 reads up to 8192)
+EMBED_BATCH = 16
 
 # --- Generation and verification (Gemini through llm_client.py) -----------------------
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")

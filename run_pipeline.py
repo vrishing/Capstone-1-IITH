@@ -18,6 +18,7 @@ Stages: downloaded, asr_done, corrected, chunked are registered; indexed is regi
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -56,6 +57,15 @@ def corrected_path(v: str) -> str:
 
 def spans_path(v: str) -> str:
     return os.path.join(_dir("SPANS_DIR", "spans"), f"{v}_spans.json")
+
+
+def index_marker_path(v: str) -> str:
+    return os.path.join(_dir("INDEX_DIR", os.path.join("data", "index")), f"{v}_indexed.json")
+
+
+def clusters_path() -> str:
+    return os.path.join(_dir("INDEX_DIR", os.path.join("data", "index")),
+                        f"_clusters_{getattr(config, 'PLAYLIST_ID', 'x')}.json")
 
 
 def correction_cfg() -> dict:
@@ -164,6 +174,59 @@ def run_chunk(v: str) -> None:
     print(f"   [chunk] {v}: {len(spans)} spans, {sum(1 for s in spans if s['entities'])} tagged")
 
 
+_embedder = None
+_qclient = None
+
+
+def build_clusters(ids: list[str]) -> dict[str, str]:
+    """Near-duplicate clusters over every chunked video of the playlist; saved for the index stage."""
+    import entities
+    allspans = []
+    for v in ids:
+        if os.path.exists(spans_path(v)):
+            with open(spans_path(v), encoding="utf-8") as f:
+                allspans.extend(json.load(f)["spans"])
+    entities.cluster_spans(allspans)
+    mp = {s["span_id"]: s["cluster_id"] for s in allspans}
+    atomic_write_json(clusters_path(), {"algo": entities.CLUSTER_ALGO, "clusters": mp})
+    n_dup = len(mp) - len(set(mp.values()))
+    print(f"clusters: {len(mp)} spans, {n_dup} near-duplicates folded into earlier spans")
+    return mp
+
+
+def _clusters() -> dict[str, str]:
+    try:
+        with open(clusters_path(), encoding="utf-8") as f:
+            return json.load(f)["clusters"]
+    except (OSError, ValueError, KeyError):
+        return {}
+
+
+def run_index(v: str) -> None:
+    global _embedder, _qclient
+    import index_store
+    with open(spans_path(v), encoding="utf-8") as f:
+        spans = json.load(f)["spans"]
+    if _embedder is None:
+        _embedder = index_store.Embedder()
+        print(f"   [index] embedder on {_embedder.device}")
+    if _qclient is None:
+        _qclient = index_store.open_client()
+        index_store.ensure_collection(_qclient)
+    dense = _embedder.encode([s["text"] for s in spans])
+    n = index_store.upsert_video(_qclient, spans, dense, config.PLAYLIST_ID, _clusters())
+    atomic_write_json(index_marker_path(v), {"video_id": v, "n_points": n, "playlist_id": config.PLAYLIST_ID})
+    print(f"   [index] {v}: {n} points")
+
+
+def _clusters_hash() -> str:
+    try:
+        with open(clusters_path(), "rb") as f:
+            return hashlib.sha256(f.read()).hexdigest()[:12]
+    except OSError:
+        return "none"
+
+
 def build_stages() -> dict[str, Stage]:
     return {
         "downloaded": Stage("downloaded", lambda v: [wav_path(v)], run_download,
@@ -179,7 +242,12 @@ def build_stages() -> dict[str, Stage]:
         "chunked": Stage("chunked", lambda v: [spans_path(v)], run_chunk,
                          lambda: {"spans": "spans_v1", "entities": __import__("entities").ENTITY_ALGO,
                                  "glossary": _glossary().version, **span_settings()}),
-        # "indexed": ...  (register when it is built)
+        "indexed": Stage("indexed", lambda v: [index_marker_path(v)], run_index,
+                         lambda: {"index": __import__("index_store").INDEX_ALGO,
+                                  "model": getattr(config, "EMBED_MODEL_NAME", ""),
+                                  "max_len": getattr(config, "EMBED_MAX_LEN", 1024),
+                                  "collection": getattr(config, "SPANS_COLLECTION", "spans_v1"),
+                                  "clusters": _clusters_hash()}),
     }
 
 
@@ -310,7 +378,8 @@ def main(argv=None, stages: dict[str, Stage] | None = None) -> int:
         return 2
 
     removed = clean_tmp_files(config.ASR_OUTPUT_DIR, config.CAPTIONS_DIR,
-                              _dir("CORRECTED_DIR", "corrected"), _dir("SPANS_DIR", "spans"))
+                              _dir("CORRECTED_DIR", "corrected"), _dir("SPANS_DIR", "spans"),
+                              _dir("INDEX_DIR", os.path.join("data", "index")))
     if removed:
         print(f"removed {removed} leftover .tmp file(s) from an interrupted run")
 
@@ -337,6 +406,9 @@ def main(argv=None, stages: dict[str, Stage] | None = None) -> int:
                   f"saved. Run again later, or set CORRECTION_USE_LLM=0 to correct without the LLM.",
                   file=sys.stderr)
             return 2
+
+    if "indexed" in STAGES[: STAGES.index(args.through) + 1] and "indexed" in stages:
+        build_clusters(ids)    # needs every video's spans, so it runs once before the per-video loop
 
     print(f"playlist {getattr(config, 'PLAYLIST_KEY', 'ids')}: "
           f"{len(ids)} videos, language {config.TARGET_LANGUAGE}, through {args.through}")
