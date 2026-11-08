@@ -158,8 +158,10 @@ def run_chunk(v: str) -> None:
     spans = spans_from_asr_file(corrected_path(v), st)   # picks up raw_segments, keeps raw_text per span
     if not spans:
         raise RuntimeError("no spans produced")
+    import entities
+    entities.tag_spans(spans, _glossary())                # entity ids per span (a retrieval aid only)
     write_spans(spans_path(v), spans, st)
-    print(f"   [chunk] {v}: {len(spans)} spans")
+    print(f"   [chunk] {v}: {len(spans)} spans, {sum(1 for s in spans if s['entities'])} tagged")
 
 
 def build_stages() -> dict[str, Stage]:
@@ -175,7 +177,8 @@ def build_stages() -> dict[str, Stage]:
                            lambda: __import__("correction").stage_settings(
                                _glossary(), correction_cfg(), getattr(config, "TARGET_LANGUAGE", ""))),
         "chunked": Stage("chunked", lambda v: [spans_path(v)], run_chunk,
-                         lambda: {"spans": "spans_v1", **span_settings()}),
+                         lambda: {"spans": "spans_v1", "entities": __import__("entities").ENTITY_ALGO,
+                                 "glossary": _glossary().version, **span_settings()}),
         # "indexed": ...  (register when it is built)
     }
 
