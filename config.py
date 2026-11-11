@@ -75,6 +75,13 @@ EMBED_BATCH = 16
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GEMINI_MODEL_NAME = "gemini-3.6-flash"
 TOP_K = 10
+ANSWER_MAX_ATTEMPTS = 3      # generation attempts per question: 1 + 2 regenerations
+ANSWER_STRICT = True        # any unsupported sentence after the retries -> abstain
+ANSWER_CACHE_DIR = _p("data", "answers")
+TRACE_DIR = _p("data", "traces")
+RERANK_MODEL_NAME = "BAAI/bge-reranker-v2-m3"
+RERANK_CANDIDATES = 30   # fused candidates the reranker reads per question
+RETRIEVE_PER_LIST = 40   # candidates taken from each of the dense and sparse lists
 
 # --- Which LLM answers and verifies (llm_client.py) --------------------------------------------
 # "gemini" = Google's API. "openai" = a self-hosted model behind any OpenAI-compatible server

@@ -90,8 +90,24 @@ def tag_spans(spans: list[dict], gl) -> list[dict]:
     return spans
 
 
-def query_entities(text: str, gl) -> list[str]:
-    return text_entities(text, gl)
+def query_entities(text: str, gl, min_key_len: int = 3) -> list[str]:
+    """Entities a question mentions, in any script or in English letters: exact and inflected
+    spellings (text_entities) plus a phonetic-key match of 1-3 consecutive words against every
+    term and roman name in the glossary ("arjuna" -> the Arjuna entity)."""
+    if not gl:
+        return []
+    from romanize import phonetic_key
+    found = set(text_entities(text, gl))
+    toks = _tokens(text)
+    for i in range(len(toks)):
+        for n in range(1, 4):
+            if i + n > len(toks):
+                break
+            gram = toks[i:i + n]
+            for k in {phonetic_key(" ".join(gram)), phonetic_key("".join(gram))}:
+                if len(k.replace(" ", "")) >= min_key_len:
+                    found |= gl.key_entities.get(k, set())
+    return sorted(found)
 
 
 # ---------------------------------------------------------------------------------------

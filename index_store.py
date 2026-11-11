@@ -115,8 +115,11 @@ class Embedder:
 # Qdrant
 # ---------------------------------------------------------------------------------------
 def open_client():
+    import atexit
     from qdrant_client import QdrantClient
-    return QdrantClient(path=config.QDRANT_PATH)
+    c = QdrantClient(path=config.QDRANT_PATH)
+    atexit.register(c.close)          # closes before interpreter shutdown: no ImportError noise
+    return c
 
 
 def ensure_collection(client, name: str | None = None, dim: int | None = None) -> None:

@@ -166,6 +166,7 @@ class Glossary:
         self.stems: set[str] = set()                 # stems of every single-word term
         self.protected_stems: set[str] = set()       # stems of the words in protected_words.txt
         self.term_entities: dict[str, set[str]] = {}  # every spelling (and its stem) -> entity ids
+        self.key_entities: dict[str, set[str]] = {}   # phonetic key of every term and roman name -> entity ids
         self.version = "empty"
         self.n_rows = 0
 
@@ -209,6 +210,11 @@ def load_glossary(alias_path: str | None, protected_path: str | None = None,
         gl.term_entities.setdefault(t.term, set()).add(t.entity_id)
         gl.exact.add(t.term)
         gl.protected.add(t.term)
+        if t.entity_id:
+            for name in (t.term, t.roman):
+                for k in {phonetic_key(name), phonetic_key(name.replace(" ", ""))} if name else ():
+                    if k:                          # spaced and joined: "dharma raja" = "dharmaraja"
+                        gl.key_entities.setdefault(k, set()).add(t.entity_id)
         if t.nwords > 1:
             gl.protected.update(t.term.split())
             gl.phrase_texts.add(t.term)
