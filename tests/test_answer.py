@@ -107,3 +107,16 @@ def test_cache_roundtrip_skips_errors(tmp_path, monkeypatch):
 def test_language_instruction():
     assert answer.question_language("అర్జునుడు ఎవరు") == "the same language as the question"
     assert answer.question_language("Who is Arjuna") == "English"
+
+
+def test_parse_verdicts_accepts_common_shapes_and_rejects_the_rest():
+    pv = answer.parse_verdicts
+    assert pv('{"verdicts": [{"i": 0, "verdict": "supported"}, {"i": 1, "verdict": "Partial"}]}', 2) == ["supported", "partial"]
+    assert pv('[{"i": 0, "verdict": "unsupported"}]', 1) == ["unsupported"]          # bare list of objects
+    assert pv('["supported", "unsupported"]', 2) == ["supported", "unsupported"]     # plain strings, in order
+    for bad in ('{"verdicts": []}', '"yes"', '[{"i": 0, "verdict": "maybe"}]', '{"verdicts": ["supported"]}'):
+        try:
+            pv(bad, 2)
+            assert False, bad
+        except ValueError:
+            pass

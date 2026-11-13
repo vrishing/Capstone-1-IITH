@@ -27,12 +27,13 @@ from entities import query_entities
 RRF_K = 60
 
 
-def rrf_fuse(*ranked: list[str]) -> dict[str, float]:
-    """ranked lists of ids, best first -> id -> fused score."""
+def rrf_fuse(*ranked: list[str], weights: list[float] | None = None) -> dict[str, float]:
+    """ranked lists of ids, best first -> id -> fused score. weights: one per list (default all 1)."""
     out: dict[str, float] = {}
-    for lst in ranked:
+    for n, lst in enumerate(ranked):
+        w = weights[n] if weights else 1.0
         for r, i in enumerate(lst):
-            out[i] = out.get(i, 0.0) + 1.0 / (RRF_K + r + 1)
+            out[i] = out.get(i, 0.0) + w / (RRF_K + r + 1)
     return out
 
 
@@ -57,25 +58,40 @@ def _search(client, name: str, using: str, query, flt, limit: int):
 
 
 def retrieve(question: str, client, embedder, reranker, gl, playlist_id: str, k: int | None = None,
-             n_candidates: int | None = None, per_list: int | None = None) -> dict:
+             n_candidates: int | None = None, per_list: int | None = None, mode: str = "hybrid",
+             use_entities: bool = True, rewrite_fn=None, dense_weight: float = 1.0,
+             sparse_weight: float | None = None) -> dict:
+    """mode: hybrid | dense | sparse (the last two exist for ablations). use_entities=False drops the
+    entity tokens from the sparse query. rewrite_fn(question) -> the question in the playlist's language
+    ("" = none): the dense search then runs for both versions, the sparse query and the reranker use the
+    rewritten one. dense_weight / sparse_weight scale each list in the fusion."""
     k = k or config.TOP_K
+    sparse_weight = getattr(config, "RETRIEVE_SPARSE_WEIGHT", 0.3) if sparse_weight is None else sparse_weight
     n_candidates = n_candidates or getattr(config, "RERANK_CANDIDATES", 30)
     per_list = per_list or getattr(config, "RETRIEVE_PER_LIST", 40)
     m = ix._models()
     name = ix.collection_name()
     flt = m.Filter(must=[m.FieldCondition(key="playlist_id", match=m.MatchValue(value=playlist_id))])
-    ents = query_entities(question, gl)
-    dense_q = embedder.encode([question])[0]
-    si, sv = ix.sparse_query(question, ents)
-    dense = _search(client, name, ix.DENSE, dense_q, flt, per_list)
-    sparse = _search(client, name, ix.SPARSE, m.SparseVector(indices=si, values=sv), flt, per_list)
-    by_id = {str(p.id): p for p in list(dense) + list(sparse)}
-    fused = rrf_fuse([str(p.id) for p in dense], [str(p.id) for p in sparse])
+    if mode not in ("hybrid", "dense", "sparse"):
+        raise ValueError("mode must be hybrid, dense or sparse")
+    rewritten = (rewrite_fn(question) if rewrite_fn else "") or ""
+    both = f"{question} {rewritten}".strip()
+    ents = query_entities(both, gl) if use_entities else []
+    dense_lists, sparse = [], []
+    if mode in ("hybrid", "dense"):
+        for q in [question] + ([rewritten] if rewritten else []):
+            dense_lists.append(_search(client, name, ix.DENSE, embedder.encode([q])[0], flt, per_list))
+    if mode in ("hybrid", "sparse"):
+        si, sv = ix.sparse_query(both, ents)
+        sparse = _search(client, name, ix.SPARSE, m.SparseVector(indices=si, values=sv), flt, per_list)
+    by_id = {str(p.id): p for p in [x for lst in dense_lists for x in lst] + list(sparse)}
+    fused = rrf_fuse(*[[str(p.id) for p in lst] for lst in dense_lists], [str(p.id) for p in sparse],
+                     weights=[dense_weight] * len(dense_lists) + [sparse_weight])
     cand = sorted(fused, key=lambda i: -fused[i])[:n_candidates]
     scores = {i: fused[i] for i in cand}
     reranked = False
     if reranker is not None and cand:
-        rs = reranker.score(question, [by_id[i].payload["text"] for i in cand])
+        rs = reranker.score(rewritten or question, [by_id[i].payload["text"] for i in cand])
         scores = dict(zip(cand, rs))
         reranked = True
     cand.sort(key=lambda i: -scores[i])
@@ -92,7 +108,27 @@ def retrieve(question: str, client, embedder, reranker, gl, playlist_id: str, k:
                      "url": f"https://youtu.be/{p['video_id']}?t={int(p['start'])}"})
         if len(hits) == k:
             break
-    return {"question": question, "query_entities": ents, "n_candidates": len(cand), "hits": hits}
+    return {"question": question, "rewritten": rewritten, "query_entities": ents, "n_candidates": len(cand),
+            "hits": hits}
+
+
+def run_row(res: dict) -> dict:
+    """One line of an eval run file from a retrieve() result."""
+    return {"retrieved": [{"video_id": h["video_id"], "start": h["start"], "end": h["end"],
+                           "span_id": h["span_id"]} for h in res["hits"]],
+            "answer": "", "abstained": False, "citations": []}
+
+
+def write_run(questions_path: str, out_path: str, stack, mode: str = "hybrid", k: int = 10, **kw) -> int:
+    """Retrieval-only run over a question file (eval_harness format): the baseline and the ablations."""
+    from eval_harness import collect_run, load_questions
+    client, emb, rr, gl = stack
+    qs = load_questions(questions_path)
+    rows = collect_run(qs, lambda q: run_row(retrieve(q["question"], client, emb, rr, gl, config.PLAYLIST_ID,
+                                                       k=k, mode=mode, **kw)), out_path)
+    bad = sum(1 for r in rows if r.get("error"))
+    print(f"{len(rows)} questions -> {out_path}" + (f" ({bad} errors)" if bad else ""))
+    return 0 if not bad else 2
 
 
 def _glossary():
@@ -124,19 +160,42 @@ def _hms(t: float) -> str:
 def main(argv: list[str]) -> int:
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("question")
+    ap.add_argument("question", nargs="?")
+    ap.add_argument("--eval", metavar="QUESTIONS", help="write a retrieval run file for this question file")
+    ap.add_argument("--out", help="with --eval: run file to write")
+    ap.add_argument("--mode", default="hybrid", choices=["hybrid", "dense", "sparse"])
     ap.add_argument("--k", type=int, default=config.TOP_K)
     ap.add_argument("--playlist")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--no-rerank", action="store_true")
+    ap.add_argument("--rewrite", action="store_true", help="also search with the question rewritten into the playlist language (uses the LLM)")
+    ap.add_argument("--dense-weight", type=float, default=1.0)
+    ap.add_argument("--sparse-weight", type=float, default=None,
+                    help="weight of the sparse list in the fusion (default: RETRIEVE_SPARSE_WEIGHT, 0.3)")
+    ap.add_argument("--no-entities", action="store_true", help="leave entity tags out of the sparse query")
     a = ap.parse_args(argv)
     if a.playlist:
         config.select_playlist(a.playlist)
-    client, emb, rr, gl = load_stack(not a.no_rerank)
-    res = retrieve(a.question, client, emb, rr, gl, config.PLAYLIST_ID, k=a.k)
+    stack = load_stack(not a.no_rerank)
+    opts = {"dense_weight": a.dense_weight, "sparse_weight": a.sparse_weight, "use_entities": not a.no_entities}
+    if a.rewrite or getattr(config, "RETRIEVE_REWRITE", False):
+        from query_rewrite import make_rewrite_fn
+        opts["rewrite_fn"] = make_rewrite_fn()
+    if a.eval:
+        if not a.out:
+            print("--eval needs --out", file=sys.stderr)
+            return 2
+        return write_run(a.eval, a.out, stack, a.mode, a.k, **opts)
+    if not a.question:
+        print("give a question, or --eval with --out", file=sys.stderr)
+        return 2
+    client, emb, rr, gl = stack
+    res = retrieve(a.question, client, emb, rr, gl, config.PLAYLIST_ID, k=a.k, mode=a.mode, **opts)
     if a.json:
         print(json.dumps(res, ensure_ascii=False, indent=1))
         return 0
+    if res.get("rewritten"):
+        print(f"searched also as: {res['rewritten']}")
     print(f"entities in the question: {res['query_entities'] or 'none'}")
     for i, h in enumerate(res["hits"], 1):
         print(f"\n[{i}] {h['video_id']} {_hms(h['start'])}-{_hms(h['end'])}  score {h['score']}  {h['url']}")

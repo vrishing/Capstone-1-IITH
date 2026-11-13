@@ -1,0 +1,39 @@
+term,entity_id,roman,type,variants,needs_context,source,notes
+यंत्र अधिगम,Q2539,machine learning,concept,,1,wikidata:Q2539/label;hiwiki-redirect:यंत्र अधिगम,scientific study of algorithms and statistical models that computer systems use to perform tasks without explicit instructions | multiword | also: wikipedia_redirect_hi
+यंत्र शिक्षण,Q2539,machine learning,concept,,1,hiwiki:यंत्र शिक्षण,scientific study of algorithms and statistical models that computer systems use to perform tasks without explicit instructions | multiword
+मैथमेटिका,Q81294,Mathematica,concept,,1,wikidata:Q81294/label;hiwiki:मैथमेटिका,computational software program | also: wikipedia_title_hi
+ओसीआर,Q167555,optical character recognition,concept,,1,wikidata:Q167555/label;hiwiki:ओसीआर,computer recognition of visual text | also: wikipedia_title_hi
+मैटलैब,Q169478,MATLAB,concept,,1,wikidata:Q169478/label;hiwiki:मैटलैब,numerical computing environment | also: wikipedia_title_hi
+एस पी एस एस,Q181596,SPSS,concept,,1,wikidata:Q181596/label;hiwiki:एस पी एस एस,statistical software suite | multiword | also: wikipedia_title_hi
+आनुवंशिक एल्गोरिथ्म,Q187787,genetic algorithm,concept,,1,wikidata:Q187787/label;hiwiki-redirect:आनुवंशिक एल्गोरिथ्म,competitive algorithm for searching a problem space | multiword | also: wikipedia_redirect_hi
+जेनेटिक एल्गोरिद्म,Q187787,genetic algorithm,concept,,1,hiwiki:जेनेटिक एल्गोरिद्म,competitive algorithm for searching a problem space | multiword
+श्रुतलेखन सॉफ्टवेयर,Q189436,speech recognition,concept,,1,wikidata:Q189436/label;hiwiki:श्रुतलेखन सॉफ्टवेयर,automatic conversion of spoken language into text | multiword | also: wikipedia_title_hi
+आर,Q206904,R,concept,,1,wikidata:Q206904/label;hiwiki:आर (प्रोग्रामन भाषा),programming language for statistical analysis | also: wikipedia_title_hi
+ग्नू ऑक्टेव,Q223679,GNU Octave,concept,,1,wikidata:Q223679/label;hiwiki:ग्नू ऑक्टेव,numerical computation software | multiword | also: wikipedia_title_hi
+कैप्चा,Q484598,CAPTCHA,concept,,1,wikidata:Q484598/label,computer test to discriminate human users from spambots
+कॅप्चा,Q484598,CAPTCHA,concept,,1,hiwiki:कॅप्चा,computer test to discriminate human users from spambots
+बुद्धिमत्तापूर्ण अभिकर्ता,Q1142726,intelligent agent,concept,,1,wikidata:Q1142726/label;hiwiki:बुद्धिमत्तापूर्ण अभिकर्ता,"agent that perceives its environment, takes actions autonomously in order to achieve goals, and may improve its performance through learning or acquiring knowledge, whether | multiword | also: wikipedia_title_hi"
+स्टैटा,Q1204300,Stata,concept,,1,wikidata:Q1204300/label;hiwiki:स्टैटा,statistical software package | also: wikipedia_title_hi
+न्यूरआईपीएस,Q1961016,Conference on Neural Information Processing Systems,concept,,1,wikidata:Q1961016/label,NeurIPS/NIPS conference series on machine learning and related topics
+जूलिया,Q2613697,Julia,concept,,1,wikidata:Q2613697/label,high-performance dynamic programming language
+अरेंज,Q3355041,Orange,concept,,1,wikidata:Q3355041/label;hiwiki:अरेंज (सॉफ्टवेयर),component-based data mining and machine learning software suite | also: wikipedia_title_hi
+कन्वोलुशनल न्यूरल नेटवर्क,Q17084460,convolutional neural network,concept,,1,wikidata:Q17084460/label;hiwiki:कन्वोलुशनल न्यूरल नेटवर्क,regularized type of feed-forward neural network that learns features by itself via filter (or kernel) optimization | multiword | also: wikipedia_title_hi
+टेन्सर फ्लो,Q21447895,TensorFlow,concept,,1,wikidata:Q21447895/label,machine learning software framework | multiword
+एल्गोरिद्म पूर्वाग्रह,Q45253460,algorithmic bias,concept,,1,wikidata:Q45253460/label,"systematic and repeatable errors in a computer system that create unfair outcomes, such as privileging one arbitrary group of users over others | multiword"
+कुआइशौ,Q47015540,Kuaishou,concept,,1,wikidata:Q47015540/label;hiwiki:कुआइशौ,short-video platform | also: wikipedia_title_hi
+पाइटौर्च,Q47509047,PyTorch,concept,,1,wikidata:Q47509047/label;hiwiki:पाइटौर्च,"open source machine learning library for Python, based on Torch | also: wikipedia_title_hi"
+डीपफ़ेक टेक्नोलॉजी,Q49473179,deepfake,concept,,1,wikidata:Q49473179/label;hiwiki:डीपफ़ेक टेक्नोलॉजी,artificial intelligence-based human image synthesis technique | multiword | also: wikipedia_title_hi
+प्रॉम्प्ट अभियान्त्रण,Q108941486,prompt engineering,concept,,1,wikidata:Q108941486/label,creation or optimization of a prompt to be given to an artificial intelligence model | multiword
+प्रेरणा अभियान्त्रण,Q108941486,prompt engineering,concept,,1,hiwiki:प्रेरणा अभियान्त्रण,creation or optimization of a prompt to be given to an artificial intelligence model | multiword
+सृजनात्मक कृत्रिम बुद्धिमत्ता,Q117246174,generative artificial intelligence,concept,,1,wikidata:Q117246174/label;hiwiki:सृजनात्मक कृत्रिम बुद्धिमत्ता,artificial intelligence model capable of generating content in response to a prompt | multiword | also: wikipedia_title_hi
+एआई इम्पैक्ट समिट,Q136297467,AI Impact Summit,concept,,1,wikidata:Q136297467/label;hiwiki:एआई इम्पैक्ट समिट,"2026 conference in Delhi, India | multiword | also: wikipedia_title_hi"
+कृत्रिम बुद्धिमत्ता दत्तांश केन्द्र,Q137571914,AI data center,concept,,1,wikidata:Q137571914/label;hiwiki:कृत्रिम बुद्धिमत्ता दत्तांश केन्द्र,specialized data center designed for artificial intelligence workloads | multiword | also: wikipedia_title_hi
+योशुआ बेंगियो,Q3572699,Yoshua Bengio,other,,1,wikidata:Q3572699/label;hiwiki:योशुआ बेंगियो,Canadian computer scientist (born 1964) | multiword | also: wikipedia_title_hi | type conflict: concept/person
+सेबेस्टियन थ्रन,Q62901,Sebastian Thrun,person,,0,wikidata:Q62901/label,German-American entrepreneur (born 1967) | multiword
+जैफ्री हिंटन,Q92894,Geoffrey Hinton,person,,0,wikidata:Q92894/label;hiwiki:जैफ्री हिंटन,British-Canadian computer scientist and psychologist | multiword | also: wikipedia_title_hi
+स्टीफन वॉलफ्रेम,Q310798,Stephen Wolfram,person,,0,wikidata:Q310798/label;hiwiki:स्टीफन वॉलफ्रेम,British-American scientist and businessman (born 1959) | multiword | also: wikipedia_title_hi
+यांन लेकून,Q3571662,Yann LeCun,person,,0,wikidata:Q3571662/label;hiwiki:यांन लेकून,American-French computer scientist (born 1960) | multiword | also: wikipedia_title_hi
+एंथनी लेवांडोव्स्की,Q26924676,Anthony Levandowski,person,,0,wikidata:Q26924676/label,French-American automobile engineer (born 1980) | multiword
+अनिमा आनंदकुमार,Q29167831,Anima Anandkumar,person,,0,wikidata:Q29167831/label;hiwiki:अनिमा आनंदकुमार,Indian-American computer scientist | multiword | also: wikipedia_title_hi
+केटी बूमैन,Q63080922,Katie Bouman,person,,0,wikidata:Q63080922/label;hiwiki:केटी बूमैन,American engineer and computer scientist | multiword | also: wikipedia_title_hi
+मिखल वाल्को,Q97454550,Michal Valko,person,,0,wikidata:Q97454550/label,Franco-Slovak Artificial Intelligence scientist | multiword

@@ -835,6 +835,92 @@ set_language(LANG)  # Telugu until config says otherwise
 # ======================================================================================
 # Command line
 # ======================================================================================
+# ======================================================================================
+# Automatic mode: no hand-edited files
+# ======================================================================================
+_JUNK_CAT = re.compile(r"stub|wikipedia|template|redirect|navigation|articles|\bby (?:country|year|century|nationality)\b|"
+                       r"\blists? of\b|\bdisambiguation\b|\bmaintenance\b|\bcommons\b", re.I)
+_TYPE_WORDS = (
+    ("person", r"characters?|people|persons?|kings?|queens?|rulers?|sages?|rishis?|deities|gods?|goddesses|"
+               r"scientists?|mathematicians?|researchers?|engineers?|authors?|writers?|philosophers?|warriors?|"
+               r"saints?|poets?|leaders?|people from"),
+    ("place", r"places?|kingdoms?|cities|city|towns?|rivers?|mountains?|locations?|countries|states?|temples?|"
+              r"geography|regions?|districts?"),
+    ("text", r"texts?|books?|scriptures?|parvas?|chapters?|epics?|publications?|journals?|papers?|"
+             r"literature|poems?"),
+)
+_TOPIC_NOISE = re.compile(r"\b(?:nptel|swayam|iit\w*|lectures?|lecture series|course|courses|playlist|series|"
+                          r"week\s*\d*|part\s*\d*|day\s*\d*|episodes?|hindi|english|telugu|tamil|kannada|"
+                          r"malayalam|bengali|marathi|gujarati|punjabi|odia|full|complete|in|by|prof\.?|dr\.?)\b|"
+                          r"[|\-:\u2013\u2014()\[\]\d]+", re.I)
+
+
+def infer_category_type(title: str) -> str:
+    t = re.sub(r"^category:", "", title, flags=re.I).lower()
+    for typ, words in _TYPE_WORDS:
+        if re.search(rf"\b(?:{words})\b", t):
+            return typ
+    return "concept"
+
+
+def auto_select(pack: dict, max_categories: int = 12, max_total_pages: int = 4000) -> dict:
+    """Opt categories in by rule, in the order Wikipedia's search ranked them: skip maintenance
+    categories and near-empty ones, type them by the words in their title, follow subcategories one
+    level only when there are few. Mutates and returns the pack. Concept categories stay exact-only."""
+    used, total = 0, 0
+    for c in pack.get("categories", []):
+        pages, subs = int(c.get("_pages", 0) or 0), int(c.get("_subcats", 0) or 0)
+        ok = (not _JUNK_CAT.search(c["title"]) and (pages >= 3 or subs >= 2)
+              and used < max_categories and total + pages <= max_total_pages)
+        c["use"] = bool(ok)
+        if ok:
+            c["type"] = infer_category_type(c["title"])
+            c["depth"] = 1 if subs <= 15 else 0
+            used, total = used + 1, total + pages
+    pack["auto"] = True
+    return pack
+
+
+def clean_topic(name: str) -> str:
+    """Playlist title -> a search phrase: drop course/language/numbering words."""
+    t = _TOPIC_NOISE.sub(" ", name or "")
+    return " ".join(t.split())
+
+
+def infer_topic(name: str, titles: list[str], gen) -> str:
+    """One LLM call: an English Wikipedia-style topic for the playlist. Falls back to clean_topic."""
+    prompt = (f"Playlist title: {name}\nSome video titles:\n" + "\n".join(f"- {t}" for t in titles[:12]) +
+              "\n\nGive the subject of this playlist as a short English Wikipedia topic (2-4 words), "
+              'for example "Mahabharata" or "Machine learning". JSON only: {"topic": "..."}')
+    try:
+        d = json.loads(gen(prompt))
+        t = " ".join(str(d.get("topic", "")).split())
+        if 2 <= len(t) <= 60:
+            return t
+    except Exception:
+        pass
+    return clean_topic(name)
+
+
+def auto(fetcher: Fetcher, topic: str, pack_path: str | Path, out_dir: str | Path, alias_path: str | Path,
+         wiki: str = "en", playlist_id: str = "", log: Callable[[str], None] = print) -> dict:
+    """propose -> auto_select -> build -> promote(label), without editing anything by hand.
+    An existing pack (yours, hand-edited) is used as it is, never overwritten; the alias table only grows."""
+    pack_path = Path(pack_path)
+    if pack_path.exists():
+        log(f"using the existing domain pack {pack_path}")
+    else:
+        pack = propose(fetcher, topic, pack_path, wiki=wiki, playlist_id=playlist_id)
+        auto_select(pack)
+        _atomic_write(pack_path, (json.dumps(pack, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+        chosen = [c["title"] for c in pack["categories"] if c["use"]]
+        log(f"{len(chosen)} of {len(pack['categories'])} categories chosen for {topic!r}: " + "; ".join(chosen))
+    loaded = load_pack(pack_path)
+    report = build(loaded, fetcher, out_dir, log=log)
+    summary = promote(Path(out_dir) / "aliases_candidates.csv", alias_path, "label")
+    return {"topic": topic, "counts": report["counts"], "promoted": summary}
+
+
 def _load_config():
     try:
         import config
@@ -852,6 +938,22 @@ def _fetcher(cfg, out_dir: Path) -> Fetcher:
     return Fetcher(cfg.GLOSSARY_USER_AGENT, out_dir / "_cache")
 
 
+def _auto_topic(cfg) -> str:
+    name = getattr(cfg, "PLAYLIST_NAME", "") or ""
+    titles: list[str] = []
+    try:
+        with open(cfg.PLAYLIST_META_PATH, encoding="utf-8") as f:
+            titles = [v.get("title") or "" for v in json.load(f)["videos"]]
+    except (OSError, ValueError, KeyError):
+        pass
+    try:
+        import llm_client
+        return infer_topic(name, titles, lambda p: llm_client.generate_default(p, role="answer", json_output=True,
+                                                                              max_output_tokens=100))
+    except Exception:
+        return clean_topic(name)
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Build a per-playlist glossary from Wikipedia and Wikidata.")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -863,6 +965,9 @@ def main(argv: list[str] | None = None) -> int:
     p2 = sub.add_parser("build", help="harvest the pack's categories into candidate files")
     p2.add_argument("--pack")
     p2.add_argument("--out", help="output folder (default GLOSSARY_DIR)")
+    p4 = sub.add_parser("auto", help="propose, choose categories by rule, build and promote: no manual steps")
+    p4.add_argument("--topic", help="English topic to search Wikipedia for (default: asked from the LLM, else the playlist name)")
+    p4.add_argument("--wiki", default="en")
     p3 = sub.add_parser("promote", help="append reviewed candidates to the live alias table")
     p3.add_argument("--accept", choices=["curated", "label", "decided", "all"], default="curated")
     p3.add_argument("--dir", help="folder with aliases_candidates.csv (default GLOSSARY_DIR)")
@@ -878,6 +983,11 @@ def main(argv: list[str] | None = None) -> int:
                            playlist_id=cfg.PLAYLIST_ID, force=args.force)
             print(f"Wrote {pack_path} with {len(pack['categories'])} candidate categories.")
             print("Open it, set use:true and a type on the categories that fit, delete the rest, then run 'build'.")
+        elif args.cmd == "auto":
+            topic = args.topic or _auto_topic(cfg)
+            r = auto(_fetcher(cfg, out_dir), topic, cfg.DOMAIN_PACK_PATH, out_dir, cfg.ALIAS_TABLE_PATH,
+                     wiki=args.wiki, playlist_id=cfg.PLAYLIST_ID)
+            print(json.dumps(r, ensure_ascii=False, indent=2))
         elif args.cmd == "build":
             pack = load_pack(args.pack or cfg.DOMAIN_PACK_PATH)
             report = build(pack, _fetcher(cfg, out_dir), out_dir)

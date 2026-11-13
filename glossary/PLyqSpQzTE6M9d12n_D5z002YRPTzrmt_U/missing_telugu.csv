@@ -1,0 +1,996 @@
+﻿entity_id,en_label,en_description,type,categories,en_title
+Q4909,forward–backward algorithm,"hidden Markov model inference algorithm which computes the posterior marginals of all hidden state variables given a sequence of observations, making use of dynamic programming to make only 2 passes: one forward, one backward",concept,en:Category:Machine learning algorithms,Forward–backward algorithm
+Q29695,eigenface,set of eigenvectors used in the computer vision problem of human face recognition,concept,en:Category:Computer vision,Eigenface
+Q115494,Weka,suite of machine learning software written in Java,concept,en:Category:Data mining and machine learning software,Weka (software)
+Q127313,Active contour model,Computer vision framework,concept,en:Category:Computer vision,Active contour model
+Q130651,eager learning,learning method used in developing artificial intelligence,concept,en:Category:Machine learning,Eager learning
+Q130657,lazy learning,type of machine learning method,concept,en:Category:Machine learning,Lazy learning
+Q133580,explanation-based learning,form of machine learning,concept,en:Category:Machine learning,Explanation-based learning
+Q139380,Maple,computer algebra system,concept,en:Category:Data mining and machine learning software,Maple (software)
+Q186588,time series,set of data indexed in time order,concept,en:Category:Machine learning,Time series
+Q245652,ensemble learning,"in machine learning, the use of multiple algorithms to obtain better predictive performance than from any of the constituent learning algorithms alone",concept,en:Category:Ensemble learning,Ensemble learning
+Q245748,random forest,statistical algorithm that is used to cluster points of data in functional groups,concept,en:Category:Machine learning algorithms | en:Category:Ensemble learning,Random forest
+Q267189,Active shape model,statistical model of an object's shape,concept,en:Category:Computer vision,Active shape model
+Q282453,support vector machine,set of methods for supervised statistical learning,concept,en:Category:Kernel methods for machine learning | en:Category:Machine learning algorithms,Support vector machine
+Q302088,document classification,"problem in library science, information science and computer science",concept,en:Category:Machine learning,Document classification
+Q310401,k-means clustering,Vector quantization algorithm that minimizes the sum of squared deviations between points and their nearest mean,concept,en:Category:Machine learning algorithms,K-means clustering
+Q331309,overfitting,"production of an analysis that corresponds too closely or exactly to a particular set of data, and may therefore fail to fit additional data or predict future observations reliably",concept,en:Category:Machine learning,Overfitting
+Q344000,Active appearance model,"method for image detection, using statistical models",concept,en:Category:Computer vision,Active appearance model
+Q357192,Holland's schema theorem,theorem on genetic algorithms,concept,en:Category:Machine learning algorithms,Holland's schema theorem
+Q365738,pruning,algorithm improvement technique where unnecessary nodes are removed,concept,en:Category:Machine learning,Decision tree pruning
+Q370766,ground truth,information provided by direct observation,concept,en:Category:Machine learning task,Ground truth
+Q378859,pattern recognition,branch of machine learning,concept,en:Category:Machine learning,Pattern recognition
+Q386283,Folding@home,volunteer computing project simulating protein folding,concept,en:Category:Data mining and machine learning software,Folding@home
+Q387942,local outlier factor,algorithm,concept,en:Category:Machine learning algorithms,Local outlier factor
+Q458825,kernel density estimation,estimator,concept,en:Category:Machine learning,Kernel density estimation
+Q466303,boosting,ensemble meta-algorithm for reducing bias and variance in machine learning,concept,en:Category:Ensemble learning | en:Category:Learning in computer vision,Boosting (machine learning)
+Q527952,Visual Servoing,Robot control by visual feedback,concept,en:Category:Computer vision,Visual servoing
+Q541014,cross-validation,statistical model validation technique,concept,en:Category:Machine learning,Cross-validation (statistics)
+Q550134,inverted pendulum,pendulum with center of mass above pivot,concept,en:Category:Machine learning task,Inverted pendulum
+Q591518,ELKI,Data mining framework,concept,en:Category:Data mining and machine learning software,ELKI
+Q620622,kernel method,class of algorithms for pattern analysis,concept,en:Category:Kernel methods for machine learning,Kernel method
+Q639194,KNIME,data science software,concept,en:Category:Data mining and machine learning software,KNIME
+Q798503,backpropagation,optimization algorithm for artificial neural networks,concept,en:Category:Machine learning algorithms,Backpropagation
+Q799897,bootstrap aggregating,ensemble method within machine learning,concept,en:Category:Machine learning algorithms | en:Category:Ensemble learning,Bootstrap aggregating
+Q812530,naive Bayes classifier,classification algorithm,concept,en:Category:Machine learning algorithms,Naive Bayes classifier
+Q830687,reinforcement learning,"type of machine learning where an agent learns how to behave in an environment by performing actions and receiving rewards or penalties in return, aiming to maximize the cumulative reward over time",concept,en:Category:Reinforcement learning,Reinforcement learning
+Q841934,image moment,weighted average/moment of some pixel intensities,concept,en:Category:Computer vision,Image moment
+Q844240,computer vision,computerized information extraction from images,concept,en:Category:Computer vision,Computer vision
+Q860755,image analysis,extraction of information from images via digital image processing techniques,concept,en:Category:Computer vision,Image analysis
+Q860822,image fusion,process of combining relevant information,concept,en:Category:Computer vision,Image fusion
+Q861092,image registration,mapping of images into a coherent coordinate system,concept,en:Category:Computer vision,Image registration
+Q863401,International Joint Conference on Artificial Intelligence,scientific conference on AI,concept,en:Category:Artificial intelligence conferences,International Joint Conference on Artificial Intelligence
+Q965395,RapidMiner,software,concept,en:Category:Data mining and machine learning software,RapidMiner
+Q970395,Shape context,,concept,en:Category:Computer vision,Shape context
+Q975453,General Architecture for Text Engineering,human language processing system,concept,en:Category:Data mining and machine learning software,General Architecture for Text Engineering
+Q1026367,scikit-learn,machine learning library for the Python programming language,concept,en:Category:Data mining and machine learning software,Scikit-learn
+Q1038799,Cognitive robotics,robot with processing architecture that will allow it to learn,concept,en:Category:Machine learning,Cognitive robotics
+Q1041418,semi-supervised learning,class of machine learning techniques combining a small amount of labeled data with a large amount of unlabeled data during training,concept,en:Category:Machine learning,Semi-supervised learning
+Q1064600,linear separability,geometric property of a pair of sets of points in Euclidean geometry,concept,en:Category:Machine learning,Linear separability
+Q1070689,digital image processing,processing of digitally-represented images with algorithms,concept,en:Category:Computer vision,Digital image processing
+Q1071612,k-nearest neighbors algorithm,classification algorithm,concept,en:Category:Machine learning algorithms,K-nearest neighbors algorithm
+Q1074074,inductive bias,"in a machine-learning algorithm, the set of assumptions that the learner uses to predict outputs of given inputs that it has not encountered",concept,en:Category:Machine learning,Inductive bias
+Q1124538,conditional random field,class of statistical modeling method applied in pattern recognition and machine learning and used for structured prediction,concept,en:Category:Machine learning,Conditional random field
+Q1136838,self-organizing map,machine learning technique useful for dimensionality reduction,concept,en:Category:Machine learning algorithms,Self-organizing map
+Q1172229,Data Mining Extensions,query language,concept,en:Category:Data mining and machine learning software,Data Mining Extensions
+Q1174228,EDLUT,Application software for simulating networks of spiking neurons,concept,en:Category:Data mining and machine learning software,EDLUT
+Q1192553,facial recognition system,computer application capable of identifying or verifying an individual person from a digital image,concept,en:Category:Machine learning task,Facial recognition system
+Q1268863,dynamic time warping,"algorithm for measuring similarity between two temporal sequences, which may vary in speed",concept,en:Category:Machine learning algorithms,Dynamic time warping
+Q1275153,expectation–maximization algorithm,iterative method for finding maximum likelihood estimates in statistical models,concept,en:Category:Machine learning algorithms,Expectation–maximization algorithm
+Q1320470,Rprop,learning heuristic for supervised learning,concept,en:Category:Machine learning algorithms,Rprop
+Q1326757,Quickprop,algorithm,concept,en:Category:Machine learning algorithms,Quickprop
+Q1376472,European Conference on Artificial Intelligence,biennial conference series on artificial intelligence,concept,en:Category:Artificial intelligence conferences,European Conference on Artificial Intelligence
+Q1392999,FICO,company,concept,en:Category:Data mining and machine learning software,FICO
+Q1409400,Gramian matrix,matrix of inner products of a set of vectors,concept,en:Category:Kernel methods for machine learning,Gram matrix
+Q1418474,version space,term in machine learning,concept,en:Category:Machine learning,Version space learning
+Q1425977,machine vision,industrial application of computer vision,concept,en:Category:Computer vision,Machine vision
+Q1430460,curse of dimensionality,various phenomena that arise when analyzing and organizing data in high-dimensional spaces that do not occur in low-dimensional settings such as the three-dimensional physical space of everyday experience,concept,en:Category:Machine learning,Curse of dimensionality
+Q1436857,SNNS,neural network simulation software,concept,en:Category:Data mining and machine learning software,SNNS
+Q1437394,formal concept analysis,a rigorous method of deriving an ontology from a collection of objects and their properties,concept,en:Category:Machine learning,Formal concept analysis
+Q1469792,salience,state or quality by which an item stands out from its neighbors,concept,en:Category:Computer vision,Salience (neuroscience)
+Q1485537,Structured-light 3D scanner,sensor that can create 3D scans using a patten of light,concept,en:Category:Computer vision,Structured-light 3D scanner
+Q1496376,Gaussian process,stochastic process such that every finite collection of random variables has a multivariate normal distribution,concept,en:Category:Kernel methods for machine learning,Gaussian process
+Q1497718,Force control,force control is given by the machine,concept,en:Category:Machine learning,Force control
+Q1539155,Apache UIMA,software and standard for data mining,concept,en:Category:Data mining and machine learning software,UIMA
+Q1653169,International Conference on Computer Vision,ICCV computer vision research conference,concept,en:Category:Signal processing conferences | en:Category:Artificial intelligence conferences,International Conference on Computer Vision
+Q1654181,INDECT,research project in the area of intelligent security systems,concept,en:Category:Computer vision,INDECT
+Q1660383,Journal of Machine Learning Research,journal,concept,en:Category:Machine learning,Journal of Machine Learning Research
+Q1671968,pose,position and orientation of an object in an image,concept,en:Category:Computer vision,Pose (computer vision)
+Q1768494,recursive self-improvement,ability of an artificial intelligence to modify itself to further improve its capability,concept,en:Category:Machine learning | en:Category:Machine learning algorithms,Recursive self-improvement
+Q1820283,Learning Vector Quantization,,concept,en:Category:Machine learning algorithms,Learning vector quantization
+Q2003932,SAS,statistical software,concept,en:Category:Data mining and machine learning software,SAS (software)
+Q2100760,Point distribution model,deformable contour model,concept,en:Category:Computer vision,Point distribution model
+Q2175573,RuleML Symposium,annual conference series rule markup language,concept,en:Category:Artificial intelligence conferences,RuleML Symposium
+Q2279750,Shogun,machine learning software library,concept,en:Category:Data mining and machine learning software,Shogun (toolbox)
+Q2329723,superellipsoid,closed surface that is a three dimensional analogue of a superellipse,concept,en:Category:Computer vision,Superellipsoid
+Q2440634,handwriting recognition,ability of a computer to receive and interpret intelligible handwritten input,concept,en:Category:Machine learning task,Handwriting recognition
+Q2453355,Dartmouth workshop,1956 AI workshop,concept,en:Category:Artificial intelligence conferences,Dartmouth workshop
+Q2473965,ugly duckling theorem,an argument showing that classification is not really possible without some sort of bias,concept,en:Category:Machine learning,Ugly duckling theorem
+Q2480102,L-1 Identity Solutions,American biometric technology corporation,concept,en:Category:Data mining and machine learning software,L-1 Identity Solutions
+Q2493877,Viola–Jones object detection framework,Machine learning algorithm,concept,en:Category:Computer vision,Viola–Jones object detection framework
+Q2636542,color histogram,representation of the distribution of colors in an image,concept,en:Category:Computer vision,Color histogram
+Q2664563,Q-learning,model-free reinforcement learning algorithm,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,Q-learning
+Q2679145,sequential minimal optimization,optimization algorithm for training support vector machines,concept,en:Category:Kernel methods for machine learning,Sequential minimal optimization
+Q2679684,radial basis function network,an artificial neural network that uses radial basis functions as activation functions,concept,en:Category:Machine learning algorithms,Radial basis function network
+Q2709591,confusion matrix,table layout for visualizing performance; also called an error matrix,concept,en:Category:Machine learning,Confusion matrix
+Q2823869,AdaBoost,boosting algorithm,concept,en:Category:Machine learning algorithms | en:Category:Ensemble learning,AdaBoost
+Q2843737,World Programming System,data analysis software,concept,en:Category:Data mining and machine learning software,World Programming System
+Q2882343,multi-armed bandit,reinforcement learning problem exemplifying the exploration–exploitation tradeoff,concept,en:Category:Machine learning,Multi-armed bandit
+Q2992422,Conference on Computer Vision and Pattern Recognition,CVPR conference series,concept,en:Category:Signal processing conferences | en:Category:Artificial intelligence conferences,Conference on Computer Vision and Pattern Recognition
+Q3045002,concept drift,change of statistical properties over time,concept,en:Category:Machine learning,Concept drift
+Q3058184,scale space,Framework for multi-scale signal representation,concept,en:Category:Computer vision,Scale space
+Q3060766,European Conference on Computer Vision,ECCV conference series,concept,en:Category:Signal processing conferences | en:Category:Artificial intelligence conferences,European Conference on Computer Vision
+Q3060767,European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases,academic conference on machine learning and knowledge discovery,concept,en:Category:Artificial intelligence conferences,ECML PKDD
+Q3136397,connected-component labeling,algorithm for finding contiguous subsets of pixels in a digital image,concept,en:Category:Computer vision,Connected-component labeling
+Q3333633,cross-entropy method,Monte Carlo method for importance sampling and optimization,concept,en:Category:Machine learning,Cross-entropy method
+Q3393413,landmark point,distinguished points within shapes,concept,en:Category:Computer vision,Landmark point
+Q3411251,pyramid,type of multi-scale signal representation,concept,en:Category:Computer vision,Pyramid (image processing)
+Q3422083,3D reconstruction from multiple images,creation of a 3D model from a set of images,concept,en:Category:Computer vision,3D reconstruction from multiple images
+Q3455882,Multivariate adaptive regression splines,non-parametric regression technique,concept,en:Category:Machine learning,Multivariate adaptive regression spline
+Q3460803,bag-of-words model,"model of text which uses a representation of text that is based on an unordered collection (a ""bag"") of words",concept,en:Category:Machine learning,Bag-of-words model
+Q3514922,Tanagra,machine learning software,concept,en:Category:Data mining and machine learning software,Tanagra (machine learning)
+Q3560506,anomaly detection,"The identification of rare items, events or observations which raise suspicions by differing significantly from the expected or majority of the data",concept,en:Category:Machine learning,Anomaly detection
+Q3739974,FastICA,Machine learning algorithm,concept,en:Category:Machine learning algorithms,FastICA
+Q3774432,Graph cuts in computer vision,Optimization technique,concept,en:Category:Computer vision,Graph cuts in computer vision and artificial intelligence
+Q4035469,BrownBoost,boosting algorithm,concept,en:Category:Ensemble learning,BrownBoost
+Q4111825,mlpy,,concept,en:Category:Data mining and machine learning software,Mlpy
+Q4330127,learning to rank,application of machine learning,concept,en:Category:Machine learning,Learning to rank
+Q4446229,superquadric,"family of geometric shapes defined by formulas that resemble those of ellipsoids and other quadrics, except that the squaring operations are replaced by arbitrary powers",concept,en:Category:Computer vision,Superquadrics
+Q4464732,3D reconstruction,reconstruction,concept,en:Category:Computer vision,3D reconstruction
+Q4636322,3D pose estimation,process of determining spatial characteristics of objects,concept,en:Category:Computer vision,3D pose estimation
+Q4651792,AI@50,conference,concept,en:Category:Artificial intelligence conferences,AI@50
+Q4677561,active learning,machine learning strategy in which a learning algorithm interactively queries for new labels,concept,en:Category:Machine learning,Active learning (machine learning)
+Q4677596,Active vision,area of computer vision,concept,en:Category:Computer vision,Active vision
+Q4724363,algorithmic inference,,concept,en:Category:Machine learning,Algorithmic inference
+Q4726582,Alignments of random points,Phenomenon in statistics,concept,en:Category:Computer vision,Alignments of random points
+Q4733753,Almeida–Pineda recurrent backpropagation,supervised learning algorithm,concept,en:Category:Machine learning algorithms,Almeida–Pineda recurrent backpropagation
+Q4763862,Angoss,Canadian software company,concept,en:Category:Data mining and machine learning software,Angoss
+Q4768692,Anne O'Tate,web-based application that analyses sets of records identified on PubMed,concept,en:Category:Data mining and machine learning software,Anne O'Tate
+Q4778931,Apache Mahout,open-source implementation of machine learning algorithms,concept,en:Category:Data mining and machine learning software,Apache Mahout
+Q4781707,Apprenticeship learning,Concept in artificial intelligence,concept,en:Category:Machine learning,Apprenticeship learning
+Q4800952,Articulated body pose estimation,field of study in computer vision,concept,en:Category:Computer vision,Articulated body pose estimation
+Q4810835,Weasel program,thought experiment in evolutionary science,concept,en:Category:Machine learning algorithms,Weasel program
+Q4811327,Phi coefficient,type of coefficient,concept,en:Category:Machine learning,Phi coefficient
+Q4811716,astrostatistics,"branch of statistics combining astrophysics, statistical analysis and data mining",concept,en:Category:Machine learning,Astrostatistics
+Q4826411,Automated Imaging Association,,concept,en:Category:Computer vision,Automated Imaging Association
+Q4851284,Ball tree,space partitioning data structure,concept,en:Category:Machine learning,Ball tree
+Q4866405,base rate,mathematical concept,concept,en:Category:Machine learning,Base rate
+Q4874475,Bayesian interpretation of regularization,Bayesian framework,concept,en:Category:Machine learning,Bayesian interpretation of kernel regularization
+Q5011757,CIML community portal,virtual scientific community for computational intelligence and machine learning,concept,en:Category:Machine learning,CIML community portal
+Q5013064,CN2 algorithm,,concept,en:Category:Machine learning algorithms,CN2 algorithm
+Q5048220,Cascading classifiers,multistage classification scheme,concept,en:Category:Ensemble learning,Cascading classifiers
+Q5051858,Category utility,"measure of ""category goodness""",concept,en:Category:Machine learning,Category utility
+Q5058129,CellCognition,software for microscopy,concept,en:Category:Data mining and machine learning software,CellCognition
+Q5134949,Clonal Selection Algorithm,,concept,en:Category:Machine learning algorithms,Clonal selection algorithm
+Q5148620,Color normalization,,concept,en:Category:Computer vision,Color normalization
+Q5157334,computational photography,digital image capture and processing techniques that use digital computation instead of optical processes,concept,en:Category:Computer vision,Computational photography
+Q5159175,Condensation algorithm,"in computer science, a computer vision algorithm",concept,en:Category:Computer vision,Condensation algorithm
+Q5163937,Constellation model,,concept,en:Category:Learning in computer vision,Constellation model
+Q5164411,Constructing skill trees,machine learning algorithm,concept,en:Category:Machine learning algorithms,Constructing skill trees
+Q5165192,contextual image classification,classification based on contextual information in images,concept,en:Category:Computer vision,Contextual image classification
+Q5178023,Coupled pattern learner,machine learning algorithm,concept,en:Category:Machine learning,Coupled pattern learner
+Q5192285,Cuboid,feature used for behavior recognition in video,concept,en:Category:Computer vision,Cuboid (computer vision)
+Q5193250,Cultural algorithm,type of evolutionary computation in computer science,concept,en:Category:Machine learning algorithms,Cultural algorithm
+Q5227332,data pre-processing,manipulation of data before it is analyzed,concept,en:Category:Machine learning,Data preprocessing
+Q5249237,Decision list,,concept,en:Category:Machine learning,Decision list
+Q5250360,Deep Web Technologies,software company that specializes in mining the deep Web,concept,en:Category:Data mining and machine learning software,Deep Web Technologies
+Q5251583,Defining length,concept in genetic algorithm theory,concept,en:Category:Machine learning algorithms,Defining length
+Q5252204,Dehaene–Changeux model,model of consciousness,concept,en:Category:Machine learning algorithms,Dehaene–Changeux model
+Q5266817,Developmental robotics,field of scientific study,concept,en:Category:Machine learning,Developmental robotics
+Q5275440,Diffusion map,dimensional reduction algorithm,concept,en:Category:Machine learning algorithms,Diffusion map
+Q5287644,Document mosaicing,,concept,en:Category:Computer vision,Document mosaicing
+Q5290286,dominance-based rough set approach,approach in multi-criteria decision analysis,concept,en:Category:Machine learning algorithms,Dominance-based rough set approach
+Q5322805,ECognition,ecognition,concept,en:Category:Computer vision,Cognition Network Technology
+Q5337733,Edge recombination operator,operator in genetic algorithms,concept,en:Category:Machine learning algorithms,Edge recombination operator
+Q5348899,EigenMoments,,concept,en:Category:Computer vision,Eigenmoments
+Q5353562,elastic net regularization,stastical regression method,concept,en:Category:Machine learning algorithms,Elastic net regularization
+Q5369094,FERET database,dataset used for facial recognition system evaluation,concept,en:Category:Machine learning task,FERET database
+Q5370755,Emergent,neural simulation software,concept,en:Category:Data mining and machine learning software,Emergent (software)
+Q5374254,empirical risk minimization,"in computer science, a way to determine theoretical bounds in machine learning",concept,en:Category:Machine learning,Empirical risk minimization
+Q5375504,Encog,machine learning framework,concept,en:Category:Data mining and machine learning software,Encog
+Q5395689,Error-driven learning,subfield of machine learning,concept,en:Category:Machine learning algorithms,Error-driven learning
+Q5396532,MALLET,software with machine learning and NLP functions,concept,en:Category:Data mining and machine learning software,Mallet (software project)
+Q5418713,Evolutionary multimodal optimization,finding all or most of the multiple (at least locally optimal) solutions of a problem,concept,en:Category:Machine learning algorithms,Evolutionary multimodal optimization
+Q5418724,Evolvability,framework of computational learning,concept,en:Category:Machine learning,Evolvability (computer science)
+Q5420835,expectation propagation,method to approximate a probability distribution,concept,en:Category:Machine learning,Expectation propagation
+Q5425372,FERET,,concept,en:Category:Machine learning task,FERET (facial recognition technology)
+Q5439675,Feature Selection Toolbox,Software application,concept,en:Category:Data mining and machine learning software,Feature Selection Toolbox
+Q5439682,feature hashing,vectorizing features using a hash function,concept,en:Category:Machine learning,Feature hashing
+Q5439686,Feature scaling,method used to normalize the range of independent variables,concept,en:Category:Machine learning,Feature scaling
+Q5527845,Gaussian process emulator,special case of the Gaussian process in statistics,concept,en:Category:Ensemble learning,Gaussian process emulator
+Q5531056,GeneRec,,concept,en:Category:Machine learning algorithms,GeneRec
+Q5531551,Gene expression programming,evolutionary algorithm,concept,en:Category:Machine learning algorithms,Gene expression programming
+Q5532460,"Generalized additive model for location, scale and shape",Distributional regression model,concept,en:Category:Machine learning,"Generalized additive model for location, scale and shape"
+Q5532625,generative model,model for randomly generating observable data in probability and statistics,concept,en:Category:Machine learning,Generative model
+Q5532859,Genetic Algorithm for Rule Set Production,to determine ecological niches,concept,en:Category:Machine learning algorithms,Genetic Algorithm for Rule Set Production
+Q5532874,genetic algorithm scheduling,,concept,en:Category:Machine learning algorithms,Genetic algorithm scheduling
+Q5532900,Genetic fuzzy systems,,concept,en:Category:Machine learning algorithms,Genetic fuzzy systems
+Q5532909,Genetic memory,,concept,en:Category:Machine learning algorithms,Genetic memory (computer science)
+Q5535480,geometric feature learning,technique combining machine learning and computer vision to solve visual tasks,concept,en:Category:Machine learning,Geometric feature learning
+Q5535489,Geometric hashing,Search algorithm,concept,en:Category:Computer vision,Geometric hashing
+Q5571831,Glossary of machine vision,,concept,en:Category:Computer vision,Glossary of machine vision
+Q5591907,gradient boosting,"machine learning technique based on boosting in a functional space, where the target is pseudo-residuals instead of residuals as in traditional boosting",concept,en:Category:Ensemble learning,Gradient boosting
+Q5592506,Grafting,process of adding nodes to inferred decision trees in computer science,concept,en:Category:Machine learning algorithms,Grafting (decision trees)
+Q5596712,Granular computing,"computing paradigm based on information entities (""granules"")",concept,en:Category:Machine learning,Granular computing
+Q5597063,GraphLab,,concept,en:Category:Data mining and machine learning software,GraphLab
+Q5607337,Gremlin,graph traversal language,concept,en:Category:Data mining and machine learning software,Gremlin (query language)
+Q5611677,Growing self-organizing map,growing variant of a self-organizing map,concept,en:Category:Machine learning algorithms,Growing self-organizing map
+Q5767098,hinge loss,"in machine learning, a loss function used for maximum‐margin classification",concept,en:Category:Kernel methods for machine learning,Hinge loss
+Q5936775,human-in-the-loop,"method, design principle",concept,en:Category:Machine learning,Human-in-the-loop
+Q5957579,HyperNEAT,generative encoding that evolves artificial neural networks,concept,en:Category:Machine learning algorithms,HyperNEAT
+Q6002088,ImageNets,machine vision platform,concept,en:Category:Learning in computer vision,ImageNets
+Q6002224,image formation,radiometric and geometric processes by which 2D images of 3D objects are formed,concept,en:Category:Computer vision,Image formation
+Q6027324,transfer learning,research problem in machine learning (ML) that focuses on storing knowledge gained while solving one problem and applying it to a different but related problem,concept,en:Category:Machine learning,Transfer learning
+Q6029264,Inferential theory of learning,area of machine learning,concept,en:Category:Machine learning,Inferential theory of learning
+Q6033780,Inheritance (genetic algorithm),computer science property of heuristically modeled objects,concept,en:Category:Machine learning algorithms,Inheritance (genetic algorithm)
+Q6049570,"International Conference on Acoustics, Speech, and Signal Processing",ICASSP conference series,concept,en:Category:Signal processing conferences | en:Category:Artificial intelligence conferences,"International Conference on Acoustics, Speech, and Signal Processing"
+Q6049588,International Conference on Autonomous Agents and Multiagent Systems,AAMAS conference series,concept,en:Category:Artificial intelligence conferences,International Conference on Autonomous Agents and Multiagent Systems
+Q6053150,International Semantic Web Conference,ISWC conference series,concept,en:Category:Artificial intelligence conferences,International Semantic Web Conference
+Q6087864,Promoter based genetic algorithm,genetic algorithm for neuroevolution,concept,en:Category:Machine learning algorithms,Promoter based genetic algorithm
+Q6108643,JOONE,component-based neural network framework for the Java platform,concept,en:Category:Data mining and machine learning software,JOONE
+Q6269161,Joint Compatibility Branch and Bound,computer vision algorithm,concept,en:Category:Computer vision,Joint compatibility branch and bound
+Q6341142,KXEN Inc.,California software company,concept,en:Category:Data mining and machine learning software,KXEN Inc.
+Q6394192,Kernel adaptive filter,,concept,en:Category:Kernel methods for machine learning,Kernel adaptive filter
+Q6394193,Kernel eigenvoice,,concept,en:Category:Kernel methods for machine learning,Kernel eigenvoice
+Q6423376,Knowledge integration,in epistemology,concept,en:Category:Machine learning,Knowledge integration
+Q6459671,LPBoost,supervised boosting classification model,concept,en:Category:Ensemble learning,LPBoost
+Q6486941,Languageware,,concept,en:Category:Data mining and machine learning software,LanguageWare
+Q6497099,Lattice Miner,,concept,en:Category:Data mining and machine learning software,Lattice Miner
+Q6508265,Leabra,,concept,en:Category:Machine learning algorithms,Leabra
+Q6510160,Learning automata,Machine learning algorithm,concept,en:Category:Machine learning,Learning automaton
+Q6544586,Life-time of correlation,,concept,en:Category:Machine learning,Life-time of correlation
+Q6552455,Linde–Buzo–Gray algorithm,algorithm in vector quantization to derive a good codebook,concept,en:Category:Machine learning algorithms,Linde–Buzo–Gray algorithm
+Q6553486,Linear predictor function,,concept,en:Category:Machine learning,Linear predictor function
+Q6553702,social network analysis software,software which facilitates quantitative or qualitative analysis of social networks,concept,en:Category:Data mining and machine learning software,Social network analysis software
+Q6613155,list of computer vision topics,Wikimedia list article,concept,en:Category:Computer vision,Outline of computer vision
+Q6621582,list of genetic algorithm applications,Wikimedia list article,concept,en:Category:Machine learning algorithms,List of genetic algorithm applications
+Q6626816,outline of machine learning,Wikimedia list article,concept,en:Category:Machine learning,Outline of machine learning
+Q6664560,local ternary patterns,image processing process,concept,en:Category:Computer vision,Local ternary patterns
+Q6667682,LogitBoost,boosting algorithm,concept,en:Category:Machine learning algorithms | en:Category:Ensemble learning,LogitBoost
+Q6760393,margin,distance between a decision boundary and a data point,concept,en:Category:Kernel methods for machine learning,Margin (machine learning)
+Q6787576,Mating pool,A family of algorithms selected by the selection operators.,concept,en:Category:Machine learning algorithms,Mating pool
+Q6803557,Mean-shift,algorithm used to determine the modes of distribution of probability of a dataset,concept,en:Category:Computer vision,Mean shift
+Q6807467,MeeMix,,concept,en:Category:Data mining and machine learning software,MeeMix
+Q6822311,meta-learning,subfield of machine learning where automatic learning algorithms are applied to metadata about machine learning experiments,concept,en:Category:Machine learning,Meta-learning (computer science)
+Q6825935,Mexican International Conference on Artificial Intelligence,annual conference,concept,en:Category:Artificial intelligence conferences,Mexican International Conference on Artificial Intelligence
+Q6924889,Mountain Car,standard testing domain in Reinforced learning,concept,en:Category:Machine learning,Mountain car problem
+Q6934491,Multi-scale approaches,,concept,en:Category:Computer vision,Multi-scale approaches
+Q6934509,multi-task learning,form of machine learning where a model learns multiple tasks,concept,en:Category:Machine learning,Multi-task learning
+Q6934870,multiple-instance learning,"weakly-supervised learning algorithms where training set is arranged in a labeled bag of instances, and a single class label is assigned to a bag",concept,en:Category:Machine learning,Multiple-instance learning
+Q6951489,N-jet,Type of a jet,concept,en:Category:Computer vision,N-jet
+Q6988045,Neighborhood operation,,concept,en:Category:Computer vision,Neighborhood operation
+Q6998278,NetMiner,software technology,concept,en:Category:Data mining and machine learning software,NetMiner
+Q7002113,NeuroSolutions,neural network development environment,concept,en:Category:Data mining and machine learning software,NeuroSolutions
+Q7002196,Neuroevolution of augmenting topologies,genetic algorithm for the generation of evolving artificial neural networks developed by Ken Stanley in 2002,concept,en:Category:Machine learning algorithms,Neuroevolution of augmenting topologies
+Q7002543,Neuroph,software framework,concept,en:Category:Data mining and machine learning software,Neuroph
+Q7003853,Never-Ending Language Learning,semantic machine learning system,concept,en:Category:Data mining and machine learning software,Never-Ending Language Learning
+Q7064603,Novelty detection,,concept,en:Category:Machine learning,Novelty detection
+Q7079636,offline machine learning,method of machine learning,concept,en:Category:Machine learning,Offline learning
+Q7092335,one-shot learning,object categorization problem that aims to learn information about object categories from one training sample,concept,en:Category:Machine learning algorithms | en:Category:Computer vision,One-shot learning (computer vision)
+Q7094097,online machine learning,"a method where a model is trained incrementally on data as it becomes available, in contrast to batch learning where the entire dataset is used at once",concept,en:Category:Machine learning algorithms,Online machine learning
+Q7099259,Oracle Data Mining,,concept,en:Category:Data mining and machine learning software,Oracle Data Mining
+Q7121128,PVLV,Neuroscience term,concept,en:Category:Machine learning algorithms,PVLV
+Q7137535,parity learning,problem in machine learning,concept,en:Category:Machine learning,Parity learning
+Q7180943,Phase correlation,analysis of translative movement between images,concept,en:Category:Computer vision,Phase correlation
+Q7187638,Photo-consistency,Computer vision Terminology,concept,en:Category:Computer vision,Photo-consistency
+Q7191053,Picollator,,concept,en:Category:Data mining and machine learning software,Picollator
+Q7197271,Pipeline Pilot,desktop software program to process and analyze data,concept,en:Category:Data mining and machine learning software,Pipeline Pilot
+Q7226642,Polynomial kernel,machine learning kernel function,concept,en:Category:Kernel methods for machine learning,Polynomial kernel
+Q7229773,Population-based incremental learning,Optimization algorithm,concept,en:Category:Machine learning algorithms,Population-based incremental learning
+Q7239670,predictive learning,"machine learning models which are trained to analyze historical data to find patterns and trends, allowing it to predict future outcomes",concept,en:Category:Machine learning,Predictive learning
+Q7239676,Predictive state representation,,concept,en:Category:Machine learning,Predictive state representation
+Q7239820,preference learning,Subfield of machine learning,concept,en:Category:Machine learning,Preference learning
+Q7239869,prefrontal cortex basal ganglia working memory,algorithm,concept,en:Category:Machine learning algorithms,Prefrontal cortex basal ganglia working memory
+Q7240899,prescription monitoring program,state-run program which collects and distributes data about the prescription and dispensation of federally controlled substances and other potentially addictive prescription drugs,concept,en:Category:Machine learning algorithms,Prescription monitoring program
+Q7246814,Proactive learning,,concept,en:Category:Machine learning,Proactive learning
+Q7246818,Proaftn,,concept,en:Category:Machine learning,Proaftn
+Q7246881,Probability matching,decision strategy,concept,en:Category:Machine learning,Probability matching
+Q7247781,Product of experts,Machine learning technique,concept,en:Category:Machine learning,Product of experts
+Q7248496,programming by example,using concrete examples to teach computers behaviors,concept,en:Category:Machine learning,Programming by example
+Q7268372,Quadratic unconstrained binary optimization,combinatorial optimization problem,concept,en:Category:Machine learning algorithms,Quadratic unconstrained binary optimization
+Q7268775,Quality control and genetic algorithms,,concept,en:Category:Machine learning algorithms,Quality control and genetic algorithms
+Q7280263,radial basis function kernel,machine learning kernel function,concept,en:Category:Kernel methods for machine learning,Radial basis function kernel
+Q7291993,Random subspace method,method in machine learning,concept,en:Category:Ensemble learning,Random subspace method
+Q7292011,Randomized weighted majority algorithm,,concept,en:Category:Machine learning algorithms,Randomized weighted majority algorithm
+Q7293290,Ranking SVM,Variant of the SVM algorithm,concept,en:Category:Kernel methods for machine learning,Ranking SVM
+Q7295965,Rattle GUI,Interface for using the R programming language,concept,en:Category:Data mining and machine learning software,Rattle GUI
+Q7309628,Regularization perspectives on support vector machines,,concept,en:Category:Kernel methods for machine learning,Regularization perspectives on support vector machines
+Q7310712,relational data mining,data mining technique for relational databases,concept,en:Category:Machine learning,Relational data mining
+Q7310863,Relaxation labelling,,concept,en:Category:Computer vision,Relaxation labelling
+Q7310972,relevance vector machine,machine learning technique,concept,en:Category:Kernel methods for machine learning,Relevance vector machine
+Q7353390,robot learning,machine learning for robots,concept,en:Category:Machine learning,Robot learning
+Q7378945,Rule induction,area of machine learning,concept,en:Category:Machine learning,Rule induction
+Q7388768,SARSA,machine learning algorithm,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,State–action–reward–state–action
+Q7392671,SPSS Modeler,Data analytics software,concept,en:Category:Data mining and machine learning software,SPSS Modeler
+Q7429707,Scale-space axioms,,concept,en:Category:Computer vision,Scale-space axioms
+Q7429727,Scale space implementation,,concept,en:Category:Computer vision,Scale space implementation
+Q7431116,schema,template identifying a subset of strings in genetic algorithms,concept,en:Category:Machine learning algorithms,Schema (genetic algorithms)
+Q7449044,Semantic analysis,machine learning method for concept approximation,concept,en:Category:Machine learning,Semantic analysis (machine learning)
+Q7452468,sequence labeling,pattern recognition,concept,en:Category:Machine learning,Sequence labeling
+Q7535187,Skill chaining,,concept,en:Category:Machine learning algorithms,Skill chaining
+Q7559004,SolveIT Software,Australian enterprise software provider,concept,en:Category:Data mining and machine learning software,SolveIT Software
+Q7573619,Apache Spark,open-source data analytics cluster computing framework,concept,en:Category:Data mining and machine learning software,Apache Spark
+Q7573786,Sparse PCA,Statistical technique,concept,en:Category:Machine learning algorithms,Sparse PCA
+Q7595718,algorithmic stability,notion in computational learning theory,concept,en:Category:Machine learning,Stability (learning theory)
+Q7604400,statistical learning theory,theoretical framework for machine learning,concept,en:Category:Machine learning,Statistical learning theory
+Q7604413,statistical relational learning,subdiscipline of artificial intelligence,concept,en:Category:Machine learning,Statistical relational learning
+Q7604414,Statistical shape analysis,Analysis of geometric properties,concept,en:Category:Computer vision,Statistical shape analysis
+Q7617819,stochastic gradient descent,gradient descent method used for the minimization of an objective function,concept,en:Category:Machine learning algorithms,Stochastic gradient descent
+Q7623983,String kernel,,concept,en:Category:Kernel methods for machine learning,String kernel
+Q7625053,Structural risk minimization,principle in machine learning,concept,en:Category:Machine learning,Structural risk minimization
+Q7625184,Structured SVM,machine learning algorithm,concept,en:Category:Kernel methods for machine learning,Structured support vector machine
+Q7646884,surrogate model,"engineering method used when an outcome of interest cannot be easily directly measured, so a model of the outcome is used instead",concept,en:Category:Machine learning,Surrogate model
+Q7669824,TD-Gammon,computer backgammon program developed in 1992,concept,en:Category:Reinforcement learning,TD-Gammon
+Q7698910,Temporal difference learning,intelligent Tutoring System,concept,en:Category:Reinforcement learning,Temporal difference learning
+Q7708503,Texton,,concept,en:Category:Computer vision,Texton
+Q7777252,Theano,numerical computation library for Python,concept,en:Category:Data mining and machine learning software,Theano (software)
+Q7833965,Transduction,Type of statistical inference,concept,en:Category:Machine learning,Transduction (machine learning)
+Q7882489,uncertain data,,concept,en:Category:Machine learning,Uncertain data
+Q7885099,uniform convergence in probability,notion of convergence of random variables,concept,en:Category:Machine learning,Uniform convergence in probability
+Q7894147,Universal portfolio algorithm,portfolio selection algorithm,concept,en:Category:Machine learning,Universal portfolio algorithm
+Q7906991,VIGRA,open-source computer vision library,concept,en:Category:Data mining and machine learning software,VIGRA
+Q7924307,ViBe,,concept,en:Category:Computer vision,ViBe
+Q7942323,Vowpal Wabbit,open source online machine learning library and program,concept,en:Category:Data mining and machine learning software,Vowpal Wabbit
+Q7959435,Waffles,collection of command-line tools for performing machine learning operations,concept,en:Category:Data mining and machine learning software,Waffles (machine learning)
+Q7960888,wake-sleep algorithm,unsupervised learning algorithm,concept,en:Category:Machine learning algorithms,Wake-sleep algorithm
+Q7979889,weighted majority algorithm,method of using a pool of algorithms,concept,en:Category:Machine learning algorithms,Weighted majority algorithm (machine learning)
+Q8563425,Fisher kernel,,concept,en:Category:Kernel methods for machine learning,Fisher kernel
+Q10843505,non-negative matrix factorization,algorithms for matrix decomposition,concept,en:Category:Machine learning algorithms,Non-negative matrix factorization
+Q11249674,Sammon projection,Machine learning algorithm,concept,en:Category:Machine learning algorithms,Sammon mapping
+Q11611718,Background subtraction,,concept,en:Category:Computer vision,Background subtraction
+Q11681118,binocular disparity,binocular cue to determine depth or distance of an object,concept,en:Category:Computer vision,Binocular disparity
+Q11731931,graph kernel,,concept,en:Category:Kernel methods for machine learning,Graph kernel
+Q14947941,Solomonoff's theory of inductive inference,"mathematical formalization of Occam's razor that, assuming the world is generated by a computer program, the most likely one is the shortest, using Bayesian inference",concept,en:Category:Machine learning,Solomonoff's theory of inductive inference
+Q15058706,point set registration,computerised pattern matching,concept,en:Category:Computer vision,Point-set registration
+Q15712089,inductive programming,learning programs from data,concept,en:Category:Machine learning,Inductive programming
+Q15952517,Tango,mobile computer vision platform for Android developed by Google,concept,en:Category:Computer vision,Tango (platform)
+Q15991488,Vicarious,artificial intelligence company,concept,en:Category:Computer vision,Vicarious (company)
+Q16000131,kernel embedding of distributions,comprises a class of nonparametric methods in which a probability distribution is represented as an element of a reproducing kernel Hilbert space,concept,en:Category:Machine learning,Kernel embedding of distributions
+Q16250539,fitness approximation,method of function optimization evolutionary computation or artificial evolution methodologies,concept,en:Category:Machine learning,Fitness approximation
+Q16255329,Jubatus,,concept,en:Category:Data mining and machine learning software,Jubatus
+Q16335223,Genetic algorithms in economics,,concept,en:Category:Machine learning algorithms,Genetic algorithms in economics
+Q16766476,decision tree learning,algorithm that recursively splits data on attributes to build a tree for classification or regression,concept,en:Category:Machine learning algorithms,Decision tree learning
+Q16879459,Query level feature,,concept,en:Category:Machine learning algorithms,Query-level feature
+Q16927968,Apache Giraph,open-source graph processing software,concept,en:Category:Data mining and machine learning software,Apache Giraph
+Q16928018,Massive Online Analysis,software,concept,en:Category:Data mining and machine learning software,Massive Online Analysis
+Q16950911,Conference on Artificial General Intelligence,annual conference series on artificial general intelligence,concept,en:Category:Artificial intelligence conferences,Conference on Artificial General Intelligence
+Q16972732,H2O,machine learning library,concept,en:Category:Machine learning,H2O (software)
+Q16975325,Programming with Big Data in R,series of R packages and an environment for statistical computing with big data,concept,en:Category:Data mining and machine learning software,Programming with Big Data in R
+Q16997789,boustrophedon cell decomposition,algorithmic method used in artificial intelligence and robotics for optimizing the configuration space with a minimum total redundant path length to follow in order to avoid obstacles,concept,en:Category:Computer vision,Boustrophedon cell decomposition
+Q17002908,Bayesian optimization,"optimization technique for undifferentiable, black-box functions",concept,en:Category:Machine learning,Bayesian optimization
+Q17003119,bias–variance tradeoff,"property of a set of predictive models whereby models with a lower bias in parameter estimation have a higher variance of the parameter estimates across samples, and vice versa",concept,en:Category:Machine learning,Bias–variance tradeoff
+Q17004595,neural network software,"software used to simulate, research, develop, and apply artificial neural networks",concept,en:Category:Data mining and machine learning software,Neural network software
+Q17005296,Co-training,Machine learning algorithm,concept,en:Category:Machine learning | en:Category:Machine learning algorithms,Co-training
+Q17005494,binary classification,the task of classifying the elements of a given set into two groups (predicting which group each one belongs to) on the basis of a classification rule,concept,en:Category:Machine learning,Binary classification
+Q17008388,Cyclodisparity,,concept,en:Category:Computer vision,Cyclodisparity
+Q17009745,DADiSP,numerical computing environment,concept,en:Category:Data mining and machine learning software,DADiSP
+Q17013334,feature learning,a set of techniques that learn a feature: a transformation of raw data input to a representation that can be effectively exploited in machine learning tasks,concept,en:Category:Machine learning,Representation learning
+Q17029017,iDistance,,concept,en:Category:Machine learning algorithms,IDistance
+Q17029215,Ilastik,software,concept,en:Category:Data mining and machine learning software,Ilastik
+Q17050471,Inductive probability,determining the probability of future events based on past events,concept,en:Category:Machine learning,Inductive probability
+Q17052162,Dlib,general purpose cross-platform free software library,concept,en:Category:Data mining and machine learning software,Dlib
+Q17064545,LIBSVM,library for support vector machines,concept,en:Category:Data mining and machine learning software,LIBSVM
+Q17068315,Manifold alignment,Class of machine learning algorithms,concept,en:Category:Machine learning algorithms,Manifold alignment
+Q17069495,mlpack,C++ machine learning library,concept,en:Category:Data mining and machine learning software,Mlpack
+Q17071093,Umoove,,concept,en:Category:Computer vision,Umoove
+Q17071398,Neural modeling fields,,concept,en:Category:Machine learning,Neural modeling fields
+Q17086219,Least squares support vector machine,,concept,en:Category:Kernel methods for machine learning,Least-squares support vector machine
+Q17086776,Proximal gradient methods for learning,Computer optimization methods,concept,en:Category:Machine learning,Proximal gradient methods for learning
+Q17087180,Torch,deep learning software,concept,en:Category:Data mining and machine learning software,Torch (machine learning)
+Q17087718,International Conference on Machine Learning,"ICML, leading international academic conference in machine learning",concept,en:Category:Artificial intelligence conferences,International Conference on Machine Learning
+Q17087827,Computational Intelligence Methods for Bioinformatics and Biostatistics,annual conference series on computational intelligence for bioinformatics and biostatistics,concept,en:Category:Artificial intelligence conferences,International Conference on Computational Intelligence Methods for Bioinformatics and Biostatistics
+Q17092447,Information Harvesting,,concept,en:Category:Data mining and machine learning software,Information Harvesting
+Q17092636,Intrinsic dimension,the number of variables needed in a minimal representation of the data,concept,en:Category:Computer vision,Intrinsic dimension
+Q17093018,kernel perceptron,,concept,en:Category:Kernel methods for machine learning,Kernel perceptron
+Q17093020,kernel principal component analysis,multivariate analysis technique with kernel method,concept,en:Category:Kernel methods for machine learning | en:Category:Machine learning algorithms,Kernel principal component analysis
+Q17099228,list of text mining software,Wikimedia list article,concept,en:Category:Data mining and machine learning software,List of text mining software
+Q17100712,Kernel methods for vector output,,concept,en:Category:Kernel methods for machine learning | en:Category:Machine learning algorithms,Kernel methods for vector output
+Q17101526,Inauthentic text,meaningless computer-generated text,concept,en:Category:Machine learning,Inauthentic text
+Q17104641,NetOwl,,concept,en:Category:Data mining and machine learning software,NetOwl
+Q17104899,OpenNN,Open neural networks library,concept,en:Category:Data mining and machine learning software,OpenNN
+Q17105246,Phase congruency,,concept,en:Category:Computer vision,Phase congruency
+Q17105451,Randomized Hough transform,,concept,en:Category:Computer vision,Randomized Hough transform
+Q17120636,Photometric stereo,3D imaging technique,concept,en:Category:Computer vision,Photometric stereo
+Q17138905,Minimum redundancy feature selection,,concept,en:Category:Machine learning algorithms,Minimum redundancy feature selection
+Q17141258,instance-based learning,"family of learning algorithms that, instead of performing explicit generalization, compares new problem instances with instances seen in training, which have been stored in memory",concept,en:Category:Machine learning,Instance-based learning
+Q17141434,stereo cameras,method of video processing using stereoscopic video feeds,concept,en:Category:Computer vision,Stereo cameras
+Q17144425,PatchMatch,algorithm for manipulating images,concept,en:Category:Computer vision,PatchMatch
+Q17146059,Prior knowledge,,concept,en:Category:Machine learning,Prior knowledge for pattern recognition
+Q17146505,similarity learning,"an area of supervised machine learning in artificial intelligence. It is closely related to regression and classification, but the goal is to learn from examples a similarity function that measures how similar or related two objects are",concept,en:Category:Machine learning,Similarity learning
+Q17147020,Peltarion Synapse,component-based integrated development environment for neural networks and adaptive systems,concept,en:Category:Data mining and machine learning software,Peltarion Synapse
+Q17156908,pattern language,"class of strings generated from a pattern by substitutions, in formal language theory and machine learning",concept,en:Category:Machine learning,Pattern language (formal languages)
+Q18171762,Symbolic regression,type of regression analysis,concept,en:Category:Machine learning,Symbolic regression
+Q18204908,AIXI,mathematical formalism for artificial general intelligence combining Solomonoff induction with sequential decision theory,concept,en:Category:Machine learning,AIXI
+Q18206387,Deeplearning4j,open source deep learning library,concept,en:Category:Data mining and machine learning software,Deeplearning4j
+Q18206917,evaluation of binary classifiers,overview about the evaluation of binary classifiers,concept,en:Category:Machine learning,Evaluation of binary classifiers
+Q18354077,Sample complexity,attribute of machine learning models,concept,en:Category:Machine learning,Sample complexity
+Q18385802,PSIPRED,software,concept,en:Category:Data mining and machine learning software,PSIPRED
+Q18387205,t-Distributed Stochastic Neighbor Embedding,technique for dimensionality reduction,concept,en:Category:Machine learning algorithms,T-distributed stochastic neighbor embedding
+Q18388711,Piranha,text mining software,concept,en:Category:Data mining and machine learning software,Piranha (software)
+Q18578782,Spatial Verification (Computer Vision),,concept,en:Category:Computer vision,Spatial verification
+Q18754154,Self-Service Semantic Suite,,concept,en:Category:Data mining and machine learning software,Self-Service Semantic Suite
+Q18811578,quantum machine learning,"Quantum Machine Learning combines quantum computing and ML to enhance algorithms, leveraging unique quantum properties, like superposition and entanglement , for efficient problem-solving.",concept,en:Category:Machine learning,Quantum machine learning
+Q19246213,Domain Adaptation,field associated with machine learning and transfer learning,concept,en:Category:Machine learning,Domain adaptation
+Q19325300,Neural Designer,Professional application for data mining,concept,en:Category:Data mining and machine learning software,Neural Designer
+Q19630590,Native Language Identification,determining someone's first language based on how they write or speak a different language,concept,en:Category:Machine learning,Native-language identification
+Q19863702,Distributed R,,concept,en:Category:Data mining and machine learning software,Distributed R
+Q20312394,adversarial machine learning,machine learning technique that attempts to prevent models being fooled by supplying deceptive input,concept,en:Category:Machine learning,Adversarial machine learning
+Q20716433,OrCam device,"portable, artificial vision device",concept,en:Category:Computer vision,OrCam device
+Q20789991,lasso,statistical method,concept,en:Category:Machine learning algorithms,Lasso (statistics)
+Q21428158,The Master Algorithm,book by Pedro Domingos,concept,en:Category:Machine learning,The Master Algorithm
+Q22077985,Frrole,social intelligence company,concept,en:Category:Data mining and machine learning software,Frrole
+Q22096657,Fluentd,data collection software,concept,en:Category:Data mining and machine learning software,Fluentd
+Q22245680,feature engineering,process that creates features for machine learning by transforming or combining existing features,concept,en:Category:Machine learning,Feature engineering
+Q22305517,Rademacher Complexity,measure of complexity of real-valued functions,concept,en:Category:Machine learning,Rademacher complexity
+Q22337370,A logical calculus of the ideas immanent in nervous activity,scientific article,concept,en:Category:Machine learning,A Logical Calculus of the Ideas Immanent in Nervous Activity
+Q22348165,Apache MXNet,multi-language machine learning library,concept,en:Category:Data mining and machine learning software,Apache MXNet
+Q22681943,Apache SystemDS,open-source machine learning system,concept,en:Category:Data mining and machine learning software,Apache SystemDS
+Q22907704,comparison of deep learning software,comparison,concept,en:Category:Data mining and machine learning software,Comparison of deep learning software
+Q22909663,Visual Turing Test,computer vision test,concept,en:Category:Computer vision,Visual Turing Test
+Q22909897,Zeroth,deep learning software for mobile devices,concept,en:Category:Data mining and machine learning software,Zeroth (software)
+Q22937321,Transkribus,"software and online services for handwritten-text recognition, layout analysis and text structure recognition",concept,en:Category:Machine learning task,Transkribus
+Q22945480,Aphelion,image processing and analysis software suite,concept,en:Category:Data mining and machine learning software,Aphelion (software)
+Q23680120,CNTK,"free, easy-to-use, open-source, commercial-grade toolkit that trains deep learning algorithms to learn like the human brain",concept,en:Category:Data mining and machine learning software,Microsoft Cognitive Toolkit
+Q23793561,XGBoost,scalable machine learning system for tree boosting,concept,en:Category:Data mining and machine learning software,XGBoost
+Q23808446,Manifold regularization,Technique for shaping training datasets,concept,en:Category:Machine learning,Manifold regularization
+Q23893439,robotic process automation,form of business process automation technology,concept,en:Category:Machine learning,Robotic process automation
+Q24895670,timeline of machine learning,,concept,en:Category:Machine learning,Timeline of machine learning
+Q24950372,Semantic folding,Theory in semantics,concept,en:Category:Machine learning,Semantic folding
+Q24950778,glossary of artificial intelligence,Wikimedia glossary list article,concept,en:Category:Machine learning,Glossary of artificial intelligence
+Q25048081,Sketch Engine,corpus manager and text analysis software,concept,en:Category:Data mining and machine learning software,Sketch Engine
+Q25048101,Action model learning,,concept,en:Category:Machine learning,Action model learning
+Q25048363,Bradley–Terry model,statistical model for pairwise comparisons,concept,en:Category:Machine learning,Bradley–Terry model
+Q25048582,loss functions for classification,concept in machine learning,concept,en:Category:Machine learning algorithms,Loss functions for classification
+Q25048644,Matrix regularization,,concept,en:Category:Machine learning,Matrix regularization
+Q25048660,multiple kernel learning,machine learning methods that use a predefined set of kernels and learn an optimal linear or non-linear combination of kernels as part of the algorithm,concept,en:Category:Machine learning algorithms,Multiple kernel learning
+Q25048807,Underwater computer vision,A subfield of computer vision,concept,en:Category:Computer vision,Underwater computer vision
+Q25048841,Hyper basis function network,generalization of radial basis function networks concept,concept,en:Category:Machine learning algorithms,Hyper basis function network
+Q25051557,Logic learning machine,machine learning method,concept,en:Category:Machine learning algorithms,Logic learning machine
+Q25052548,Local case-control sampling,,concept,en:Category:Machine learning,Local case-control sampling
+Q25100230,Out-of-bag error,method of measuring prediction error,concept,en:Category:Machine learning algorithms | en:Category:Ensemble learning,Out-of-bag error
+Q25111428,label propagation algorithm,semi-supervised machine learning algorithm that assigns labels to previously unlabeled data points,concept,en:Category:Machine learning algorithms,Label propagation algorithm
+Q25111883,low-rank matrix approximations,essential tools in the application of kernel methods to large-scale learning problems,concept,en:Category:Kernel methods for machine learning,Low-rank matrix approximation
+Q25111890,Structured sparsity regularization,,concept,en:Category:Machine learning,Structured sparsity regularization
+Q25113024,Spike-and-slab variable selection,bayesian variable selection technique in statistics,concept,en:Category:Machine learning,Spike-and-slab regression
+Q25113119,Bayesian structural time series,statistical technique used for feature selection,concept,en:Category:Machine learning,Bayesian structural time series
+Q25212666,M-Theory,learning framework inspired by feed-forward processing in the ventral stream of visual cortex and originally developed for recognition and classification of objects in visual scenes,concept,en:Category:Machine learning | en:Category:Computer vision,M-theory (learning framework)
+Q25304017,error level analysis,analysis of compression artifacts in digital data with lossy compression,concept,en:Category:Computer vision,Error level analysis
+Q25304431,Video Sequences Saliency Map,type of image,concept,en:Category:Computer vision,Saliency map
+Q25304510,learnable function class,"in statistical learning theory, a set of functions for which an algorithm can be devised to asymptotically minimize the expected risk, uniformly over all probability distributions",concept,en:Category:Machine learning,Learnable function class
+Q25304516,Multiple instance learning,type of supervised learning in machine learning,concept,en:Category:Machine learning,Multiple instance learning
+Q25304580,Isotropic position,concept in probability theory and machine learning,concept,en:Category:Machine learning,Isotropic position
+Q26955628,Apache Singa,open-source machine learning library,concept,en:Category:Data mining and machine learning software,Apache SINGA
+Q27435045,FindFace,face recognition technology,concept,en:Category:Data mining and machine learning software,FindFace
+Q27643379,Caffe,deep learning framework,concept,en:Category:Data mining and machine learning software,Caffe (software)
+Q28134130,Connect,computer system developed by HM Revenue and Customs,concept,en:Category:Data mining and machine learning software,Connect (computer system)
+Q28134433,Dynamic Graphics Project,research laboratory at the University of Toronto,concept,en:Category:Computer vision,Dynamic Graphics Project
+Q28324859,Multi expression programming,,concept,en:Category:Machine learning algorithms,Multi expression programming
+Q28324862,algorithm selection,meta-algorithmic technique to choose an algorithm,concept,en:Category:Machine learning,Algorithm selection
+Q28324910,rule-based machine learning,machine learning methods that try to develop rules that are to be applied in particular contexts,concept,en:Category:Machine learning algorithms,Rule-based machine learning
+Q28324929,Multiplicative Weight Update Method,algorithmic technique,concept,en:Category:Machine learning,Multiplicative weight update method
+Q28324931,incremental learning,method of machine learning,concept,en:Category:Machine learning algorithms,Incremental learning
+Q28325009,AlexNet,type of convolutional neural network,concept,en:Category:Data mining and machine learning software,AlexNet
+Q28374376,hyperparameter,"in machine learning, a parameter whose value is used to control the learning process",concept,en:Category:Machine learning,Hyperparameter (machine learning)
+Q28402263,International Conference on Agents and Artificial Intelligence,annual conference series on software agents and artificial intelligence,concept,en:Category:Artificial intelligence conferences,ICAART
+Q28470421,Keras,neural network library,concept,en:Category:Data mining and machine learning software,Keras
+Q28943742,Google Research,corporate research teams at Google,concept,en:Category:Machine learning,Google Research
+Q28956365,Renjin,software,concept,en:Category:Data mining and machine learning software,Renjin
+Q30108190,International Conference on Learning Representations,annual conference series on feature learning,concept,en:Category:Signal processing conferences | en:Category:Artificial intelligence conferences,International Conference on Learning Representations
+Q30290280,Linguamatics (United Kingdom),"company in Cambridge, United Kingdom",concept,en:Category:Data mining and machine learning software,Linguamatics
+Q30314784,machine learning in bioinformatics,Software for understanding biological data,concept,en:Category:Machine learning,Machine learning in biology
+Q30324691,Linkurious,French software company,concept,en:Category:Data mining and machine learning software,Linkurious
+Q30324787,Machine learning control,"subfield of machine learning, intelligent control and control theory",concept,en:Category:Machine learning,Machine learning control
+Q30590605,3D Body Scanning,application of various technologies,concept,en:Category:Computer vision,3D body scanning
+Q30592609,Instance selection,,concept,en:Category:Machine learning,Instance selection
+Q30594571,Probabilistic Action Cores,natural-language understanding software,concept,en:Category:Data mining and machine learning software,Probabilistic Action Cores
+Q30673951,labeled data,group of samples that have been tagged with one or more labels,concept,en:Category:Machine learning,Labeled data
+Q30688561,mixture of experts,machine learning technique,concept,en:Category:Machine learning algorithms,Mixture of experts
+Q30693384,Structured kNN,machine learning algorithm,concept,en:Category:Machine learning algorithms,Structured kNN
+Q33003557,knowledge graph embedding,machine learning embedding of knowledge graph,concept,en:Category:Machine learning,Knowledge graph embedding
+Q34978225,Chainer,machine learning software,concept,en:Category:Data mining and machine learning software,Chainer
+Q39053052,Eyes of Things,,concept,en:Category:Computer vision,Eyes of Things
+Q39059716,BigDL,,concept,en:Category:Data mining and machine learning software,BigDL
+Q40890140,right to explanation,subfield of machine learning,concept,en:Category:Machine learning,Right to explanation
+Q42139305,feature,"in machine learning, individual measurable property or characteristic of a phenomenon being observed",concept,en:Category:Machine learning,Feature (machine learning)
+Q42417149,data exploration,"approach similar to initial data analysis, whereby a data analyst uses visual exploration to understand what is in a dataset and the characteristics of the data, rather than through traditional data management systems",concept,en:Category:Machine learning,Data exploration
+Q42417573,highway network,deep neural network,concept,en:Category:Machine learning,Highway network
+Q43967068,automated machine learning,process of automating the end-to-end process of machine learning,concept,en:Category:Machine learning,Automated machine learning
+Q44062926,Nature Machine Intelligence,academic journal,concept,en:Category:Machine learning,Nature Machine Intelligence
+Q46998920,3D selfie,3D-printed scale replica of a person,concept,en:Category:Computer vision,3D selfie
+Q48734006,AIOps,Artificial intelligence in IT operations,concept,en:Category:Machine learning,AIOps
+Q48770792,Harris Corner Detector,computer vision algorithm,concept,en:Category:Computer vision,Harris corner detector
+Q48774271,Teknomo–Fernandez algorithm,mathematic applications,concept,en:Category:Computer vision,Teknomo–Fernandez algorithm
+Q48813876,Egocentric vision,type of computer vision,concept,en:Category:Computer vision,Egocentric vision
+Q48816548,Algorithms of Oppression,2018 non-fiction work by Safiya Noble,concept,en:Category:Machine learning algorithms,Algorithms of Oppression
+Q48977486,"International Conference on User Modeling, Adaptation, and Personalization",conference series on user modeling and adaptive hypermedia,concept,en:Category:Artificial intelligence conferences,"International Conference on User Modeling, Adaptation, and Personalization"
+Q48996162,hyperparameter optimization,choosing a set of optimal hyperparameters for a learning algorithm,concept,en:Category:Machine learning,Hyperparameter optimization
+Q50818671,federated learning,method for artificial intelligence,concept,en:Category:Machine learning,Federated learning
+Q53710046,Legendre moment,,concept,en:Category:Computer vision,Legendre moment
+Q55008106,Multimodal sentiment analysis,technology for sentiment analysis,concept,en:Category:Machine learning,Multimodal sentiment analysis
+Q55080114,Scene text,text captured as part of outdoor surroundings in a photograph,concept,en:Category:Computer vision,Scene text
+Q55080166,Deep Learning Studio,software tool,concept,en:Category:Data mining and machine learning software,Deep Learning Studio
+Q55080274,ML.NET,machine learning framework for .NET,concept,en:Category:Data mining and machine learning software,ML.NET
+Q55080309,AI for Good,"Annual conference in Geneva, Switzerland",concept,en:Category:Artificial intelligence conferences,ITU AI for Good
+Q55602948,AI Now Institute,research institute studying the social implications of artificial intelligence,concept,en:Category:Artificial intelligence conferences,AI Now Institute
+Q55605062,Bayesian regret,expected difference between the utility of a Bayesian strategy and that of the optimal strategy,concept,en:Category:Machine learning,Bayesian regret
+Q55628597,paraphrasing,automatic generation or recognition of paraphrased text,concept,en:Category:Machine learning,Paraphrasing (computational linguistics)
+Q55631775,rnn,open-source machine learning framework,concept,en:Category:Data mining and machine learning software,Rnn (software)
+Q55636383,U-Net,convolutional neural network developed at University of Freiburg,concept,en:Category:Computer vision,U-Net
+Q55643366,sequential decision making,concept in control theory,concept,en:Category:Reinforcement learning,Sequential decision making
+Q55656976,Catboost,yandex open source gradient boosting framework on decision trees,concept,en:Category:Data mining and machine learning software,CatBoost
+Q55716258,SenseTime,Chinese AI company,concept,en:Category:Data mining and machine learning software,SenseTime
+Q56273950,Fly algorithm,,concept,en:Category:Machine learning algorithms,Fly algorithm
+Q56682083,AAAI Conference on Artificial Intelligence,conference series on artificial intelligence,concept,en:Category:Artificial intelligence conferences,AAAI Conference on Artificial Intelligence
+Q57267665,LightGBM,machine learning software,concept,en:Category:Data mining and machine learning software,LightGBM
+Q57317463,Eimear E Kenny,researcher,concept,en:Category:Machine learning algorithms,Eimear Kenny
+Q60321144,graph cut optimisation,discrete optimisation method,concept,en:Category:Computer vision,Graph cut optimization
+Q60743526,Visual temporal attention,,concept,en:Category:Computer vision,Visual temporal attention
+Q60747077,Halite AI Programming Competition,contest developed by Two Sigma and Cornell Tech,concept,en:Category:Machine learning,Halite AI Programming Competition
+Q60748043,OpenAI Five,machine-learned bot project using the video game Dota 2,concept,en:Category:Reinforcement learning,OpenAI Five
+Q60753505,MLOps,approach to machine learning lifecycle management,concept,en:Category:Machine learning,MLOps
+Q60762827,Dynamic texture,,concept,en:Category:Computer vision,Dynamic texture
+Q60790274,Hard sigmoid,,concept,en:Category:Computer vision,Hard sigmoid
+Q60790473,object co-segmentation,image segmentation in computer vision,concept,en:Category:Computer vision,Object co-segmentation
+Q60792334,Linkage disequilibrium score regression,Statistical genetics technique,concept,en:Category:Machine learning algorithms,Linkage disequilibrium score regression
+Q60793994,Multitask optimization,optimizing the solving of multiple self-contained tasks simultaneously,concept,en:Category:Machine learning,Multitask optimization
+Q60795200,Triplet loss,function for machine learning algorithms,concept,en:Category:Machine learning algorithms,Triplet loss
+Q63788448,model-free reinforcement learning,type of machine learning algorithm,concept,en:Category:Reinforcement learning,Model-free (reinforcement learning)
+Q64416166,learning curve in machine learning,"in machine learning, function which shows the validation and training score of an estimator for varying numbers of training samples",concept,en:Category:Machine learning,Learning curve (machine learning)
+Q64432019,Machine Learning and Knowledge Extraction,Academic journal published by MDPI,concept,en:Category:Machine learning,Machine Learning and Knowledge Extraction
+Q65044138,weakly supervised learning,"machine learning approach where noisy, limited, or imprecise sources are used to provide supervision signal for labeling large amounts of training data in a supervised learning setting",concept,en:Category:Machine learning,Weak supervision
+Q65045028,Amazon SageMaker,cloud machine-learning platform,concept,en:Category:Data mining and machine learning software,Amazon SageMaker
+Q65048974,Kubeflow,open-source machine learning platform,concept,en:Category:Data mining and machine learning software,Kubeflow
+Q65079156,deep reinforcement learning,techniques combining deep learning and reinforcement learning principles to create efficient machine learning algorithms,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,Deep reinforcement learning
+Q65085752,Bioz,,concept,en:Category:Machine learning algorithms,Bioz
+Q65089367,Scale-invariant feature operator,algorithm to detect local features in images,concept,en:Category:Learning in computer vision,Scale-invariant feature operator
+Q65089431,Computer vision dazzle,type of camouflage used to hamper facial recognition software,concept,en:Category:Computer vision,Computer vision dazzle
+Q65117199,Image destriping,image processing task,concept,en:Category:Computer vision,Image destriping
+Q65121812,learning rate,tuning parameter (hyperparameter) in optimization,concept,en:Category:Machine learning,Learning rate
+Q67158557,Megvii,Chinese technology company,concept,en:Category:Data mining and machine learning software,Megvii
+Q70109389,Birchfield–Tomasi dissimilarity,image dissimilarity measure robust with respect to sampling effects,concept,en:Category:Computer vision,Birchfield–Tomasi dissimilarity
+Q70582490,machine learning in video games,use of machine learning in video games,concept,en:Category:Machine learning,Machine learning in video games
+Q72759055,Lynda Soderholm,American physical chemist,concept,en:Category:Machine learning,Lynda Soderholm
+Q74235852,Amazon Rekognition,cloud-based Software as a service computer vision platform,concept,en:Category:Data mining and machine learning software,Amazon Rekognition
+Q74397608,Inverse consistency,measure of consistency of image registration methods with respect to function inversion,concept,en:Category:Computer vision,Inverse consistency
+Q74415146,Singapore FinTech Festival,Financial technology conference,concept,en:Category:Artificial intelligence conferences,Singapore FinTech Festival
+Q77562367,self-supervised learning,"class of machine learning techniques in which a task is solved based on pseudo-labels which help initialize weights the weight, then the actual task is performed with supervised or unsupervised learning",concept,en:Category:Machine learning,Self-supervised learning
+Q80100972,fairness in machine learning,"trait of an algorithm, whose results are independent of given variables, e.g. gender, ethnicity, sexual orientation, disability",concept,en:Category:Machine learning,Fairness (machine learning)
+Q80556098,Gerald Tesauro,researcher,concept,en:Category:Reinforcement learning,Gerald Tesauro
+Q83512991,machine learning in physics,applications of machine learning to quantum physics,concept,en:Category:Machine learning,Machine learning in physics
+Q84727711,BioSerenity,French healthcare company,concept,en:Category:Machine learning,Bioserenity
+Q85014143,data augmentation,creation of more data based on previously collected data to enhance the performance of a statistical model,concept,en:Category:Machine learning,Data augmentation
+Q85759291,energy-based model,an application of canonical ensemble formulation of statistical physics for learning from data problems,concept,en:Category:Machine learning,Energy-based model
+Q85760126,Extremal Ensemble Learning,machine learning paradigm,concept,en:Category:Machine learning algorithms,Extremal Ensemble Learning
+Q85769205,Inceptionv3,a convolutional neural network,concept,en:Category:Computer vision,Inception (deep learning architecture)
+Q85776087,leakage,concept in machine learning where information is used that would not be available when predictions are made,concept,en:Category:Machine learning,Leakage (machine learning)
+Q85776623,Lightricks,software development company,concept,en:Category:Machine learning task,Lightricks
+Q85786957,Multi-agent reinforcement learning,sub-field of reinforcement learning,concept,en:Category:Reinforcement learning,Multi-agent reinforcement learning
+Q85788335,Neural tangent kernel,type of kernel in artificial neural networks,concept,en:Category:Kernel methods for machine learning,Neural tangent kernel
+Q85794794,Prototype methods,method of machine learning,concept,en:Category:Machine learning algorithms,Prototype methods
+Q85850443,deepfake pornography,pornography generated using deepfake technology,concept,en:Category:Machine learning task,Deepfake pornography
+Q94701573,3D scanning,analyzing a real-world object or environment to collect data on its shape and possibly its appearance (e.g. colour),concept,en:Category:Computer vision,3D scanning
+Q96378066,Flux,open-source machine-learning software library,concept,en:Category:Machine learning,Flux (machine-learning framework)
+Q96379827,Gradient vector flow,computer vision framework,concept,en:Category:Computer vision,Gradient vector flow
+Q96395262,Neural network Gaussian process,modeling tool for assigning probabilities to events,concept,en:Category:Kernel methods for machine learning,Neural network Gaussian process
+Q96413215,VITAL,,concept,en:Category:Data mining and machine learning software,VITAL (machine learning software)
+Q96416030,zero-shot learning,"problem setup in machine learning, where at test time, a learner observes samples from classes that were not observed during training, and needs to predict the class they belong to",concept,en:Category:Machine learning algorithms | en:Category:Computer vision,Zero-shot learning
+Q96419318,scikit-multiflow,machine learning library for data streams in Python,concept,en:Category:Data mining and machine learning software,Scikit-multiflow
+Q96651279,Elastix (toolbox for image registration),image registration toolbox built upon the Insight Segmentation and Registration Toolkit (ITK),concept,en:Category:Computer vision,Elastix (image registration)
+Q96782303,80 Million Tiny Images,computer vision dataset,concept,en:Category:Machine learning,80 Million Tiny Images
+Q97165856,Horovod,deep learning training framework,concept,en:Category:Data mining and machine learning software,Horovod (machine learning)
+Q97278859,Video imprint,,concept,en:Category:Computer vision,Video imprint (computer vision)
+Q97354185,DeepSpeed,Microsoft open source library,concept,en:Category:Data mining and machine learning software,DeepSpeed
+Q97359643,Inverse depth parametrization,3D CONSTRUCTION,concept,en:Category:Computer vision,Inverse depth parametrization
+Q97474330,EM Algorithm And GMM Model,Numerical method,concept,en:Category:Machine learning,EM algorithm and GMM model
+Q97732222,You Only Look Once,an object detection system,concept,en:Category:Computer vision,You Only Look Once
+Q100952135,ELMo,word embedding method,concept,en:Category:Machine learning,ELMo
+Q102047184,data-driven modeling,mathematical modeling based on experimental measurement data,concept,en:Category:Machine learning,Data-driven model
+Q102349667,Matchbox Educable Noughts and Crosses Engine,analog computer,concept,en:Category:Machine learning,Matchbox Educable Noughts and Crosses Engine
+Q103701642,attention,Transformer-based mechanism in language models where attention weights word relationships to understand context and references via parameters,concept,en:Category:Machine learning,Attention (machine learning)
+Q104523511,equalized odds,measure of fairness in machine learning,concept,en:Category:Machine learning,Equalized odds
+Q104841948,Neural Engineering Object,graphical and scripting software,concept,en:Category:Data mining and machine learning software,Neural Engineering Object
+Q104843185,Augmented Analytics,data analytics approach,concept,en:Category:Machine learning algorithms,Augmented Analytics
+Q104870168,Automation in construction,"combination of methods, processes, and systems",concept,en:Category:Machine learning,Automation in construction
+Q104876738,Pythia,,concept,en:Category:Machine learning,Pythia (machine learning)
+Q104878955,artificial intelligence in hiring,artificial intelligence application in work environments,concept,en:Category:Machine learning,Artificial intelligence in hiring
+Q105063057,Neural network quantum states,Class of variational quantum states,concept,en:Category:Machine learning,Neural network quantum states
+Q105078662,DALL-E,image-generating deep-learning model,concept,en:Category:Machine learning task,DALL-E
+Q105319881,PolyAnalyst,"software for data science, text mining, artificial intelligence, and predictive analytics",concept,en:Category:Data mining and machine learning software,PolyAnalyst
+Q105526153,discovery system,automated system for discovering new scientific or mathematical knowledge,concept,en:Category:Machine learning,Discovery system (artificial intelligence)
+Q105693000,International Conference on Automated Planning and Scheduling,conference series,concept,en:Category:Artificial intelligence conferences,International Conference on Automated Planning and Scheduling
+Q106179475,flow-based generative model,statistical model used in machine learning,concept,en:Category:Machine learning,Flow-based generative model
+Q106522497,Federated Learning of Cohorts,type of web tracking based on browsing history,concept,en:Category:Machine learning algorithms,Federated Learning of Cohorts
+Q106795704,VACUUM,Training guidance principles,concept,en:Category:Machine learning,VACUUM
+Q107223439,Spatial embedding,,concept,en:Category:Machine learning,Spatial embedding
+Q107341859,Bayesian learning mechanisms,probabilistic causal model used in computer science,concept,en:Category:Machine learning,Bayesian learning mechanisms
+Q107382149,JAX,Python library,concept,en:Category:Machine learning,JAX (software)
+Q107382334,optuna,hyperparameter optimization framework,concept,en:Category:Data mining and machine learning software,Optuna
+Q107386350,tensorflow_hub,Python library,concept,en:Category:Machine learning | en:Category:Data mining and machine learning software,TensorFlow Hub
+Q107675654,vision transformer,machine learning algorithm for vision processing,concept,en:Category:Computer vision,Vision transformer
+Q108281205,Perceiver,transformer for non-textual data,concept,en:Category:Machine learning,Perceiver
+Q108403144,Tesla Dojo,AI neural network training supercomputer,concept,en:Category:Computer vision,Tesla Dojo
+Q108501566,manifold hypothesis,posits ability to interpolate within latent manifolds,concept,en:Category:Machine learning,Manifold hypothesis
+Q108582170,Toronto Declaration,responsible practices decloration for machine learning,concept,en:Category:Machine learning,Toronto Declaration
+Q108704339,automated decision-making,decision-making process conducted with varying degrees of human oversight,concept,en:Category:Machine learning,Automated decision-making
+Q108943604,Hugging Face,American company,concept,en:Category:Machine learning,Hugging Face
+Q109172193,Nvidia GTC,semi-annual technology conference held by Nvidia,concept,en:Category:Artificial intelligence conferences,Nvidia GTC
+Q109297617,Probabilistic numerics,"scientific field at the intersection of statistics, machine learning and applied mathematics",concept,en:Category:Machine learning,Probabilistic numerics
+Q109457078,underfitting,,concept,en:Category:Machine learning,Underfitting
+Q109527686,Intelligent automation,software process that combines robotic process automation and artificial intelligence,concept,en:Category:Machine learning,Intelligent automation
+Q109570989,Machine learning in earth sciences,applications of machine learning in earth sciences,concept,en:Category:Machine learning,Machine learning in earth sciences
+Q109918361,Quantification,machine learning practice of supervised learning,concept,en:Category:Machine learning,Quantification (machine learning)
+Q110530705,Bayesian quadrature,method in statistics,concept,en:Category:Kernel methods for machine learning,Bayesian quadrature
+Q110612569,ROCm,parallel computing platform and application programming interface,concept,en:Category:Machine learning,ROCm
+Q110653942,BotSentinel,"company founded by Christopher Bouzy producing analytical reports on social media, revealing bad-faith trolls and ""bot networks""",concept,en:Category:Data mining and machine learning software,Bot Sentinel
+Q110797734,few-shot learning,machine learning approach that enables a system to learn new tasks or recognize new objects from only a few examples or demonstrations,concept,en:Category:Machine learning | en:Category:Computer vision,Few-shot learning
+Q110971942,Normal distributions transform,point cloud matching algorithm,concept,en:Category:Computer vision,Normal distributions transform
+Q111598768,You.com,private search engine,concept,en:Category:Machine learning task,You.com
+Q111680799,VGGNet,series of convolutional neural networks for image classification,concept,en:Category:Data mining and machine learning software,VGGNet
+Q111982806,Empirical dynamic modeling,,concept,en:Category:Machine learning,Empirical dynamic modeling
+Q112108756,Self-play,reinforcement learning technique,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,Self-play
+Q112114887,Stochastic variance reduction,family of optimization algorithms,concept,en:Category:Machine learning algorithms,Stochastic variance reduction
+Q112150238,Proximal Policy Optimization,model-free reinforcement learning algorithm,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,Proximal policy optimization
+Q112429105,PhyCV,Computer vision library,concept,en:Category:Computer vision,PhyCV
+Q112663567,Craiyon,text-to-image AI,concept,en:Category:Machine learning task,Craiyon
+Q112889233,Imagen,image synthesis with artificial intelligence,concept,en:Category:Machine learning task,Imagen (text-to-image model)
+Q112892318,maximum inner-product search,class of search problems,concept,en:Category:Machine learning,Maximum inner-product search
+Q113070628,Midjourney,AI art generator,concept,en:Category:Machine learning task,Midjourney
+Q113349807,Inception score,Image algorithm,concept,en:Category:Machine learning,Inception score
+Q113450223,Lyra,lossy audio codec developed by Google,concept,en:Category:Machine learning,Lyra (codec)
+Q113461614,QLattice,symbolic regression machine learning algorithm,concept,en:Category:Data mining and machine learning software,QLattice
+Q113511451,double descent,concept in machine learning,concept,en:Category:Machine learning,Double descent
+Q113660857,Stable Diffusion,image-generating machine learning model,concept,en:Category:Machine learning task,Stable Diffusion
+Q113833343,Actor-critic algorithm,reinforcement learning algorithms that combine policy and value estimation,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,Actor-critic algorithm
+Q113840014,policy-gradient method,class of reinforcement learning algorithms,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,Policy gradient method
+Q113939859,stixel,superpixel representation of closest obstacles in computer stereo vision,concept,en:Category:Computer vision,Stixel
+Q113940039,text-to-image model,machine-learning model,concept,en:Category:Machine learning task,Text-to-image model
+Q113993574,Loab,fictional character,concept,en:Category:Machine learning task,Loab
+Q114450428,NovelAI,"online cloud-based, SaaS model, paid subscription service for machine learning and image synthesis",concept,en:Category:Machine learning task,NovelAI
+Q114617315,diffusion model,deep learning algorithm,concept,en:Category:Machine learning algorithms,Diffusion model
+Q114658096,Crungus,Imaginary creature,concept,en:Category:Machine learning task,Crungus
+Q115059532,DreamBooth,Deep learning generation model used to fine-tune existing text-to-image models,concept,en:Category:Machine learning task,DreamBooth
+Q115517227,text-to-video model,machine learning model,concept,en:Category:Machine learning task,Text-to-video model
+Q115519393,Data Version Control,open source version system,concept,en:Category:Data mining and machine learning software,Data Version Control (software)
+Q115519587,Open Syllabus Project,open-source syllabus database,concept,en:Category:Machine learning algorithms,Open Syllabus Project
+Q115570683,reinforcement learning from human feedback,training method using human feedback to rank responses and train a reward model that improves model outputs,concept,en:Category:Reinforcement learning,Reinforcement learning from human feedback
+Q115812562,Global Artificial Intelligence Summit & Awards,annual computer and electronics trade show,concept,en:Category:Artificial intelligence conferences,Global Artificial Intelligence Summit & Awards
+Q115857726,Prisma Labs,company that owns apps that generate images using artificial intelligence,concept,en:Category:Machine learning task,Prisma Labs
+Q116178672,Accumulated local effects,machine learning method,concept,en:Category:Machine learning algorithms,Accumulated local effects
+Q116197048,hallucination,incorrect AI response presented as fact,concept,en:Category:Machine learning,Hallucination (artificial intelligence)
+Q116492331,MobileNet,type of convolutional neural network,concept,en:Category:Machine learning | en:Category:Computer vision,MobileNet
+Q116493015,EfficientNet,Family of computer vision models,concept,en:Category:Machine learning | en:Category:Computer vision,EfficientNet
+Q116788731,NSynth,machine learning audio synthesizer,concept,en:Category:Machine learning algorithms,NSynth
+Q116812789,Summit on Responsible Artificial Intelligence in the Military Domain,diplomatic summit held in 2023,concept,en:Category:Artificial intelligence conferences,Summit on Responsible Artificial Intelligence in the Military Domain
+Q116967335,tensor,concept in machine learning,concept,en:Category:Machine learning,Tensor (machine learning)
+Q117286419,fine-tuning,"process of taking a pre-trained model and further training it on a smaller, specific dataset to adapt or improve its performance for a particular task or domain",concept,en:Category:Machine learning,Fine-tuning (deep learning)
+Q117317490,Aporia,Israeli ML observability platform,concept,en:Category:Machine learning,Aporia (company)
+Q117322900,Synthesia,British multinational artificial intelligence company,concept,en:Category:Machine learning task,Synthesia (company)
+Q117322965,in-context learning,natural language processing technique,concept,en:Category:Machine learning,In-context learning (natural language processing)
+Q118396004,vector database,database designed to store vector embeddings and perform similarity search in high-dimensional spaces,concept,en:Category:Machine learning,Vector database
+Q118970497,machine unlearning,"field of study in artificial intelligence that aims to give machines the ability to ""forget"" learned information",concept,en:Category:Machine learning,Machine unlearning
+Q119131008,2023 Bilderberg Conference,International conference in Lisbon,concept,en:Category:Artificial intelligence conferences,2023 Bilderberg Conference
+Q119775176,graphical time warping,framework in mathematics,concept,en:Category:Machine learning algorithms,Graphical time warping
+Q119840411,exploration–exploitation dilemma,decision-making tradeoff between relying on current best estimates and seeking more information,concept,en:Category:Machine learning,Exploration–exploitation dilemma
+Q120436150,Audio inpainting,Reconstruction of missing portions of a digital audio signal,concept,en:Category:Machine learning,Audio inpainting
+Q120487902,Adobe Firefly,image-generating machine learning model,concept,en:Category:Machine learning task,Adobe Firefly
+Q120776104,Machine learning potential,interatomic potentials constructed by machine learning programs,concept,en:Category:Machine learning,Machine-learned interatomic potential
+Q120790236,Mindspore,open-source machine learning library,concept,en:Category:Data mining and machine learning software,MindSpore
+Q120962327,data capture,"the process of extracting information from documents, forms, or digital systems and converting it into a structured, machine-readable format",concept,en:Category:Computer vision,Smart data capture
+Q121362472,Neural radiance field,3D reconstruction technique using machine-learning,concept,en:Category:Machine learning algorithms | en:Category:Computer vision,Neural radiance field
+Q122237668,Top-p sampling,Language model technique,concept,en:Category:Machine learning algorithms,Top-p sampling
+Q122443383,watsonx,IBM's AI and data platform,concept,en:Category:Data mining and machine learning software,IBM Watsonx
+Q122834978,Text-to-image personalization,image generation algorithm,concept,en:Category:Machine learning task,Text-to-image personalization
+Q122850477,A.I. Insight forums,series of forums on artificial intelligence,concept,en:Category:Artificial intelligence conferences,A.I. Insight forums
+Q123134457,Gaussian splatting,volume rendering technique,concept,en:Category:Machine learning algorithms,Gaussian splatting
+Q123144146,Ganimal,fictional animal,concept,en:Category:Machine learning task,Ganimal
+Q123257830,facial age estimation,estimation of age using artificial intelligence,concept,en:Category:Computer vision,Facial age estimation
+Q123258741,HeyGen,online video creation platform,concept,en:Category:Machine learning task,HeyGen
+Q123280984,2023 AI Safety Summit,2023 global summit on AI safety,concept,en:Category:Artificial intelligence conferences,AI Safety Summit 2023
+Q123367491,Reciprocal human machine learning,artificial intelligence technique,concept,en:Category:Machine learning,Reciprocal human machine learning
+Q123367593,Runway,American research company,concept,en:Category:Machine learning task,Runway (company)
+Q123399544,Synthetic nervous system,computational neuroscience model,concept,en:Category:Data mining and machine learning software,Synthetic nervous system
+Q124022573,Distributional Soft Actor Critic,suite of reinforcement learning algorithms,concept,en:Category:Machine learning algorithms | en:Category:Reinforcement learning,Distributional Soft Actor Critic
+Q124096700,Accelerated Linear Algebra,advanced optimization framework for TensorFlow to enhance computational performance,concept,en:Category:Machine learning,Accelerated Linear Algebra
+Q124169067,vision-language model,multimodal (text and images) machine learning model,concept,en:Category:Computer vision,Vision-language model
+Q124169113,Contrastive Language-Image Pre-Training,vision-language model,concept,en:Category:Machine learning | en:Category:Computer vision,Contrastive language–image pre-training
+Q124255589,VideoPoet,large language model to create videos,concept,en:Category:Machine learning task,VideoPoet
+Q124358955,Cost-sensitive machine learning,,concept,en:Category:Machine learning,Cost-sensitive machine learning
+Q124415731,Rabbit r1,artificial intelligence personal assistant device,concept,en:Category:Machine learning,Rabbit r1
+Q124544998,Sora,text-to-video model developed by OpenAI,concept,en:Category:Machine learning task,Sora (text-to-video model)
+Q124632530,PHerc. Paris. 4,Herculaneum papyrus scanned through means of AI,concept,en:Category:Machine learning,PHerc. Paris. 4
+Q124693975,International Panel on the Information Environment,an independent and global science organization committed to providing the most actionable scientific knowledge about threats to the world’s information environment,concept,en:Category:Artificial intelligence conferences,International Panel on the Information Environment
+Q124785393,Hierarchical Navigable Small World,clustering and community detection algorithm,concept,en:Category:Machine learning,Hierarchical navigable small world
+Q124816890,lottery ticket hypothesis,machine learning hypothesis,concept,en:Category:Machine learning,Lottery ticket hypothesis
+Q124934972,Socially assistive robot,robot that aids users through social engagement and support,concept,en:Category:Machine learning,Socially assistive robot
+Q125371260,CogX Festival,business conference,concept,en:Category:Artificial intelligence conferences,CogX Festival
+Q125446413,LlamaIndex,large language model company,concept,en:Category:Machine learning,LlamaIndex
+Q125447675,Ideogram,generative artificial intelligence website,concept,en:Category:Machine learning task,Ideogram (text-to-image model)
+Q125919502,GPT-4o,family of multimodal artificial intelligence models developed by OpenAI,concept,en:Category:Machine learning task,GPT-4o
+Q125977564,Abess,machine learning algorithm,concept,en:Category:Machine learning algorithms,Abess
+Q126009142,Curriculum learning,technique in machine learning,concept,en:Category:Machine learning algorithms,Curriculum learning
+Q126083392,Data-driven astronomy,,concept,en:Category:Machine learning,Data-driven astronomy
+Q126084995,Google Colab,"Google Colab is an online platform hosted by Google to write, run and share code",concept,en:Category:Machine learning,Google Colab
+Q126362531,grokking,machine learning phenomenon,concept,en:Category:Machine learning,Grokking (machine learning)
+Q126415608,AI Summit Seoul,2024 artificial intelligence conference,concept,en:Category:Artificial intelligence conferences,AI Seoul Summit 2024
+Q126679102,2024 Bilderberg Conference,international conference in Madrid,concept,en:Category:Artificial intelligence conferences,2024 Bilderberg Conference
+Q126900700,Dream Machine,text-to-video model by Luma Labs,concept,en:Category:Machine learning task,Dream Machine (text-to-video model)
+Q127394518,3D Morphable Model,Statistical generative model for 3D textured objects,concept,en:Category:Computer vision,3D Morphable Model
+Q127427530,GGUF,file format family for storing large language models,concept,en:Category:Machine learning,GGUF
+Q128096655,SAM 2,unified model for segmenting objects in images and videos,concept,en:Category:Data mining and machine learning software | en:Category:Computer vision,Segment Anything
+Q128801793,Flux,suite of text-to-image models,concept,en:Category:Machine learning task,Flux (text-to-image model)
+Q129485847,normalization,machine learning technique,concept,en:Category:Machine learning,Normalization (machine learning)
+Q130145067,Low-Rank Adaptation,fine-tuning technique for LLMs,concept,en:Category:Machine learning | en:Category:Machine learning algorithms,LoRA (machine learning)
+Q130235441,Membership inference attack,type of attack on machine learning models,concept,en:Category:Machine learning,Membership inference attack
+Q130263208,MiniMax Group,Chinese multinational artificial intelligence company,concept,en:Category:Machine learning task,MiniMax Group
+Q130327598,Characteristic samples,concept in machine learning,concept,en:Category:Machine learning algorithms,Characteristic samples
+Q130357269,pooling layer,architectural motif in neural networks for aggregating information,concept,en:Category:Computer vision,Pooling layer
+Q130457634,Reparameterization trick,technique used in stochastic gradient variational inference,concept,en:Category:Machine learning,Reparameterization trick
+Q130552379,Convolutional layer,architectural motif in neural networks for computing translation-invariant features,concept,en:Category:Computer vision,Convolutional layer
+Q130601826,Weight initialization,,concept,en:Category:Machine learning,Weight initialization
+Q130641540,Latent diffusion model,deep generative model,concept,en:Category:Machine learning task,Latent diffusion model
+Q130723977,hidden layer,type of layer in artificial neural networks,concept,en:Category:Machine learning,Hidden layer
+Q130780523,Auto-WEKA,automated machine learning system,concept,en:Category:Data mining and machine learning software,Auto-WEKA
+Q131102809,generative AI pornography,explicit material produced by generative AI,concept,en:Category:Machine learning task,Generative AI pornography
+Q131126946,Three-factor learning,,concept,en:Category:Machine learning,Three-factor learning
+Q131164003,model compression,machine learning technique,concept,en:Category:Machine learning,Model compression
+Q131286268,Random feature,Machine learning technique,concept,en:Category:Machine learning | en:Category:Kernel methods for machine learning,Random feature
+Q131519633,Kandinsky,text-to-image and text-to-video AI model family developed by Sber,concept,en:Category:Machine learning task,Kandinsky (artificial intelligence)
+Q131936230,reasoning language model,language models designed for reasoning tasks,concept,en:Category:Machine learning,Reasoning model
+Q131985789,SAS Viya,analytics software suite,concept,en:Category:Data mining and machine learning software,SAS Viya
+Q132181328,mode collapse,failure of a generative model to generate diverse samples,concept,en:Category:Machine learning,Mode collapse
+Q132201282,Artificial Intelligence Action Summit,2025 international summit in France,concept,en:Category:Artificial intelligence conferences,AI Action Summit 2025
+Q132456572,H Company,Paris-based AI company founded by Charles Kantor,concept,en:Category:Machine learning,H (company)
+Q132745854,Hierarchical Risk Parity,machine learning framework for portfolio construction,concept,en:Category:Machine learning | en:Category:Machine learning algorithms,Hierarchical Risk Parity
+Q132821151,Deep Tomographic Reconstruction,,concept,en:Category:Machine learning,Deep tomographic reconstruction
+Q133141215,Veo,text-to-video model by Google,concept,en:Category:Machine learning task,Veo (text-to-video model)
+Q133141218,Kling AI,generative AI tool for image and video creation offering artistic and commercial applications,concept,en:Category:Machine learning task,Kling AI
+Q133284072,embedding,method of converting text or other high dimensional data into mathematical vectors that represent the meaning of sentences in machine learning,concept,en:Category:Machine learning,Embedding (machine learning)
+Q134303254,Multimodal representation learning,,concept,en:Category:Machine learning,Multimodal representation learning
+Q134468621,LLM-as-a-Judge,use of large language models as automated evaluators,concept,en:Category:Machine learning,LLM-as-a-Judge
+Q134503305,mechanistic interpretability,reverse-engineering neural networks,concept,en:Category:Machine learning,Mechanistic interpretability
+Q134547402,AI Dentistry,"The application of artificial intelligence technologies to dental practice, research, diagnosis, treatment planning, and patient care",concept,en:Category:Computer vision,Dental AI
+Q134722302,Ho–Kashyap algorithm,iterative method for finding a linear decision boundary,concept,en:Category:Machine learning algorithms,Ho–Kashyap algorithm
+Q134937188,Will Smith Eating Spaghetti test,test to check capabilities of text-to-video models,concept,en:Category:Machine learning task,Will Smith eating spaghetti test
+Q135108019,Recraft,text-to-image model,concept,en:Category:Machine learning task,Recraft
+Q135111494,2025 Bilderberg Conference,international conference in Sweden,concept,en:Category:Artificial intelligence conferences,2025 Bilderberg Conference
+Q135111627,products and applications of OpenAI,technology made by American organization,concept,en:Category:Machine learning,Products and applications of OpenAI
+Q135209047,Deep Learning Indaba,primary conference for African Wikimedians in Africa,concept,en:Category:Artificial intelligence conferences,Deep Learning Indaba
+Q135456041,lists of open-source artificial intelligence software,Wikimedia list of lists,concept,en:Category:Data mining and machine learning software,Lists of open-source artificial intelligence software
+Q135456051,knowledge cutoff,temporal limit of a model's training data,concept,en:Category:Machine learning algorithms,Knowledge cutoff
+Q135472427,World Artificial Intelligence Conference,"Annual international AI conference in Shanghai, China",concept,en:Category:Artificial intelligence conferences,World Artificial Intelligence Conference
+Q135639305,AlphaChip,Wikimedia disambiguation page,concept,en:Category:Machine learning | en:Category:Reinforcement learning,AlphaChip
+Q135741444,Class activation mapping,explainable AI technique,concept,en:Category:Computer vision,Class activation mapping
+Q136288530,TabPFN,AI Foundation model for tabular data,concept,en:Category:Machine learning algorithms,TabPFN
+Q136483819,List of data science software,Wikimedia list article,concept,en:Category:Data mining and machine learning software,List of data science software
+Q136564421,LTX Studio,Artificial intelligence video generation product,concept,en:Category:Machine learning task,LTX Studio
+Q136659610,Croissant,metadata format for datasets in machine learning,concept,en:Category:Machine learning,Croissant (metadata format)
+Q136697093,Targeted maximum likelihood estimation,statistical estimation framework for causal inference,concept,en:Category:Machine learning algorithms,Targeted maximum likelihood estimation
+Q136697096,Kolmogorov-Arnold Networks,type of artificial neural network architecture,concept,en:Category:Machine learning,Kolmogorov–Arnold Networks
+Q136953910,Akool,American artificial intelligence company,concept,en:Category:Machine learning task,Akool
+Q137204546,StepFun,"company in Shanghai, China",concept,en:Category:Machine learning task,StepFun
+Q137360122,LTX-2,text-to-video model,concept,en:Category:Machine learning task,LTX (world model)
+Q137393382,Discrete diffusion model,technique for the generative modeling of a discrete probability distribution,concept,en:Category:Machine learning algorithms,Discrete diffusion model
+Q137425607,GPT Image,image generation and editing models developed by OpenAI,concept,en:Category:Machine learning task,GPT Image
+Q137799589,Asian Digital Finance Forum & Awards,annual digital finance forum and honorary awards platform,concept,en:Category:Artificial intelligence conferences,Asian Digital Finance Forum & Awards
+Q137802538,MAUVE,metric for evaluating open-ended text generation,concept,en:Category:Machine learning,MAUVE (metric)
+Q137918525,Perception error model,autonomous vehicle simulation method,concept,en:Category:Machine learning,Perception error model
+Q138658641,Physical Intelligence Inc.,Robotics company,concept,en:Category:Machine learning,Physical Intelligence Inc.
+Q138967080,GITEX AI Europe,"annual technology trade show in Berlin, Germany",concept,en:Category:Artificial intelligence conferences,GITEX AI Europe
+Q139072647,circuit,interpretable computational sub-graphs within artificial neural networks,concept,en:Category:Machine learning,Circuit (neural network)
+Q139072946,Polysemanticity,Phenomenon in neural networks,concept,en:Category:Machine learning,Polysemanticity
+Q139147598,Deceptive alignment,concept in machine learning,concept,en:Category:Machine learning,Deceptive alignment
+Q139760225,Outline of deep learning,overview of and topical guide to deep learning,concept,en:Category:Machine learning,Outline of deep learning
+Q139760831,List of artificial intelligence algorithms,Wikimedia list article,concept,en:Category:Machine learning algorithms,List of artificial intelligence algorithms
+Q139762046,edge inference,execution of machine learning models on edge devices,concept,en:Category:Machine learning,Edge inference
+Q139762048,feature store,,concept,en:Category:Machine learning,Feature store
+Q139762065,representation collapse,phenomenon in machine learning,concept,en:Category:Machine learning,Representation collapse
+Q139795852,TinyML,"area of machine learning that focuses on deploying and running models on low-power, resource-constrained embedded systems such as microcontrollers and edge devices",concept,en:Category:Machine learning,TinyML
+Q139854886,data-centric AI,approach to artificial intelligence emphasizing data quality and management,concept,en:Category:Machine learning,Data-centric AI
+Q139856152,Limited Memory AI,type of AI,concept,en:Category:Machine learning algorithms,Limited Memory AI
+Q139915450,sycophancy,tendency of AI systems to tell users what they want to hear,concept,en:Category:Machine learning,Sycophancy (artificial intelligence)
+Q139961095,AlphaTensor,artificial intelligence system for discovering matrix multiplication algorithms,concept,en:Category:Reinforcement learning,AlphaTensor
+Q139963345,Speculative decoding,machine learning technique,concept,en:Category:Machine learning algorithms,Speculative decoding
+Q139964885,Dataset shift,,concept,en:Category:Machine learning,Dataset shift
+Q139972376,GITEX Vietnam,,concept,en:Category:Artificial intelligence conferences,GITEX Vietnam
+Q140133809,Label noise,,concept,en:Category:Machine learning,Label noise
+Q140168056,Compute,Measure of required computing power,concept,en:Category:Machine learning,Compute (machine learning)
+Q140356408,GLM,large language model by Z.ai,concept,en:Category:Machine learning,GLM (AI)
+Q140365585,spatial intelligence,emerging concept in artificial intelligence,concept,en:Category:Computer vision,Spatial intelligence (artificial intelligence)
+Q140417792,AI observability,the practice of collecting and analyzing telemetry from artificial intelligence systems deployed in production,concept,en:Category:Machine learning,AI observability
+Q140419322,hard negative mining,machine learning techniques for extracting informative negative samples,concept,en:Category:Data mining and machine learning software,Hard negative mining
+Q140450869,Temporal bias,"conflating cause and effect across time, leading to inaccurate conclusions about sequences and influences",concept,en:Category:Machine learning,Temporal bias
+Q140570608,Differentially private stochastic gradient descent,private deep learning via gradient clipping,concept,en:Category:Machine learning,Differentially private stochastic gradient descent
+Q140928105,Open weights,public availability of AI parameters,concept,en:Category:Machine learning,Open weights
+Q141404311,Neuralese,method of artificial intelligence reasoning,concept,en:Category:Machine learning,Neuralese
+Q141496376,MMMU,benchmark,concept,en:Category:Computer vision,MMMU
+Q141679084,Seedance,text-to-video model developed by ByteDance,concept,en:Category:Machine learning task,Seedance
+Q141967028,distillation attack,"unauthorized training of an AI model on another developer’s model outputs, in breach of that developer’s terms",concept,en:Category:Machine learning,Distillation attack
+Q141970375,Triton (programming language),language and compiler for GPU kernels,concept,en:Category:Data mining and machine learning software,Triton (programming language)
+Q142066129,Weight-space programming,,concept,en:Category:Machine learning,Weight-space programming
+Q11644,Ayanna Howard,American roboticist,person,en:Category:Machine learning researchers,Ayanna Howard
+Q51781,Katia Sycara,Greek-American computer scientist,person,en:Category:Machine learning researchers,Katia Sycara
+Q70455,Karl Steinbuch,German computer scientist (1917–2005),person,en:Category:Machine learning researchers,Karl Steinbuch
+Q92735,Jürgen Schmidhuber,German computer scientist and artificial intelligence researcher,person,en:Category:Machine learning researchers,Jürgen Schmidhuber
+Q92769,Scott E. Fahlman,Computer scientist at Carnegie Mellon University,person,en:Category:Machine learning researchers,Scott Fahlman
+Q92824,Judea Pearl,Israeli-American computer scientist (born 1936),person,en:Category:Machine learning researchers,Judea Pearl
+Q92916,Corinna Cortes,Danish-American computer scientist,person,en:Category:Machine learning researchers,Corinna Cortes
+Q92919,Hans-Peter Kriegel,German computer scientist,person,en:Category:Machine learning researchers,Hans-Peter Kriegel
+Q99613,Ernst Dickmanns,German artificial intelligence researcher,person,en:Category:Machine learning researchers,Ernst Dickmanns
+Q298341,Raymond Kurzweil,"American computer scientist, author, entrepreneur, futurist and inventor (born 1948)",person,en:Category:Machine learning researchers,Ray Kurzweil
+Q471047,Halbert White,"American academic, economist and econometrician (1950–2012)",person,en:Category:Machine learning researchers,Halbert White
+Q517898,Teuvo Kohonen,Finnish computer scientist (1934–2021),person,en:Category:Machine learning researchers,Teuvo Kohonen
+Q687346,Armin B. Cremers,German computer scientist,person,en:Category:Machine learning researchers,Armin B. Cremers
+Q931461,Leo Breiman,American statistician (1928-2005),person,en:Category:Machine learning researchers,Leo Breiman
+Q983367,Vladimir Vapnik,Russian-American mathematician (born 1936),person,en:Category:Machine learning researchers,Vladimir Vapnik
+Q2392290,Brian D. Ripley,"British statistician, artificial intelligence researcher",person,en:Category:Machine learning researchers,Brian D. Ripley
+Q2846695,Andrew Y. Ng,American artificial intelligence researcher,person,en:Category:Machine learning researchers,Andrew Ng
+Q3017519,David M. Blei,American artificial intelligence researcher,person,en:Category:Machine learning researchers,David Blei
+Q3022141,Demis Hassabis,British artificial intelligence researcher (born 1976),person,en:Category:Machine learning researchers,Demis Hassabis
+Q3308285,Michael I. Jordan,"American computer scientist, University of California, Berkeley",person,en:Category:Machine learning researchers,Michael I. Jordan
+Q3383843,Pierre Baldi,"Professor of Computer Science, University of California Irvine",person,en:Category:Machine learning researchers,Pierre Baldi
+Q3442780,Ross Quinlan,computer scientist,person,en:Category:Machine learning researchers,Ross Quinlan
+Q4027185,Ben Goertzel,author and researcher in the field of Artificial Intelligence,person,en:Category:Machine learning researchers,Ben Goertzel
+Q4711956,Alberto Broggi,Italian computer scientist,person,en:Category:Machine learning researchers,Alberto Broggi
+Q4757923,Andrew McCallum,American computer scientist,person,en:Category:Machine learning researchers,Andrew McCallum
+Q4894234,Bernhard Schölkopf,German computer scientist,person,en:Category:Machine learning researchers,Bernhard Schölkopf
+Q5112374,Christopher G. Atkeson,American roboticist,person,en:Category:Machine learning researchers,Christopher G. Atkeson
+Q5389678,Erkki Oja,Finnish professor emeritus of computer science,person,en:Category:Machine learning researchers,Erkki Oja
+Q5407117,Eugene Charniak,American computer scientist,person,en:Category:Machine learning researchers,Eugene Charniak
+Q5591406,Grace Wahba,American statistician and university teacher (born 1934),person,en:Category:Machine learning researchers,Grace Wahba
+Q5675083,Hartmut Neven,German computer scientist,person,en:Category:Machine learning researchers,Hartmut Neven
+Q5699317,Heikki Mannila,computer scientist,person,en:Category:Machine learning researchers,Heikki Mannila
+Q6110605,Jacek Żurada,Polish computer scientist,person,en:Category:Machine learning researchers,Jacek M. Zurada
+Q6123694,Jaime Carbonell,American computer scientist,person,en:Category:Machine learning researchers,Jaime Carbonell
+Q6243987,John Langford,American computer scientist,person,en:Category:Machine learning researchers,John Langford (computer scientist)
+Q6308043,Julie Beth Lovins,Computational linguist,person,en:Category:Machine learning researchers,Julie Beth Lovins
+Q6531057,Leslie P. Kaelbling,American roboticist,person,en:Category:Machine learning researchers,Leslie P. Kaelbling
+Q6695929,Luca Maria Gambardella,artificial intelligence researcher,person,en:Category:Machine learning researchers,Luca Maria Gambardella
+Q6711047,Léon Bottou,French mathematician and computer scientist,person,en:Category:Machine learning researchers,Léon Bottou
+Q6758241,Marcus Hutter,German AI researcher and computer scientist,person,en:Category:Machine learning researchers,Marcus Hutter
+Q6809871,Mehryar Mohri,American computer scientist,person,en:Category:Machine learning researchers,Mehryar Mohri
+Q6829382,Michael Collins,researcher in the field of computational linguistics,person,en:Category:Machine learning researchers,Michael Collins (computational linguist)
+Q6832031,Michael L. Littman,American computer scientist,person,en:Category:Machine learning researchers,Michael L. Littman
+Q7030465,Nicolò Cesa-Bianchi,Italian computer scientist (born 1963),person,en:Category:Machine learning researchers,Nicolò Cesa-Bianchi
+Q7078862,Ofer Dekel,computer science researcher in the Machine Learning Department of Microsoft Research,person,en:Category:Machine learning researchers,Ofer Dekel (researcher)
+Q7101544,Oren Etzioni,American businessman,person,en:Category:Machine learning researchers,Oren Etzioni
+Q7174005,Peter Flach,Dutch computer scientist,person,en:Category:Machine learning researchers,Peter Flach
+Q7328833,Richard S. Sutton,Canadian computer scientist,person,en:Category:Machine learning researchers,Richard S. Sutton
+Q7364980,Ronald J. Williams,American computer scientist,person,en:Category:Machine learning researchers,Ronald J. Williams
+Q7451965,Sepp Hochreiter,German computer scientist,person,en:Category:Machine learning researchers,Sepp Hochreiter
+Q7610052,Stephen Muggleton,artificial intelligence researcher,person,en:Category:Machine learning researchers,Stephen Muggleton
+Q7613510,Steve Omohundro,American scientist,person,en:Category:Machine learning researchers,Steve Omohundro
+Q7816669,Tom M. Mitchell,computer scientist,person,en:Category:Machine learning researchers,Tom M. Mitchell
+Q7839206,Trevor Hastie,American statistician and computer scientist,person,en:Category:Machine learning researchers,Trevor Hastie
+Q7916327,Vasant Honavar,Indian-American computer scientist,person,en:Category:Machine learning researchers,Vasant Honavar
+Q8050067,Yasuo Matsuyama,computer scientist,person,en:Category:Machine learning researchers,Yasuo Matsuyama
+Q8074621,Zoubin Ghahramani,British intelligence researcher,person,en:Category:Machine learning researchers,Zoubin Ghahramani
+Q11102304,Andrei Knyazev,Russian-American mathematician,person,en:Category:Machine learning researchers,Andrei Knyazev (mathematician)
+Q11562406,Sumio Watanabe,Japanese mathematician,person,en:Category:Machine learning researchers,Sumio Watanabe
+Q15429378,Jerome H. Friedman,American statistician,person,en:Category:Machine learning researchers,Jerome H. Friedman
+Q15783490,Anil K. Jain,Indian computer scientist,person,en:Category:Machine learning researchers,"Anil K. Jain (computer scientist, born 1948)"
+Q15994398,Nando de Freitas,computer scientist,person,en:Category:Machine learning researchers,Nando de Freitas
+Q15995094,Lise Getoor,American computer scientist,person,en:Category:Machine learning researchers,Lise Getoor
+Q16192619,Selmer Bringsjord,American computer scientist,person,en:Category:Machine learning researchers,Selmer Bringsjord
+Q16216565,Rayid Ghani,Data scientist,person,en:Category:Machine learning researchers,Rayid Ghani
+Q16234277,John Urschel,Canadian mathematician and gridiron football player (born 1991),person,en:Category:Machine learning researchers,John Urschel
+Q16591761,Ben Taskar,American computer scientist (1977-2013),person,en:Category:Machine learning researchers,Ben Taskar
+Q17517312,Pietro Perona,Italian-American computer scientist,person,en:Category:Machine learning researchers,Pietro Perona
+Q18358887,Simon Godsill,British statistician,person,en:Category:Machine learning researchers,Simon Godsill
+Q18632706,Aapo Hyvärinen,Finnish professor of computer science (University of Helsinki; University College London),person,en:Category:Machine learning researchers,Aapo Hyvärinen
+Q18684996,Brendan J. Frey,Canadian researcher and professor in machine learning and genome biology,person,en:Category:Machine learning researchers,Brendan Frey
+Q18686107,Fei-Fei Li,American computer scientist,person,en:Category:Machine learning researchers,Fei-Fei Li
+Q18719196,John D. Lafferty,American artificial intelligence researcher,person,en:Category:Machine learning researchers,John D. Lafferty
+Q18719253,Eric P. Xing,American artificial intelligence researcher,person,en:Category:Machine learning researchers,Eric Xing
+Q18749034,Michael J. Kearns,American computer scientist,person,en:Category:Machine learning researchers,Michael Kearns (computer scientist)
+Q20652360,Salvatore J. Stolfo,American computer security expert,person,en:Category:Machine learning researchers,Salvatore J. Stolfo
+Q21061678,Pushmeet Kohli,Ph.D. Oxford Brookes University 2007,person,en:Category:Machine learning researchers,Pushmeet Kohli
+Q21062156,Radford M. Neal,Canadian computer scientist (1956-),person,en:Category:Machine learning researchers,Radford M. Neal
+Q21066874,Pedro Domingos,professor of machine learning,person,en:Category:Machine learning researchers,Pedro Domingos
+Q21255170,Barbara Hammer,German computer scientist and professor,person,en:Category:Machine learning researchers,Barbara Hammer (computer scientist)
+Q21712134,Ilya Sutskever,Canadian-Israeli AI researcher,person,en:Category:Machine learning researchers,Ilya Sutskever
+Q21714633,Samy Bengio,"Canadian computer scientist, co-founder of Google Brain",person,en:Category:Machine learning researchers,Samy Bengio
+Q22096726,Dan Roth,"Israeli computer scientist, University of Illinois at Urbana-Champaign",person,en:Category:Machine learning researchers,Dan Roth
+Q22278829,Shane Legg,machine learning researcher,person,en:Category:Machine learning researchers,Shane Legg
+Q23302826,Chih-Jen Lin,researcher,person,en:Category:Machine learning researchers,Chih-Jen Lin
+Q23664234,Barney Pell,American computer scientist,person,en:Category:Machine learning researchers,Barney Pell
+Q23682411,Seppo Linnainmaa,Finnish mathematician,person,en:Category:Machine learning researchers,Seppo Linnainmaa
+Q24141782,Ashutosh Saxena,professor,person,en:Category:Machine learning researchers,Ashutosh Saxena
+Q24698708,Tomáš Mikolov,Czech researcher,person,en:Category:Machine learning researchers,Tomáš Mikolov
+Q26702597,Richard S. Zemel,computer scientist,person,en:Category:Machine learning researchers,Richard Zemel
+Q26703063,Ian Goodfellow,"American scientist, author",person,en:Category:Machine learning researchers,Ian Goodfellow
+Q26709023,Klaus-Robert Müller,German computer scientist,person,en:Category:Machine learning researchers,Klaus-Robert Müller
+Q27525742,Mark Heimann,American chess player,person,en:Category:Machine learning researchers,Mark Heimann
+Q27663657,Thomas G. Dietterich,computer scientist,person,en:Category:Machine learning researchers,Thomas G. Dietterich
+Q27831155,Lior Ron,Israeli-born businessman,person,en:Category:Machine learning researchers,Lior Ron (business executive)
+Q27910398,Jens Lehmann,German artificial intelligence researcher,person,en:Category:Machine learning researchers,Jens Lehmann (scientist)
+Q28008591,Gary B. Fogel,researcher,person,en:Category:Machine learning researchers,Gary B. Fogel
+Q28381172,Rada Mihalcea,researcher,person,en:Category:Machine learning researchers,Rada Mihalcea
+Q28839527,Pascale Fung,Professor,person,en:Category:Machine learning researchers,Pascale Fung
+Q29043123,Quoc Viet Le,machine learning researcher,person,en:Category:Machine learning researchers,Quoc V. Le
+Q29359053,Stefan Schaal,German roboticist (born 1961),person,en:Category:Machine learning researchers,Stefan Schaal
+Q29387581,Stefano Soatto,"Italian computer scientist, University of California, Los Angeles",person,en:Category:Machine learning researchers,Stefano Soatto
+Q30091976,Arthur Zimek,"professor for data mining, data science and machine learning",person,en:Category:Machine learning researchers,Arthur Zimek
+Q30226019,Alexei A. Efros,American computer vision researcher,person,en:Category:Machine learning researchers,Alexei A. Efros
+Q30278133,Max Welling,researcher,person,en:Category:Machine learning researchers,Max Welling
+Q38244065,Kyunghyun Cho,South Korean computer scientist,person,en:Category:Machine learning researchers,Kyunghyun Cho
+Q44585452,Yee Whye Teh,artificial intelligence researcher,person,en:Category:Machine learning researchers,Yee Whye Teh
+Q44651389,Isabelle Guyon,French-born researcher in machine learning,person,en:Category:Machine learning researchers,Isabelle Guyon
+Q44651811,Hanna Wallach,computational social science researcher,person,en:Category:Machine learning researchers,Hanna Wallach
+Q44652266,Rob Fergus,"computer scientist, Facebook AI Research",person,en:Category:Machine learning researchers,Rob Fergus
+Q44732069,Emma Brunskill,American AI researcher,person,en:Category:Machine learning researchers,Emma Brunskill
+Q46051831,Peter Gerstoft,researcher,person,en:Category:Machine learning researchers,Peter Gerstoft
+Q46351067,Babak Hodjat,co-founder and CEO of Sentient Technologies,person,en:Category:Machine learning researchers,Babak Hodjat
+Q47030267,Oriol Vinyals,machine learning researcher,person,en:Category:Machine learning researchers,Oriol Vinyals
+Q47461780,Karsten Borgwardt,German computer scientist and biologist,person,en:Category:Machine learning researchers,Karsten Borgwardt
+Q47463308,Douwe Kiela,machine learning researcher at Facebook,person,en:Category:Machine learning researchers,Douwe Kiela
+Q50219388,Nicholas Carlini,machine learning researcher,person,en:Category:Machine learning researchers,Nicholas Carlini
+Q50346871,Margaret Mitchell,"researcher, natural language processing",person,en:Category:Machine learning researchers,Margaret Mitchell (scientist)
+Q50358648,Chris Olah,artificial intelligence researcher,person,en:Category:Machine learning researchers,Chris Olah
+Q50359463,David Ha,artificial intelligence researcher,person,en:Category:Machine learning researchers,David Ha
+Q50413465,Volker Markl,computer scientist,person,en:Category:Machine learning researchers,Volker Markl
+Q50495366,François Chollet,French machine learning researcher,person,en:Category:Machine learning researchers,François Chollet
+Q51035916,Timothy Lillicrap,Canadian artificial intelligence researcher,person,en:Category:Machine learning researchers,Timothy Lillicrap
+Q52818955,Forrest Iandola,American computer scientist,person,en:Category:Machine learning researchers,Forrest N. Iandola
+Q55643306,Paul Viola,American computer scientist,person,en:Category:Machine learning researchers,Paul Viola
+Q55902542,Frank Hutter,machine learning researcher,person,en:Category:Machine learning researchers,Frank Hutter
+Q56037405,Andrej Karpathy,Slovakian-Canadian AI researcher (born 1986),person,en:Category:Machine learning researchers,Andrej Karpathy
+Q56055704,Geoffrey J. Gordon,professor at the Machine Learning Department at Carnegie Mellon University in Pittsburgh; director of research at the Microsoft Montréal lab,person,en:Category:Machine learning researchers,Geoffrey J. Gordon
+Q57445907,Vladimir Vovk,British computer scientist,person,en:Category:Machine learning researchers,Vladimir Vovk
+Q57866707,Alex Pappachen James,Indian machine learning researcher,person,en:Category:Machine learning researchers,Alex James (professor)
+Q58007807,Shlomo Argamon,computer scientist and forensic linguist,person,en:Category:Machine learning researchers,Shlomo Argamon
+Q58329731,Bin Yang,"researcher, ORCID id # 0000-0002-1658-1079",person,en:Category:Machine learning researchers,Bin Yang
+Q59198150,Yun Sing Koh,computer scientist at University of Auckland in New Zealand,person,en:Category:Machine learning researchers,Yun Sing Koh
+Q59344603,Angelo Dalli,Maltese Scientist and Entrepreneur,person,en:Category:Machine learning researchers,Angelo Dalli
+Q59484402,Sergey Levine,"AI researcher, professor at UC Berkeley",person,en:Category:Machine learning researchers,Sergey Levine
+Q59558347,Alexander Gammerman,"British computer scientist, and professor at Royal Holloway University of London",person,en:Category:Machine learning researchers,Alexander Gammerman
+Q59654473,Caroline Uhler,Swiss statistician,person,en:Category:Machine learning researchers,Caroline Uhler
+Q59676724,Roni Rosenfeld,Israeli-American computer scientist and computational epidemiologist,person,en:Category:Machine learning researchers,Roni Rosenfeld
+Q59753117,Timnit Gebru,computer scientist and AI ethics researcher,person,en:Category:Machine learning researchers,Timnit Gebru
+Q59754452,Black in AI,initiative to increase the presence of black people in the field of AI,person,en:Category:Machine learning researchers,Black in AI
+Q60191593,Tamara Broderick,scientist,person,en:Category:Machine learning researchers,Tamara Broderick
+Q60594257,Tal Arbel,Professor of Electrical Engineering,person,en:Category:Machine learning researchers,Tal Arbel
+Q61070984,Mihaela van der Schaar,Dutch AI scientist,person,en:Category:Machine learning researchers,Mihaela van der Schaar
+Q61904879,Kunihiko Fukushima,Japanese computer scientist,person,en:Category:Machine learning researchers,Kunihiko Fukushima
+Q62072700,Christopher K. I. Williams,computer scientist,person,en:Category:Machine learning researchers,Christopher K. I. Williams
+Q62484740,Jian Ma,"computer scientist, researcher",person,en:Category:Machine learning researchers,Jian Ma (computational biologist)
+Q63535485,Chelsea Finn,American computer scientist and professor,person,en:Category:Machine learning researchers,Chelsea Finn
+Q64144986,Tang Xiao'ou,Chinese computer scientist,person,en:Category:Machine learning researchers,Tang Xiao'ou
+Q64769299,Paul Christiano,American artificial intelligence researcher,person,en:Category:Machine learning researchers,Paul Christiano
+Q65037575,Wendy G. Lehnert,American computer scientist,person,en:Category:Machine learning researchers,Wendy Lehnert
+Q65048378,Albert Uttley,English scientist,person,en:Category:Machine learning researchers,Albert Uttley
+Q65921584,Nathalie Japkowicz,Canadian computer scientist,person,en:Category:Machine learning researchers,Nathalie Japkowicz
+Q66763780,Adam Tauman Kalai,computer scientist,person,en:Category:Machine learning researchers,Adam Tauman Kalai
+Q67063787,Peter Leslie Bartlett,statistician and computer scientist,person,en:Category:Machine learning researchers,Peter L. Bartlett
+Q70500655,Kurt Keutzer,American computer scientist,person,en:Category:Machine learning researchers,Kurt Keutzer
+Q70882189,Himabindu Lakkaraju,Indian-American computer scientist,person,en:Category:Machine learning researchers,Himabindu Lakkaraju
+Q70882347,Ziad Obermeyer,researcher (ORCID 0000-0002-4563-5849),person,en:Category:Machine learning researchers,Ziad Obermeyer
+Q72740096,Kristian Kersting,German computer scientist,person,en:Category:Machine learning researchers,Kristian Kersting
+Q80873822,Ali Farhadi,computer engineer,person,en:Category:Machine learning researchers,Ali Farhadi
+Q85199730,Wolfgang Ketter,German artificial intelligence scientist,person,en:Category:Machine learning researchers,Wolfgang Ketter
+Q85340963,Lorien Pratt,American data scientist,person,en:Category:Machine learning researchers,Lorien Pratt
+Q85816481,Xu Li,Chinese computer scientist,person,en:Category:Machine learning researchers,Xu Li (computer scientist)
+Q87103105,Joseph Keshet,Israeli computer scientist,person,en:Category:Machine learning researchers,Joseph Keshet
+Q88240465,David Horn,Israeli physicist,person,en:Category:Machine learning researchers,David Horn (Israeli physicist)
+Q88391971,Noémie Elhadad,researcher,person,en:Category:Machine learning researchers,Noémie Elhadad
+Q89453351,Maziar Raissi,mathematician,person,en:Category:Machine learning researchers,Maziar Raissi
+Q90089147,Deepti Gurdasani,researcher,person,en:Category:Machine learning researchers,Deepti Gurdasani
+Q92966980,Michael Osborne,machine learning professor and entrepreneur,person,en:Category:Machine learning researchers,Maike Osborne
+Q93121823,Daniel J. Hulme,British businessman (born 1980),person,en:Category:Machine learning researchers,Daniel J. Hulme
+Q93372142,David P. Casasent,Ph.D. University of Illinois at Urbana-Champaign 1969,person,en:Category:Machine learning researchers,David Casasent
+Q93452534,Marius Lindauer,German computer scientist,person,en:Category:Machine learning researchers,Marius Lindauer
+Q94960976,Kaiming He,Chinese computer and AI researcher,person,en:Category:Machine learning researchers,Kaiming He
+Q97317434,Inioluwa Deborah Raji,Nigerian-Canadian computer scientist and activist,person,en:Category:Machine learning researchers,Deborah Raji
+Q97571461,Ian Reid,computer scientist,person,en:Category:Machine learning researchers,Ian D. Reid
+Q99433114,Raymond J. Mooney,American computer scientist,person,en:Category:Machine learning researchers,Raymond J. Mooney
+Q102174465,Andrew William Moore,Ph.D. University of Cambridge 1990. Computer Scientist and Dean at Carnegie Mellon University,person,en:Category:Machine learning researchers,Andrew W. Moore
+Q102257152,Constantine Caramanis,Ph.D. Massachusetts Institute of Technology 2006,person,en:Category:Machine learning researchers,Constantine Caramanis
+Q102342013,Yonghui Wu,"Ph.D. University of California, Riverside 2008",person,en:Category:Machine learning researchers,Yonghui Wu
+Q102383099,Homayoon Beigi,Ph.D. Columbia University 1991,person,en:Category:Machine learning researchers,Homayoon Beigi
+Q102395497,Muhammad Aurangzeb Ahmad,Ph.D. University of Minnesota-Minneapolis 2011,person,en:Category:Machine learning researchers,Muhammad Aurangzeb Ahmad
+Q102430816,Jiliang Tang,Chinese-born computer scientist,person,en:Category:Machine learning researchers,Jiliang Tang
+Q102649624,Jared Kaplan,artificial intelligence researcher,person,en:Category:Machine learning researchers,Jared Kaplan
+Q102790645,Yaron Singer,"Ph.D. University of California, Berkeley 2011",person,en:Category:Machine learning researchers,Yaron Singer
+Q103330544,Abdel-rahman Mohamed,Ph.D. University of Toronto 2014,person,en:Category:Machine learning researchers,Abdelrahman Mohamed (AI researcher)
+Q103379263,Gautam Kamath,Ph.D. Massachusetts Institute of Technology 2018,person,en:Category:Machine learning researchers,Gautam Kamath
+Q104921990,Bruno Zamborlin,technology researcher and entrepreneur,person,en:Category:Machine learning researchers,Bruno Zamborlin
+Q105834628,Abeba Birhane,Ethiopian-born cognitive scientist,person,en:Category:Machine learning researchers,Abeba Birhane
+Q107261221,Dan Hendrycks,researcher and director of the Center for AI Safety,person,en:Category:Machine learning researchers,Dan Hendrycks
+Q110258687,Jiaya Jia,Chinese computer scientist,person,en:Category:Machine learning researchers,Jiaya Jia
+Q110864219,Aidan N. Gomez,artificial intelligence researcher,person,en:Category:Machine learning researchers,Aidan Gomez
+Q111914392,Australian Institute for Machine Learning,research institute in Adelaide,person,en:Category:Machine learning researchers,Australian Institute for Machine Learning
+Q112326380,William Fedus,"American machine learning researcher and entrepreneur, co-founder of Periodic Labs",person,en:Category:Machine learning researchers,Liam Fedus
+Q112403289,Irwin King,Hong Kong computer scientist,person,en:Category:Machine learning researchers,Irwin King
+Q113415018,David Duvenaud,machine learning engineer,person,en:Category:Machine learning researchers,David Duvenaud
+Q115853897,Duygu Kuzum,Turkish electrical engineer,person,en:Category:Machine learning researchers,Duygu Kuzum
+Q116025168,Devi Parikh,American computer scientist,person,en:Category:Machine learning researchers,Devi Parikh
+Q122439015,Sasha Luccioni,computer scientist specializing in the intersection of artificial intelligence (AI) and climate change,person,en:Category:Machine learning researchers,Sasha Luccioni
+Q123130693,Jan Leike,AI safety researcher,person,en:Category:Machine learning researchers,Jan Leike
+Q123642993,Guillaume Verdon,Canadian quantum engineer and research scientist,person,en:Category:Machine learning researchers,Guillaume Verdon
+Q124125035,Clement Farabet,french-American computer scientist,person,en:Category:Machine learning researchers,Clement Farabet
+Q130238722,Llion Jones,Welsh computer scientist,person,en:Category:Machine learning researchers,Llion Jones
+Q131129246,Ahmed Abbasi,researcher (ORCID 0000-0001-7698-7794),person,en:Category:Machine learning researchers,Ahmed Abbasi
+Q131178735,Yi Zeng,Chinese artificial intelligence researcher,person,en:Category:Machine learning researchers,Yi Zeng (AI researcher)
+Q133538772,Nick Frosst,Canadian computer scientist and musician,person,en:Category:Machine learning researchers,Nick Frosst
+Q135427807,Brian Tomasik,"American researcher, ethicist, and essayist",person,en:Category:Machine learning researchers,Brian Tomasik
+Q138011141,Sudip Roy,computer scientist,person,en:Category:Machine learning researchers,Sudip Roy (computer scientist)
+Q139666707,Yonatan Belinkov,computer scientist,person,en:Category:Machine learning researchers,Yonatan Belinkov

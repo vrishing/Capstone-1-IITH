@@ -1,0 +1,205 @@
+{
+  "built_at": "2026-11-11T20:01:30+00:00",
+  "topic": "Machine learning",
+  "pack_sha256": "efca56a2a865df48359ad65786e1ab110cf3fa846deab6464cfaba876b9ab5ae",
+  "categories": [
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning",
+      "type": "concept",
+      "depth": 0,
+      "pages_found": 293,
+      "pages_with_wikidata": 288,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning task",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 53,
+      "pages_with_wikidata": 52,
+      "categories_walked": 3,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Kernel methods for machine learning",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 27,
+      "pages_with_wikidata": 27,
+      "categories_walked": 2,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning algorithms",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 133,
+      "pages_with_wikidata": 132,
+      "categories_walked": 2,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning researchers",
+      "type": "person",
+      "depth": 1,
+      "pages_found": 216,
+      "pages_with_wikidata": 216,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Data mining and machine learning software",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 138,
+      "pages_with_wikidata": 137,
+      "categories_walked": 4,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Ensemble learning",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 13,
+      "pages_with_wikidata": 13,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Learning in computer vision",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 4,
+      "pages_with_wikidata": 4,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Reinforcement learning",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 20,
+      "pages_with_wikidata": 20,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Computer vision",
+      "type": "concept",
+      "depth": 0,
+      "pages_found": 132,
+      "pages_with_wikidata": 132,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Signal processing conferences",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 6,
+      "pages_with_wikidata": 6,
+      "categories_walked": 1,
+      "truncated": false
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Artificial intelligence conferences",
+      "type": "concept",
+      "depth": 1,
+      "pages_found": 44,
+      "pages_with_wikidata": 43,
+      "categories_walked": 2,
+      "truncated": false
+    }
+  ],
+  "counts": {
+    "entities": 1030,
+    "entities_with_telugu": 35,
+    "entities_missing_telugu": 995,
+    "candidate_rows": 49,
+    "ambiguous_terms": 1,
+    "pages_without_wikidata": 9,
+    "wikidata_items_not_returned": 0,
+    "surfaces_dropped": {
+      "no_telugu_script": 1,
+      "empty_after_cleaning": 0,
+      "phrase_redirect": 0
+    }
+  },
+  "pages_without_wikidata": [
+    {
+      "wiki": "en",
+      "title": "Feature Importance",
+      "category": "Category:Machine learning"
+    },
+    {
+      "wiki": "en",
+      "title": "Hypernetwork (machine learning)",
+      "category": "Category:Machine learning"
+    },
+    {
+      "wiki": "en",
+      "title": "Leave-one-out cross-validation",
+      "category": "Category:Machine learning"
+    },
+    {
+      "wiki": "en",
+      "title": "Under-fitting",
+      "category": "Category:Machine learning"
+    },
+    {
+      "wiki": "en",
+      "title": "Validation set",
+      "category": "Category:Machine learning"
+    },
+    {
+      "wiki": "en",
+      "title": "Kling (text-to-video model)",
+      "category": "Category:Text-to-video generation"
+    },
+    {
+      "wiki": "en",
+      "title": "GATTO",
+      "category": "Category:Genetic algorithms"
+    },
+    {
+      "wiki": "en",
+      "title": "DeepLabCut",
+      "category": "Category:Deep learning software"
+    },
+    {
+      "wiki": "en",
+      "title": "Conference on Knowledge Discovery and Data Mining",
+      "category": "Category:Artificial intelligence conferences"
+    }
+  ],
+  "wikidata_items_not_returned": [],
+  "rejected_te_links": [],
+  "api_requests": {
+    "network": 71,
+    "cache": 1,
+    "retries": 0
+  },
+  "licences": {
+    "wikidata": "CC0 1.0: labels, aliases and descriptions",
+    "wikipedia": "CC BY-SA 4.0: page titles and redirects; attribution is the Wikipedia page named in each row's source column"
+  },
+  "files": [
+    "aliases_candidates.csv",
+    "missing_telugu.csv",
+    "ambiguous.csv",
+    "build_report.json"
+  ]
+}

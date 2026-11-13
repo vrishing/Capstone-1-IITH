@@ -1,0 +1,426 @@
+{
+  "n_hybrid_rerank": {
+    "n_questions": 8,
+    "n_answerable": 6,
+    "n_unanswerable": 2,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.6666666666666666,
+      "recall@3": 0.6666666666666666,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.75,
+      "timestamp_hit@1": 0.6666666666666666,
+      "evidence_recall@5": 0.6448412698412699,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.3333333333333333,
+        1.0
+      ],
+      "recall@3": [
+        0.3333333333333333,
+        1.0
+      ],
+      "recall@5": [
+        1.0,
+        1.0
+      ],
+      "recall@10": [
+        1.0,
+        1.0
+      ],
+      "mrr": [
+        0.5,
+        1.0
+      ],
+      "timestamp_hit@1": [
+        0.3333333333333333,
+        1.0
+      ],
+      "evidence_recall@5": [
+        0.48809523809523814,
+        0.8214285714285715
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "cross_language": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 1,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 1,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 2,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": []
+  },
+  "n_hybrid": {
+    "n_questions": 8,
+    "n_answerable": 6,
+    "n_unanswerable": 2,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.3333333333333333,
+      "recall@3": 0.5,
+      "recall@5": 0.5,
+      "recall@10": 0.6666666666666666,
+      "mrr": 0.40740740740740744,
+      "timestamp_hit@1": 0.3333333333333333,
+      "evidence_recall@5": 0.24404761904761904,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.0,
+        0.6666666666666666
+      ],
+      "recall@3": [
+        0.16666666666666666,
+        0.8333333333333334
+      ],
+      "recall@5": [
+        0.16666666666666666,
+        0.8333333333333334
+      ],
+      "recall@10": [
+        0.3333333333333333,
+        1.0
+      ],
+      "mrr": [
+        0.07407407407407407,
+        0.7407407407407408
+      ],
+      "timestamp_hit@1": [
+        0.0,
+        0.6666666666666666
+      ],
+      "evidence_recall@5": [
+        0.047619047619047616,
+        0.46428571428571425
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "cross_language": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 1,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 1,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 2,
+        "recall@5": 0.5,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 2,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": [
+      "n01",
+      "n02",
+      "n06"
+    ]
+  },
+  "n_dense": {
+    "n_questions": 8,
+    "n_answerable": 6,
+    "n_unanswerable": 2,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.6666666666666666,
+      "recall@3": 0.6666666666666666,
+      "recall@5": 0.8333333333333334,
+      "recall@10": 1.0,
+      "mrr": 0.736111111111111,
+      "timestamp_hit@1": 0.6666666666666666,
+      "evidence_recall@5": 0.6726190476190476,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.3333333333333333,
+        1.0
+      ],
+      "recall@3": [
+        0.3333333333333333,
+        1.0
+      ],
+      "recall@5": [
+        0.5,
+        1.0
+      ],
+      "recall@10": [
+        1.0,
+        1.0
+      ],
+      "mrr": [
+        0.4583333333333333,
+        1.0
+      ],
+      "timestamp_hit@1": [
+        0.3333333333333333,
+        1.0
+      ],
+      "evidence_recall@5": [
+        0.35714285714285715,
+        0.9107142857142857
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "cross_language": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 1,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 1,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 2,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": [
+      "n06"
+    ]
+  },
+  "n_sparse": {
+    "n_questions": 8,
+    "n_answerable": 6,
+    "n_unanswerable": 2,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.16666666666666666,
+      "recall@3": 0.16666666666666666,
+      "recall@5": 0.16666666666666666,
+      "recall@10": 0.3333333333333333,
+      "mrr": 0.1875,
+      "timestamp_hit@1": 0.16666666666666666,
+      "evidence_recall@5": 0.125,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.0,
+        0.5
+      ],
+      "recall@3": [
+        0.0,
+        0.5
+      ],
+      "recall@5": [
+        0.0,
+        0.5
+      ],
+      "recall@10": [
+        0.0,
+        0.6666666666666666
+      ],
+      "mrr": [
+        0.0,
+        0.5208333333333334
+      ],
+      "timestamp_hit@1": [
+        0.0,
+        0.5
+      ],
+      "evidence_recall@5": [
+        0.0,
+        0.375
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "cross_language": {
+        "n": 2,
+        "recall@5": 0.5,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 1,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 1,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 2,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 2,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": [
+      "n01",
+      "n02",
+      "n03",
+      "n06",
+      "n09"
+    ]
+  }
+}

@@ -25,7 +25,7 @@ import unicodedata
 
 from correction import DEFAULTS as _CD, MAX_PHRASE_WORDS, _split_punct, stem_ends
 
-ENTITY_ALGO = "entities_v1"
+ENTITY_ALGO = "entities_v2"
 CLUSTER_ALGO = "cluster_v1"
 
 
@@ -62,10 +62,13 @@ def _word_entities(gl, w: str) -> set[str]:
     return ids
 
 
-def text_entities(text: str, gl) -> list[str]:
-    """Sorted entity ids found in text (whole words, inflected forms, and multi-word terms)."""
+def text_entities(text: str, gl, key_match: bool = True, min_key_len: int = 5) -> list[str]:
+    """Sorted entity ids found in text: whole words, inflected forms, multi-word terms and, with
+    key_match, a word whose phonetic key equals a glossary term's key (an English term written in
+    Devanagari, or an ASR spelling variant). Keys shorter than min_key_len never match this way."""
     if not gl:
         return []
+    from romanize import phonetic_key
     toks = _tokens(text)
     found: set[str] = set()
     i = 0
@@ -79,7 +82,12 @@ def text_entities(text: str, gl) -> list[str]:
         if hit:
             i += hit
             continue
-        found |= _word_entities(gl, toks[i])
+        ids = _word_entities(gl, toks[i])
+        if not ids and key_match:
+            k = phonetic_key(toks[i])
+            if len(k) >= min_key_len:
+                ids = gl.key_entities.get(k, set())
+        found |= ids
         i += 1
     return sorted(found)
 

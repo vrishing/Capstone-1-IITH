@@ -1,0 +1,36 @@
+{"id": "m01", "question": "Who was Arjuna's charioteer in the Kurukshetra war?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["Krishna"]}
+{"id": "m02", "question": "Who killed Drona?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["dyumna"]}
+{"id": "m03", "question": "Who was Drona's son?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["thama"]}
+{"id": "m04", "question": "Who became the commander of the Kaurava army after Bhishma?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["Drona"]}
+{"id": "m05", "question": "Who is Abhimanyu's father?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["Arjuna"]}
+{"id": "m06", "question": "Who was Subhadra's son?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["Abhimanyu"]}
+{"id": "m07", "question": "What false news was spread to make Drona lay down his weapons?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": ["Ashwatthama"]}
+{"id": "m08", "question": "Why could the Pandavas not rescue Abhimanyu from the chakravyuha?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": ["Jayadratha"]}
+{"id": "m09", "question": "What boon did Jayadratha have that kept the Pandavas away from Abhimanyu?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "m10", "question": "What does Bhishma say about Nara and Narayana?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": ["Arjuna", "Krishna"]}
+{"id": "m11", "question": "What does Karna say about Arjuna's ability as a warrior?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "m12", "question": "Who struck the final blow to Abhimanyu?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "m13", "question": "How do Bhishma, Karna and Krishna each describe Arjuna's greatness?", "language": "en", "category": "multi_video", "difficulty": 3, "hops": 3, "answerable": true, "must_include": []}
+{"id": "m14", "question": "Why was Abhimanyu's death a turning point, and how did Arjuna respond afterwards?", "language": "en", "category": "multi_video", "difficulty": 3, "hops": 2, "answerable": true, "must_include": ["Jayadratha"]}
+{"id": "m15", "question": "Compare how Bhishma and Drona were brought down in the war.", "language": "en", "category": "comparison", "difficulty": 4, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m16", "question": "How did Drona's role as commander differ from Bhishma's?", "language": "en", "category": "comparison", "difficulty": 3, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m17", "question": "Which warriors tried to stop Arjuna while he searched for Jayadratha?", "language": "en", "category": "list", "difficulty": 3, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m18", "question": "List the warriors who fought around Drona on the day he died.", "language": "en", "category": "list", "difficulty": 3, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m19", "question": "What role did Ashwatthama play in the events around his father's death and after it?", "language": "en", "category": "multi_video", "difficulty": 4, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m20", "question": "What advice did Krishna give Arjuna at different points in the war, and how did Arjuna act on it?", "language": "en", "category": "multi_video", "difficulty": 4, "hops": 3, "answerable": true, "must_include": []}
+{"id": "m21", "question": "Which characters does the speaker describe as sons of Indra or sons of gods?", "language": "en", "category": "list", "difficulty": 3, "hops": 3, "answerable": true, "must_include": []}
+{"id": "m22", "question": "How many days did Bhishma and Drona each lead the Kaurava army?", "language": "en", "category": "numeric", "difficulty": 3, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m23", "question": "What does the speaker say about the way the Pandavas treated the rules of war, across the episodes?", "language": "en", "category": "multi_video", "difficulty": 4, "hops": 3, "answerable": true, "must_include": []}
+{"id": "m24", "question": "అర్జునుడి రథసారథి ఎవరు?", "language": "te", "category": "cross_language", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["కృష్ణ"]}
+{"id": "m25", "question": "ద్రోణుడిని ఎవరు సంహరించారు?", "language": "te", "category": "cross_language", "difficulty": 1, "hops": 1, "answerable": true, "must_include": ["ద్యుమ్న"]}
+{"id": "m26", "question": "జయద్రథుడు పాండవులను ఎలా అడ్డుకున్నాడు?", "language": "te", "category": "cross_language", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "m27", "question": "భీష్ముడు, ద్రోణుడు ఎలా పడిపోయారు?", "language": "te", "category": "cross_language", "difficulty": 4, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m28", "question": "అభిమన్యుడి మరణం తర్వాత అర్జునుడు ఏం ప్రతిజ్ఞ చేశాడు?", "language": "te", "category": "cross_language", "difficulty": 3, "hops": 2, "answerable": true, "must_include": []}
+{"id": "m29", "question": "ద్రోణుడు శిరస్సు ధృష్టద్యుమ్నుడు", "language": "te", "category": "keyword", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "m30", "question": "Abhimanyu chakravyuha Jayadratha boon", "language": "en", "category": "keyword", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "m31", "question": "What is the capital of Brazil?", "language": "en", "category": "unanswerable", "difficulty": 1, "hops": 0, "answerable": false, "must_include": []}
+{"id": "m32", "question": "Who won the 2011 cricket world cup?", "language": "en", "category": "unanswerable", "difficulty": 1, "hops": 0, "answerable": false, "must_include": []}
+{"id": "m33", "question": "What does the speaker say about quantum computing?", "language": "en", "category": "unanswerable", "difficulty": 1, "hops": 0, "answerable": false, "must_include": []}
+{"id": "m34", "question": "Why did Bhima kill Karna on the first day of the war?", "language": "en", "category": "unanswerable", "difficulty": 2, "hops": 0, "answerable": false, "must_include": []}
+{"id": "m35", "question": "What recipe for biryani does the speaker describe?", "language": "en", "category": "unanswerable", "difficulty": 1, "hops": 0, "answerable": false, "must_include": []}
+{"id": "m36", "question": "భారతదేశ రాజధాని ఏది?", "language": "te", "category": "unanswerable", "difficulty": 1, "hops": 0, "answerable": false, "must_include": []}

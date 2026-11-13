@@ -42,8 +42,11 @@ Rules:
 1. Use nothing from outside the passages, even if you are sure it is true.
 2. Every sentence of your answer must be supported by the passage(s) you cite for it.
 3. Write the answer in {lang}. The passages may be in another language: translate faithfully, add nothing.
-4. Keep it short and direct: one to four sentences, each stating one claim.
-5. If the passages do not contain enough to answer the question, set "sufficient" to false.
+4. Keep it short and direct: one to four sentences, each stating a different claim. Never say the same thing twice.
+5. Names: write a name the way the passage spells it (transliterated if you answer in another language). \
+The transcription may garble a name, but never replace it with a different, better-known character; \
+if you cannot tell who is meant, say "the one named <name as written>".
+6. If the passages do not contain enough to answer the question, set "sufficient" to false.
 Reply with JSON only:
 {{"sufficient": true, "sentences": [{{"text": "...", "cites": [1, 3]}}]}}"""
 
@@ -107,11 +110,24 @@ def parse_generation(text: str, n_hits: int) -> tuple[bool, list[dict]]:
 
 
 def parse_verdicts(text: str, n: int) -> list[str]:
+    """One verdict per statement. Accepts {"verdicts": [...]}, a bare list, items like
+    {"i": 0, "verdict": "supported"} or plain strings (taken in order)."""
     d = _json(text)
-    got = {}
-    for v in d.get("verdicts", []):
-        if isinstance(v.get("i"), int) and v.get("verdict") in VERDICTS:
-            got[v["i"]] = v["verdict"]
+    items = d.get("verdicts", d.get("results")) if isinstance(d, dict) else d
+    if not isinstance(items, list):
+        raise ValueError("verifier reply has no list of verdicts")
+    got: dict[int, str] = {}
+    for pos, v in enumerate(items):
+        if isinstance(v, str):
+            idx, verdict = pos, v
+        elif isinstance(v, dict):
+            idx = v.get("i", v.get("index", pos))
+            verdict = v.get("verdict", v.get("label"))
+        else:
+            continue
+        verdict = str(verdict).strip().lower() if verdict is not None else ""
+        if isinstance(idx, int) and verdict in VERDICTS:
+            got[idx] = verdict
     if set(got) != set(range(n)):
         raise ValueError("verifier did not answer every statement")
     return [got[i] for i in range(n)]
@@ -153,7 +169,7 @@ def answer_question(question: str, retrieve_fn, gen, titles: dict | None = None,
         tr["attempts"].append(rec)
         base["attempts"] = attempt
         try:
-            raw = gen(prompt, role="answer", system=system, json_output=True, max_output_tokens=2000)
+            raw = gen(prompt, role="answer", system=system, json_output=True, max_output_tokens=4000)
             rec["generation"] = raw
             sufficient, sents = parse_generation(raw, len(hits))
         except ValueError as e:                        # malformed output: try again
@@ -171,7 +187,7 @@ def answer_question(question: str, retrieve_fn, gen, titles: dict | None = None,
         if todo:
             try:
                 vraw = gen(verify_prompt([sents[i] for i in todo], hits), role="verifier",
-                           system=VERIFY_SYSTEM, json_output=True, max_output_tokens=1000)
+                           system=VERIFY_SYSTEM, json_output=True, max_output_tokens=3000)
                 rec["verification"] = vraw
                 for i, v in zip(todo, parse_verdicts(vraw, len(todo))):
                     verdicts[i] = v
@@ -323,6 +339,34 @@ def ask(question: str, stack, gen, use_cache: bool, k: int) -> dict:
     return res
 
 
+def run_eval(questions_path: str, out_path: str, stack, gen, k: int, use_cache: bool = True) -> int:
+    """Full-pipeline run file (eval_harness format). Rows already in out_path are kept, so a run
+    stopped by the LLM quota can be resumed; error rows are redone."""
+    from eval_harness import load_questions, read_jsonl, write_jsonl
+    qs = load_questions(questions_path)
+    done = {}
+    if os.path.exists(out_path):
+        done = {r["id"]: r for r in read_jsonl(out_path) if not r.get("error")}
+    rows = []
+    for q in qs:
+        if q["id"] in done:
+            rows.append(done[q["id"]])
+            continue
+        res = ask(q["question"], stack, gen, use_cache, k)
+        rows.append({"id": q["id"],
+                     "retrieved": [{"video_id": h["video_id"], "start": h["start"], "end": h["end"],
+                                    "span_id": h["span_id"]} for h in res["evidence"]],
+                     "answer": res["answer"] if res["outcome"] != "abstained" else "",
+                     "abstained": res["outcome"] == "abstained" and not res.get("error"),
+                     "citations": [{"video_id": c["video_id"], "start": c["start"], "end": c["end"],
+                                    "span_id": c["span_id"]} for s in res["sentences"] for c in s["cites"]],
+                     "outcome": res["outcome"], **({"error": res["reason"]} if res.get("error") else {})})
+        write_jsonl(out_path, rows)                  # after every question: a crash loses nothing
+    bad = [r["id"] for r in rows if r.get("error")]
+    print(f"{len(rows)} questions -> {out_path}; {len(bad)} with errors" + (f": {', '.join(bad)}" if bad else ""))
+    return 2 if bad else 0
+
+
 def main(argv: list[str]) -> int:
     import argparse
     ap = argparse.ArgumentParser()
@@ -332,12 +376,19 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--no-cache", action="store_true")
     ap.add_argument("--no-rerank", action="store_true")
+    ap.add_argument("--eval", metavar="QUESTIONS", help="answer every question in this file, write a run file")
+    ap.add_argument("--out", help="with --eval: run file to write")
     a = ap.parse_args(argv)
     if a.playlist:
         config.select_playlist(a.playlist)
     import retrieval
     stack = retrieval.load_stack(not a.no_rerank)
     gen = make_gen()
+    if a.eval:
+        if not a.out:
+            print("--eval needs --out", file=sys.stderr)
+            return 2
+        return run_eval(a.eval, a.out, stack, gen, a.k, not a.no_cache)
     rc = 0
     qs = [a.question] if a.question else None
     while True:

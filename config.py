@@ -81,6 +81,7 @@ ANSWER_CACHE_DIR = _p("data", "answers")
 TRACE_DIR = _p("data", "traces")
 RERANK_MODEL_NAME = "BAAI/bge-reranker-v2-m3"
 RERANK_CANDIDATES = 30   # fused candidates the reranker reads per question
+RETRIEVE_SPARSE_WEIGHT = 0.3  # sparse list weight in the dense+sparse fusion; chosen from a 30-question sweep (exploratory)
 RETRIEVE_PER_LIST = 40   # candidates taken from each of the dense and sparse lists
 
 # --- Which LLM answers and verifies (llm_client.py) --------------------------------------------

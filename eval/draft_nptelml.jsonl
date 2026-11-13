@@ -1,0 +1,11 @@
+{"id": "n01", "question": "What is machine learning?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": []}
+{"id": "n02", "question": "What is the difference between supervised and unsupervised learning?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "n03", "question": "What is overfitting?", "language": "en", "category": "simple", "difficulty": 1, "hops": 1, "answerable": true, "must_include": []}
+{"id": "n04", "question": "What is a decision tree and how does it split the data?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "n05", "question": "How does linear regression fit a line to the data?", "language": "en", "category": "explanation", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "n06", "question": "Which examples of machine learning applications does the lecturer give across the lectures?", "language": "en", "category": "list", "difficulty": 3, "hops": 2, "answerable": true, "must_include": []}
+{"id": "n07", "question": "How do the lectures connect the choice of model with the amount of training data?", "language": "en", "category": "multi_video", "difficulty": 4, "hops": 2, "answerable": true, "must_include": []}
+{"id": "n08", "question": "मशीन लर्निंग क्या है?", "language": "hi", "category": "cross_language", "difficulty": 1, "hops": 1, "answerable": true, "must_include": []}
+{"id": "n09", "question": "ओवरफिटिंग से कैसे बचा जा सकता है?", "language": "hi", "category": "cross_language", "difficulty": 2, "hops": 1, "answerable": true, "must_include": []}
+{"id": "n10", "question": "Who won the Booker Prize last year?", "language": "en", "category": "unanswerable", "difficulty": 1, "hops": 0, "answerable": false, "must_include": []}
+{"id": "n11", "question": "What does the lecturer say about cooking pasta?", "language": "en", "category": "unanswerable", "difficulty": 1, "hops": 0, "answerable": false, "must_include": []}

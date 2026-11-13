@@ -1,0 +1,465 @@
+{
+  "_help": "Set use:true and a type (person, place, text, concept, ...) on the categories that match your playlist. depth = how many subcategory levels to follow. Delete the rest.",
+  "topic": "Machine learning",
+  "language": "hi",
+  "playlist_id": "PLyqSpQzTE6M9d12n_D5z002YRPTzrmt_U",
+  "categories": [
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning",
+      "type": "concept",
+      "depth": 0,
+      "use": true,
+      "_pages": 293,
+      "_subcats": 34
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning task",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 9,
+      "_subcats": 2
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Kernel methods for machine learning",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 21,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning algorithms",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 108,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning stubs",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 123,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Machine learning researchers",
+      "type": "person",
+      "depth": 1,
+      "use": true,
+      "_pages": 216,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Data mining and machine learning software",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 92,
+      "_subcats": 3
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Ensemble learning",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 13,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Learning in computer vision",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 4,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Reinforcement learning",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 20,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Computer vision",
+      "type": "concept",
+      "depth": 0,
+      "use": true,
+      "_pages": 132,
+      "_subcats": 22
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Signal processing conferences",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 6,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Artificial intelligence conferences",
+      "type": "concept",
+      "depth": 1,
+      "use": true,
+      "_pages": 40,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Genetic programming",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 11,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Deep learning software",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 27,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Applications of artificial intelligence",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 162,
+      "_subcats": 30
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Applied machine learning",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 65,
+      "_subcats": 3
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Data engineering",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 15,
+      "_subcats": 4
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Datasets in machine learning",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 16,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:PlayStation 5 Pro enhanced games",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 89,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Unsupervised learning",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 30,
+      "_subcats": 3
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Computational learning theory",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 23,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Semisupervised learning",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 2,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Supervised learning",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 7,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Deep learning software applications",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 34,
+      "_subcats": 2
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Ontology learning (computer science)",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 2,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Support vector machines",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 9,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Artificial neural networks",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 160,
+      "_subcats": 5
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Evolutionary algorithms",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 31,
+      "_subcats": 7
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Datasets in computer vision",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 16,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Markov models",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 65,
+      "_subcats": 3
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Classification algorithms",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 89,
+      "_subcats": 3
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Statistical natural language processing",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 37,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Bayesian networks",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 14,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Dimension reduction",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 48,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Neural network software",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 14,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Cluster analysis",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 24,
+      "_subcats": 2
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Loss functions",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 11,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Natural language processing researchers",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 145,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Genetic algorithms",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 25,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Log-linear models",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 2,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:AlphaGo",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 13,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Blockmodeling",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 15,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Social network analysis software",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 7,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Text-to-image generation",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 28,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Structured prediction",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 4,
+      "_subcats": 1
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Text-to-video generation",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 20,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Inductive logic programming",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 7,
+      "_subcats": 0
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Google DeepMind",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 20,
+      "_subcats": 2
+    },
+    {
+      "wiki": "en",
+      "title": "Category:Infectious diseases",
+      "type": "",
+      "depth": 1,
+      "use": false,
+      "_pages": 151,
+      "_subcats": 43
+    }
+  ],
+  "wikidata_ids": [],
+  "no_fuzzy_types": [
+    "concept",
+    "other"
+  ],
+  "max_pages": 2000,
+  "auto": true
+}

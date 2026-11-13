@@ -1,0 +1,562 @@
+{
+  "m_hybrid_rerank": {
+    "n_questions": 36,
+    "n_answerable": 30,
+    "n_unanswerable": 6,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.4,
+      "recall@3": 0.6,
+      "recall@5": 0.7333333333333333,
+      "recall@10": 0.8333333333333334,
+      "mrr": 0.5275925925925926,
+      "timestamp_hit@1": 0.4,
+      "evidence_recall@5": 0.3865873015873016,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.23333333333333334,
+        0.5666666666666667
+      ],
+      "recall@3": [
+        0.43333333333333335,
+        0.7666666666666667
+      ],
+      "recall@5": [
+        0.5666666666666667,
+        0.9
+      ],
+      "recall@10": [
+        0.7,
+        0.9666666666666667
+      ],
+      "mrr": [
+        0.37277777777777776,
+        0.6811111111111111
+      ],
+      "timestamp_hit@1": [
+        0.23333333333333334,
+        0.5666666666666667
+      ],
+      "evidence_recall@5": [
+        0.26857142857142857,
+        0.5123015873015873
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "comparison": {
+        "n": 2,
+        "recall@5": 0.5,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "cross_language": {
+        "n": 5,
+        "recall@5": 0.8,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 6,
+        "recall@5": 0.3333333333333333,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "keyword": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 3,
+        "recall@5": 0.6666666666666666,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "multi_video": {
+        "n": 5,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "numeric": {
+        "n": 1,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 6,
+        "recall@5": 0.8333333333333334,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 6,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": [
+      "m04",
+      "m08",
+      "m10",
+      "m11",
+      "m12",
+      "m15",
+      "m21",
+      "m25"
+    ]
+  },
+  "m_hybrid": {
+    "n_questions": 36,
+    "n_answerable": 30,
+    "n_unanswerable": 6,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.23333333333333334,
+      "recall@3": 0.4666666666666667,
+      "recall@5": 0.6333333333333333,
+      "recall@10": 0.8,
+      "mrr": 0.38846560846560846,
+      "timestamp_hit@1": 0.23333333333333334,
+      "evidence_recall@5": 0.2751587301587302,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.1,
+        0.4
+      ],
+      "recall@3": [
+        0.26666666666666666,
+        0.6333333333333333
+      ],
+      "recall@5": [
+        0.4666666666666667,
+        0.8
+      ],
+      "recall@10": [
+        0.6333333333333333,
+        0.9333333333333333
+      ],
+      "mrr": [
+        0.2531481481481481,
+        0.5290211640211641
+      ],
+      "timestamp_hit@1": [
+        0.1,
+        0.4
+      ],
+      "evidence_recall@5": [
+        0.1788888888888889,
+        0.38420634920634916
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "comparison": {
+        "n": 2,
+        "recall@5": 0.5,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "cross_language": {
+        "n": 5,
+        "recall@5": 0.8,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 6,
+        "recall@5": 0.3333333333333333,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "keyword": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 3,
+        "recall@5": 0.6666666666666666,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "multi_video": {
+        "n": 5,
+        "recall@5": 0.8,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "numeric": {
+        "n": 1,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 6,
+        "recall@5": 0.6666666666666666,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 6,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": [
+      "m05",
+      "m06",
+      "m08",
+      "m09",
+      "m11",
+      "m12",
+      "m13",
+      "m15",
+      "m21",
+      "m22",
+      "m26"
+    ]
+  },
+  "m_dense": {
+    "n_questions": 36,
+    "n_answerable": 30,
+    "n_unanswerable": 6,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.5,
+      "recall@3": 0.7333333333333333,
+      "recall@5": 0.8333333333333334,
+      "recall@10": 0.9,
+      "mrr": 0.6233333333333332,
+      "timestamp_hit@1": 0.5,
+      "evidence_recall@5": 0.3946031746031746,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "recall@3": [
+        0.5666666666666667,
+        0.9
+      ],
+      "recall@5": [
+        0.7,
+        0.9666666666666667
+      ],
+      "recall@10": [
+        0.7666666666666667,
+        1.0
+      ],
+      "mrr": [
+        0.4844444444444444,
+        0.7649999999999999
+      ],
+      "timestamp_hit@1": [
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "evidence_recall@5": [
+        0.28738095238095235,
+        0.503015873015873
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "comparison": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "cross_language": {
+        "n": 5,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 6,
+        "recall@5": 0.5,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "keyword": {
+        "n": 2,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 3,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "multi_video": {
+        "n": 5,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "numeric": {
+        "n": 1,
+        "recall@5": 1.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 6,
+        "recall@5": 0.6666666666666666,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 6,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": [
+      "m05",
+      "m06",
+      "m08",
+      "m11",
+      "m12"
+    ]
+  },
+  "m_sparse": {
+    "n_questions": 36,
+    "n_answerable": 30,
+    "n_unanswerable": 6,
+    "primary_k": 5,
+    "min_overlap_s": 10.0,
+    "metrics": {
+      "recall@1": 0.03333333333333333,
+      "recall@3": 0.13333333333333333,
+      "recall@5": 0.2,
+      "recall@10": 0.3333333333333333,
+      "mrr": 0.1003174603174603,
+      "timestamp_hit@1": 0.03333333333333333,
+      "evidence_recall@5": 0.06507936507936508,
+      "citation_hit": 0.0,
+      "citation_precision": null,
+      "end_to_end": 0.0,
+      "false_abstain": 0.0,
+      "abstain_rate": 0.0
+    },
+    "ci95": {
+      "recall@1": [
+        0.0,
+        0.1
+      ],
+      "recall@3": [
+        0.03333333333333333,
+        0.26666666666666666
+      ],
+      "recall@5": [
+        0.06666666666666667,
+        0.36666666666666664
+      ],
+      "recall@10": [
+        0.16666666666666666,
+        0.5
+      ],
+      "mrr": [
+        0.038928571428571423,
+        0.18503968253968256
+      ],
+      "timestamp_hit@1": [
+        0.0,
+        0.1
+      ],
+      "evidence_recall@5": [
+        0.01111111111111111,
+        0.14365079365079364
+      ],
+      "citation_hit": [
+        0.0,
+        0.0
+      ],
+      "citation_precision": null,
+      "end_to_end": [
+        0.0,
+        0.0
+      ],
+      "false_abstain": [
+        0.0,
+        0.0
+      ],
+      "abstain_rate": [
+        0.0,
+        0.0
+      ]
+    },
+    "by_category": {
+      "comparison": {
+        "n": 2,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "cross_language": {
+        "n": 5,
+        "recall@5": 0.6,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "explanation": {
+        "n": 6,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "keyword": {
+        "n": 2,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "list": {
+        "n": 3,
+        "recall@5": 0.3333333333333333,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "multi_video": {
+        "n": 5,
+        "recall@5": 0.2,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "numeric": {
+        "n": 1,
+        "recall@5": 0.0,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "simple": {
+        "n": 6,
+        "recall@5": 0.16666666666666666,
+        "end_to_end": 0.0,
+        "abstain_rate": null
+      },
+      "unanswerable": {
+        "n": 6,
+        "recall@5": null,
+        "end_to_end": null,
+        "abstain_rate": 0.0
+      }
+    },
+    "missing_runs": [],
+    "errored": [],
+    "failed_ids": [
+      "m01",
+      "m02",
+      "m03",
+      "m05",
+      "m06",
+      "m07",
+      "m08",
+      "m09",
+      "m10",
+      "m11",
+      "m12",
+      "m13",
+      "m14",
+      "m15",
+      "m16",
+      "m17",
+      "m19",
+      "m21",
+      "m22",
+      "m23",
+      "m24",
+      "m25",
+      "m29",
+      "m30"
+    ]
+  }
+}
