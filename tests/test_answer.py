@@ -120,3 +120,44 @@ def test_parse_verdicts_accepts_common_shapes_and_rejects_the_rest():
             assert False, bad
         except ValueError:
             pass
+
+
+class QGen(Gen):
+    """Verifier replies carry a quote per statement."""
+    def __init__(self, answers, rows):
+        super().__init__(answers)
+        self.rows = list(rows)
+
+    def __call__(self, prompt, role="answer", system=None, json_output=True, max_output_tokens=1000):
+        if role == "verifier":
+            self.calls.append(role)
+            return json.dumps({"verdicts": [{"i": i, "verdict": v, "quote": q}
+                                            for i, (v, q) in enumerate(self.rows.pop(0))]})
+        return super().__call__(prompt, role, system, json_output, max_output_tokens)
+
+
+def test_quote_in_passage_tolerates_a_slip_but_not_invention():
+    p = "ద్రోణుడిని ధృష్టద్యుమ్నుడు చంపాడు అని చెప్పారు పెద్దలు"
+    assert answer.quote_in_passage("ద్రోణుడిని ధృష్టద్యుమ్నుడు చంపాడు", p)
+    assert answer.quote_in_passage("ద్రోణుడిని ధృష్టద్యుమ్నుడు చంపేడు అని చెప్పారు", p)     # one word wrong
+    assert not answer.quote_in_passage("భీముడు కర్ణుడిని మొదటి రోజున చంపాడు", p)
+    assert not answer.quote_in_passage("చంపాడు", p)                                          # too short to count
+
+
+def test_verified_answer_needs_a_quote_found_in_its_passage():
+    good = [[("supported", "ద్రోణుడిని ధృష్టద్యుమ్నుడు చంపాడు")]]
+    r = run(QGen([gen_json(("Dhrishtadyumna killed Drona.", [1]))], good), require_quote=True)
+    assert r["outcome"] == "answered"
+    bad = [[("supported", "భీముడు కర్ణుడిని మొదటి రోజున చంపాడు")]] * 3
+    g = QGen([gen_json(("Dhrishtadyumna killed Drona.", [1]))] * 3, bad)
+    r = run(g, require_quote=True)
+    assert r["outcome"] == "abstained"                       # a quote not in the passage fails closed
+
+
+def test_missing_quote_fails_only_when_required():
+    rows = [[("supported", "")]]
+    r = run(QGen([gen_json(("Dhrishtadyumna killed Drona.", [1]))], rows), require_quote=False)
+    assert r["outcome"] == "answered"
+    rows3 = [[("supported", "")]] * 3
+    r = run(QGen([gen_json(("Dhrishtadyumna killed Drona.", [1]))] * 3, rows3), require_quote=True)
+    assert r["outcome"] == "abstained"

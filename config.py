@@ -76,6 +76,7 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GEMINI_MODEL_NAME = "gemini-3.6-flash"
 TOP_K = 10
 ANSWER_MAX_ATTEMPTS = 3      # generation attempts per question: 1 + 2 regenerations
+ANSWER_REQUIRE_QUOTE = True   # the verifier must quote the supporting words; a quote not found in the passage = unsupported
 ANSWER_STRICT = True        # any unsupported sentence after the retries -> abstain
 ANSWER_CACHE_DIR = _p("data", "answers")
 TRACE_DIR = _p("data", "traces")
