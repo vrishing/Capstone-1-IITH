@@ -11,8 +11,9 @@ Flow (plain functions, explicit inputs and outputs):
   2. Generate: the LLM sees numbered evidence [1]..[n] and returns JSON
      {"sufficient": bool, "sentences": [{"text", "cites": [n, ...]}]}. Not sufficient: abstain.
   3. Check in code: every sentence must cite at least one existing evidence number.
-  4. Verify: one LLM call judges each sentence against ONLY the passages it cites:
-     supported | partial | unsupported.
+  4. Verify (verify.py, VERIFY_MODE): locate the words of a cited passage that state each sentence
+     (checked in code against the real text), then judge the sentence on a short window around them:
+     supported | partial | unsupported. Nothing located = unsupported.
   5. All supported (each with a quote found in its cited passages): answer. Some partial: answer with a caution. Any unsupported (or uncited): regenerate
      with that feedback, up to max_attempts in total (1 + 2 regenerations by default). Still unsupported:
      abstain (strict, the default) or, with strict=False, keep only the verified sentences plus a warning.
@@ -31,7 +32,7 @@ import time
 
 import config
 
-ANSWER_ALGO = "answer_v3"
+ANSWER_ALGO = "answer_v4"
 ABSTAIN_TEXT = "I could not find enough support in the specified playlist."
 VERDICTS = ("supported", "partial", "unsupported")
 
@@ -49,21 +50,16 @@ for a list, a comparison or several people.
 5. Names: write a name the way the passage spells it (transliterated if you answer in another language). \
 The transcription may garble a name, but never replace it with a different, better-known character; \
 if you cannot tell who is meant, say "the one named <name as written>".
-6. If the passages do not contain enough to answer the question, set "sufficient" to false.
+6. If the passages answer only part of the question (for example one of several people it asks about), answer \
+that part and list the parts they do not cover in "not_covered". Set "sufficient" to false only when they \
+answer no part of it.
 7. If the question assumes something the passages do not say happened (a false premise), or the passages \
 say the opposite, set "sufficient" to false. Never answer by accepting the assumption.
 Reply with JSON only:
-{{"sufficient": true, "sentences": [{{"text": "...", "cites": [1, 3]}}]}}"""
+{{"sufficient": true, "sentences": [{{"text": "...", "cites": [1, 3]}}], "not_covered": []}}"""
 
-VERIFY_SYSTEM = """You check whether statements are supported by passages. Each statement comes with the \
-passages it cites (speech-to-text transcripts: names may be misspelled; the statement may be in a different \
-language from the passages). Judge only against those passages, never against what you know.
-supported   = the passages clearly say what the statement says.
-partial     = the passages support part of it, or only imply it, or the statement adds a detail they lack.
-unsupported = the passages do not say it, or contradict it.
-For every statement judged supported or partial, also give "quote": the exact words copied from one of its \
-cited passages (3 to 25 words, no translation, no changes) that show the statement. For unsupported give "".
-Reply with JSON only: {"verdicts": [{"i": 0, "verdict": "supported", "quote": "..."}, ...]} with one entry per statement."""
+from verify import SINGLE_SYSTEM as VERIFY_SYSTEM  # noqa: E402  (kept for callers of the old name)
+from verify import parse_quotes, parse_verdicts, quote_in_passage  # noqa: E402,F401
 
 
 # ---------------------------------------------------------------------------------------
@@ -116,95 +112,21 @@ def parse_generation(text: str, n_hits: int) -> tuple[bool, list[dict]]:
     return True, sents
 
 
-def parse_verdicts(text: str, n: int) -> list[str]:
-    """One verdict per statement. Accepts {"verdicts": [...]}, a bare list, items like
-    {"i": 0, "verdict": "supported"} or plain strings (taken in order)."""
-    d = _json(text)
-    items = d.get("verdicts", d.get("results")) if isinstance(d, dict) else d
-    if not isinstance(items, list):
-        raise ValueError("verifier reply has no list of verdicts")
-    got: dict[int, str] = {}
-    for pos, v in enumerate(items):
-        if isinstance(v, str):
-            idx, verdict = pos, v
-        elif isinstance(v, dict):
-            idx = v.get("i", v.get("index", pos))
-            verdict = v.get("verdict", v.get("label"))
-        else:
-            continue
-        verdict = str(verdict).strip().lower() if verdict is not None else ""
-        if isinstance(idx, int) and verdict in VERDICTS:
-            got[idx] = verdict
-    if set(got) != set(range(n)):
-        raise ValueError("verifier did not answer every statement")
-    return [got[i] for i in range(n)]
-
-
-def parse_quotes(text: str, n: int) -> list[str]:
-    """The quote the verifier gave for each statement ('' when missing). Never raises."""
+def parse_not_covered(text: str) -> list[str]:
+    """Parts of the question the generator says the passages do not cover. Never raises."""
     try:
         d = _json(text)
     except ValueError:
-        return [""] * n
-    items = d.get("verdicts", d.get("results")) if isinstance(d, dict) else d
-    out = [""] * n
-    if isinstance(items, list):
-        for pos, v in enumerate(items):
-            if isinstance(v, dict):
-                idx = v.get("i", v.get("index", pos))
-                if isinstance(idx, int) and 0 <= idx < n:
-                    out[idx] = str(v.get("quote") or "")
-    return out
+        return []
+    v = d.get("not_covered") if isinstance(d, dict) else None
+    return [str(x).strip() for x in v if str(x).strip()][:5] if isinstance(v, list) else []
 
 
-_EDGE = ".,;:!?\"'()[]{}\u2026-\u2013\u2014\u201c\u201d\u2018\u2019|"
-
-
-def _words(text: str) -> list[str]:
-    import unicodedata
-    out = []
-    for w in unicodedata.normalize("NFC", text).lower().split():
-        w = w.strip(_EDGE)
-        if w:
-            out.append(w)
-    return out
-
-
-def quote_in_passage(quote: str, passage: str, min_words: int = 3, min_frac: float = 0.75, gap: int = 3) -> bool:
-    """True when the quote's words appear in the passage in order, close together (at most `gap`
-    passage words skipped between two quote words), with at least min_frac of them found. Lenient
-    enough for a copy with a slip, strict enough that a made-up sentence fails."""
-    q, p = _words(quote), _words(passage)
-    if len(q) < min_words or not p:
-        return False
-    need = int(min_frac * len(q) + 0.9999)
-    for start in range(len(p)):
-        if p[start] != q[0]:
-            continue
-        pos, found = start + 1, 1
-        for w in q[1:]:
-            hit = next((j for j in range(pos, min(pos + gap + 1, len(p))) if p[j] == w), None)
-            if hit is not None:
-                found, pos = found + 1, hit + 1
-        if found >= need:
-            return True
-    return False
-
-
-def verify_prompt(sents: list[dict], hits: list[dict]) -> str:
-    parts = []
-    for i, s in enumerate(sents):
-        passages = "\n".join(f"  passage [{c}]: {hits[c - 1]['text']}" for c in s["cites"])
-        parts.append(f"Statement {i}: {s['text']}\n{passages}")
-    return "\n\n".join(parts)
-
-
-# ---------------------------------------------------------------------------------------
-# the answer loop
 # ---------------------------------------------------------------------------------------
 def answer_question(question: str, retrieve_fn, gen, titles: dict | None = None, topic: str = "",
                     max_attempts: int = 3, strict: bool = True, trace: dict | None = None,
-                    require_quote: bool = False) -> dict:
+                    require_quote: bool = False, verify_mode: str = "single",
+                    verifier_max_tokens: int = 3000) -> dict:
     """gen(prompt, role, system, json_output, max_output_tokens) -> str. Returns the result dict."""
     titles = titles or {}
     tr = trace if trace is not None else {}
@@ -214,7 +136,8 @@ def answer_question(question: str, retrieve_fn, gen, titles: dict | None = None,
     tr["retrieval"] = {k: v for k, v in ret.items() if k != "hits"}
     tr["evidence"] = hits
     base = {"question": question, "evidence": hits, "query_entities": ret.get("query_entities", []),
-            "answer": ABSTAIN_TEXT, "sentences": [], "warnings": [], "attempts": 0, "error": False}
+            "answer": ABSTAIN_TEXT, "sentences": [], "warnings": [], "attempts": 0, "error": False,
+            "not_covered": []}
     if not hits:
         return {**base, "outcome": "abstained", "reason": "nothing retrieved"}
 
@@ -244,21 +167,24 @@ def answer_question(question: str, retrieve_fn, gen, titles: dict | None = None,
         verdicts = ["unsupported" if not s["cites"] else None for s in sents]
         todo = [i for i, v in enumerate(verdicts) if v is None]
         if todo:
+            import verify
             try:
-                vraw = gen(verify_prompt([sents[i] for i in todo], hits), role="verifier",
-                           system=VERIFY_SYSTEM, json_output=True, max_output_tokens=3000)
-                rec["verification"] = vraw
-                got = parse_verdicts(vraw, len(todo))
-                quotes = parse_quotes(vraw, len(todo)) if require_quote else []
-                for pos, (i, v) in enumerate(zip(todo, got)):
-                    if require_quote and v in ("supported", "partial") and not any(
-                            quote_in_passage(quotes[pos], hits[c - 1]["text"]) for c in sents[i]["cites"]):
-                        rec.setdefault("quote_failures", []).append({"i": i, "quote": quotes[pos]})
-                        v = "unsupported"          # no verifiable quote: fail closed
-                    verdicts[i] = v
+                got, dbg = verify.verify(question, [sents[i] for i in todo], hits, gen, mode=verify_mode,
+                                         require_quote=require_quote, max_tokens=verifier_max_tokens)
             except Exception as e:                     # fail closed
                 rec["error"] = f"verifier failed: {type(e).__name__}: {str(e)[:200]}"
                 return {**base, "outcome": "abstained", "error": True, "reason": rec["error"]}
+            for i, v in zip(todo, got):
+                verdicts[i] = v
+            if "verification" in dbg:
+                rec["verification"] = dbg.pop("verification")
+            for f in dbg.get("quote_failures", []):
+                f["i"] = todo[f["i"]]
+            for key in ("windows", "says"):
+                if key in dbg:
+                    dbg[key] = {todo[int(k)]: v for k, v in dbg[key].items()}
+            rec.update(dbg)
+        base["not_covered"] = parse_not_covered(raw)
         rec["verdicts"] = verdicts
         bad = [i for i, v in enumerate(verdicts) if v == "unsupported"]
         if not bad:
@@ -365,6 +291,8 @@ def render(res: dict) -> str:
     lines = [res["answer"]]
     for w in res["warnings"]:
         lines.append(f"CAUTION: {w}")
+    if res["outcome"] != "abstained" and res.get("not_covered"):
+        lines.append("Not covered by the passages found: " + "; ".join(res["not_covered"]))
     if res["outcome"] == "abstained" and res.get("reason"):
         lines.append(f"({res['reason']})")
     if res["outcome"] != "abstained":
@@ -385,6 +313,7 @@ def ask(question: str, stack, gen, use_cache: bool, k: int) -> dict:
     client, emb, rr, gl = stack
     st = [llm_client.settings("answer"), llm_client.settings("verifier")]
     models = "|".join(f"{s.get('backend')}:{s.get('model')}" for s in st) + f"|rerank={rr is not None}|strict={getattr(config, 'ANSWER_STRICT', True)}|quote={getattr(config, 'ANSWER_REQUIRE_QUOTE', True)}"
+    models += f"|verify={getattr(config, 'VERIFY_MODE', 'locate_judge')}|think={getattr(config, 'LLM_VERIFIER_THINKING', False)}"
     key = cache_key(question, config.PLAYLIST_ID, k, models, str(ix.count(client, config.PLAYLIST_ID)))
     if use_cache:
         hit = read_cache(key)
@@ -397,7 +326,9 @@ def ask(question: str, stack, gen, use_cache: bool, k: int) -> dict:
         question, lambda q: retrieval.retrieve(q, client, emb, rr, gl, config.PLAYLIST_ID, k=k), gen,
         titles=video_titles(), topic=playlist_topic(),
         max_attempts=getattr(config, "ANSWER_MAX_ATTEMPTS", 3), strict=getattr(config, "ANSWER_STRICT", True),
-        trace=trace, require_quote=getattr(config, "ANSWER_REQUIRE_QUOTE", True))
+        trace=trace, require_quote=getattr(config, "ANSWER_REQUIRE_QUOTE", True),
+        verify_mode=getattr(config, "VERIFY_MODE", "locate_judge"),
+        verifier_max_tokens=getattr(config, "VERIFIER_MAX_TOKENS", 3000))
     res["cached"] = False
     res["trace"] = write_trace(trace, res)
     write_cache(key, res)
@@ -443,6 +374,10 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--no-rerank", action="store_true")
     ap.add_argument("--trim", action="store_true",
                     help="keep the verified sentences instead of abstaining when others fail (default: abstain)")
+    ap.add_argument("--verify-mode", choices=["locate_judge", "single"],
+                    help="how sentences are checked (default: VERIFY_MODE in config, locate_judge)")
+    ap.add_argument("--verifier-thinking", action="store_true",
+                    help="let the verifier reason before answering (Qwen3 thinking mode; much slower)")
     ap.add_argument("--eval", metavar="QUESTIONS", help="answer every question in this file, write a run file")
     ap.add_argument("--out", help="with --eval: run file to write")
     a = ap.parse_args(argv)
@@ -450,6 +385,10 @@ def main(argv: list[str]) -> int:
         config.select_playlist(a.playlist)
     if a.trim:
         config.ANSWER_STRICT = False
+    if a.verify_mode:
+        config.VERIFY_MODE = a.verify_mode
+    if a.verifier_thinking:
+        config.LLM_VERIFIER_THINKING = True
     import retrieval
     stack = retrieval.load_stack(not a.no_rerank)
     gen = make_gen()

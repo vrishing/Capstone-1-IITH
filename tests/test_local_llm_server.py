@@ -62,3 +62,68 @@ def test_llm_client_talks_to_it_and_strips_thinking():
         assert json.loads(out) == {"ok": True}
     finally:
         s.shutdown()
+
+
+class ResourceExhausted(Exception):
+    pass
+
+
+def test_rate_limit_retry_waits_the_time_the_server_asks(monkeypatch):
+    waits = []
+    monkeypatch.setattr(llm_client, "_sleep", waits.append)
+    calls = []
+
+    def flaky():
+        calls.append(1)
+        if len(calls) < 3:
+            raise ResourceExhausted("429 quota PerMinute ... Please retry in 32.1s.")
+        return "ok"
+    assert llm_client.with_rate_limit_retry(flaky) == "ok"
+    assert len(calls) == 3 and waits == [33.1, 33.1]
+
+
+def test_daily_quota_and_other_errors_are_not_retried(monkeypatch):
+    monkeypatch.setattr(llm_client, "_sleep", lambda s: (_ for _ in ()).throw(AssertionError("slept")))
+    for exc in (ResourceExhausted("429 GenerateRequestsPerDayPerProjectPerModel-FreeTier"), ValueError("bad")):
+        def boom(e=exc):
+            raise e
+        try:
+            llm_client.with_rate_limit_retry(boom)
+            assert False
+        except type(exc):
+            pass
+
+
+def test_rate_limit_retry_gives_up_after_max_waits(monkeypatch):
+    monkeypatch.setattr(llm_client, "_sleep", lambda s: None)
+    n = []
+
+    def always():
+        n.append(1)
+        raise ResourceExhausted("429 PerMinute retry in 1s")
+    try:
+        llm_client.with_rate_limit_retry(always, max_waits=2)
+        assert False
+    except ResourceExhausted:
+        assert len(n) == 3
+
+
+def test_thinking_flag_reaches_generate_and_client_sends_it():
+    seen = {}
+
+    def gen(m, t, temp, thinking=False):
+        seen["thinking"], seen["t"] = thinking, t
+        return '{"ok": true}'
+    s, url = start(gen)
+    try:
+        post(url, {"model": "tiny", "messages": [{"role": "user", "content": "x"}], "max_tokens": 50})
+        assert seen["thinking"] is False
+        out = llm_client.generate("x", backend="openai", model="tiny", base_url=url, json_output=True,
+                                  max_output_tokens=100, thinking=True)
+        assert json.loads(out) == {"ok": True} and seen["thinking"] is True and seen["t"] >= 8000
+    finally:
+        s.shutdown()
+
+
+def test_cut_off_reasoning_is_not_mistaken_for_an_answer():
+    assert llm_client.clean_text('<think>maybe {"verdict": "supported"} ...') == ""

@@ -65,8 +65,33 @@ _THINK_RE = re.compile(r"<think>.*?</think>", re.S | re.I)
 _FENCE_RE = re.compile(r"^```[a-zA-Z]*\s*(.*?)\s*```$", re.S)
 
 
+_THINK_OPEN_RE = re.compile(r"<think>.*\Z", re.S | re.I)      # reasoning cut off before </think>
+
+
 def clean_text(text: str) -> str:
-    return _THINK_RE.sub("", text or "").strip()
+    return _THINK_OPEN_RE.sub("", _THINK_RE.sub("", text or "")).strip()
+
+
+_RETRY_IN = re.compile(r"retry in ([0-9.]+)\s*s|retry_delay\s*\{\s*seconds:\s*(\d+)", re.I)
+
+
+def with_rate_limit_retry(call, max_waits: int = 6, max_wait_s: float = 90.0):
+    """Run call(); on a per-minute quota error (HTTP 429) wait as long as the server says and try again.
+    A daily-quota error is raised at once: waiting a minute will not help. Other errors pass through."""
+    waits = 0
+    while True:
+        try:
+            return call()
+        except Exception as e:
+            msg = str(e)
+            if not ("ResourceExhausted" in type(e).__name__ or "429" in msg):
+                raise
+            if re.search(r"PerDay|per day", msg, re.I) or waits >= max_waits:
+                raise
+            m = _RETRY_IN.search(msg)
+            secs = float(m.group(1) or m.group(2)) if m else 15.0
+            waits += 1
+            _sleep(min(secs + 1.0, max_wait_s))
 
 
 def extract_json(text: str) -> str:
@@ -96,7 +121,7 @@ def extract_json(text: str) -> str:
 # ======================================================================================
 def _chat_openai(prompt: str, *, model: str, base_url: str, api_key: str | None,
                  system_instruction: str | None, temperature: float, max_output_tokens: int,
-                 json_output: bool, timeout: float, retries: int = 3) -> str:
+                 json_output: bool, timeout: float, retries: int = 3, thinking: bool = False) -> str:
     if not model:
         raise LLMError("No model name for the local backend. Set LLM_MODEL in .env (the name the server serves).")
     url = base_url.rstrip("/") + "/chat/completions"
@@ -106,6 +131,9 @@ def _chat_openai(prompt: str, *, model: str, base_url: str, api_key: str | None,
             "max_tokens": max_output_tokens}
     if json_output:
         body["response_format"] = {"type": "json_object"}
+    if thinking:                                  # Qwen3-style servers: vLLM, SGLang, local_llm_server.py
+        body["chat_template_kwargs"] = {"enable_thinking": True}
+        body["max_tokens"] = max(max_output_tokens, 8000)
     headers = {"Content-Type": "application/json"}
     if api_key:
         headers["Authorization"] = f"Bearer {api_key}"
@@ -162,6 +190,7 @@ def generate(
     backend: str | None = None,
     base_url: str | None = None,
     timeout: float = 180.0,
+    thinking: bool = False,
 ) -> str:
     """Return the model's text response.
 
@@ -173,7 +202,8 @@ def generate(
     if backend in LOCAL_BACKENDS:
         text = _chat_openai(prompt, model=model, base_url=base_url or os.environ.get("LLM_BASE_URL", "http://localhost:8000/v1"),
                             api_key=api_key, system_instruction=system_instruction, temperature=temperature,
-                            max_output_tokens=max_output_tokens, json_output=json_output, timeout=timeout)
+                            max_output_tokens=max_output_tokens, json_output=json_output, timeout=timeout,
+                            thinking=thinking)
         return extract_json(text) if json_output else clean_text(text)
 
     if backend != "gemini":
@@ -188,7 +218,7 @@ def generate(
         if client is None:
             client = _new_genai.Client(api_key=api_key)
             _client_cache[api_key] = client
-        response = client.models.generate_content(
+        response = with_rate_limit_retry(lambda: client.models.generate_content(
             model=model,
             contents=prompt,
             config=_new_types.GenerateContentConfig(
@@ -197,20 +227,20 @@ def generate(
                 max_output_tokens=max_output_tokens,
                 **({"response_mime_type": "application/json"} if json_output else {}),
             ),
-        )
+        ))
         return response.text
 
     # Old SDK path (needs google-generativeai >= 0.5 for system_instruction)
     _old_genai.configure(api_key=api_key)
     gm = _old_genai.GenerativeModel(model_name=model, system_instruction=system_instruction)
-    response = gm.generate_content(
+    response = with_rate_limit_retry(lambda: gm.generate_content(
         prompt,
         generation_config={
             "temperature": temperature,
             "max_output_tokens": max_output_tokens,
             **({"response_mime_type": "application/json"} if json_output else {}),
         },
-    )
+    ))
     return response.text
 
 
@@ -227,8 +257,12 @@ def settings(role: str = "answer") -> dict:
     model = (getattr(config, "LLM_VERIFIER_MODEL", "") if role == "verifier" else "") or getattr(config, "LLM_MODEL", "")
     if not model:
         raise LLMError("LLM_BACKEND=openai needs LLM_MODEL: the model name your server is serving.")
-    return {"backend": "openai", "model": model, "base_url": getattr(config, "LLM_BASE_URL", "http://localhost:8000/v1"),
-            "api_key": getattr(config, "LLM_API_KEY", None), "timeout": float(getattr(config, "LLM_TIMEOUT_S", 180.0))}
+    out = {"backend": "openai", "model": model, "base_url": getattr(config, "LLM_BASE_URL", "http://localhost:8000/v1"),
+           "api_key": getattr(config, "LLM_API_KEY", None), "timeout": float(getattr(config, "LLM_TIMEOUT_S", 180.0))}
+    if role == "verifier" and getattr(config, "LLM_VERIFIER_THINKING", False):
+        out["thinking"] = True
+        out["timeout"] = max(out["timeout"], 1800.0)   # thousands of reasoning tokens on one shared GPU
+    return out
 
 
 def generate_default(prompt: str, *, role: str = "answer", **kw) -> str:

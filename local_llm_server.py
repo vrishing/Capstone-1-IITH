@@ -61,11 +61,12 @@ def make_server(generate, model_name: str, host: str = "127.0.0.1", port: int = 
                     raise ValueError("messages must be a non-empty list")
                 max_tokens = int(req.get("max_tokens") or 1024)
                 temperature = float(req.get("temperature") or 0.0)
+                thinking = bool((req.get("chat_template_kwargs") or {}).get("enable_thinking"))
             except (ValueError, KeyError, TypeError) as e:
                 return self._send(400, {"error": {"message": f"bad request: {e}"}})
             try:
                 with lock:
-                    text = generate(msgs, max_tokens, temperature)
+                    text = generate(msgs, max_tokens, temperature, **({"thinking": True} if thinking else {}))
             except Exception as e:                       # out of memory, template error, ...
                 return self._send(500, {"error": {"message": f"{type(e).__name__}: {str(e)[:300]}"}})
             self._send(200, {
@@ -78,7 +79,8 @@ def make_server(generate, model_name: str, host: str = "127.0.0.1", port: int = 
     return ThreadingHTTPServer((host, port), Handler)
 
 
-def load_generate(model_id: str, dtype: str = "bfloat16", repetition_penalty: float = 1.1):
+def load_generate(model_id: str, dtype: str = "bfloat16", repetition_penalty: float = 1.1,
+                  max_new_tokens: int = 12000):
     """Load the model on the visible GPU and return generate(messages, max_tokens, temperature)."""
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -86,18 +88,27 @@ def load_generate(model_id: str, dtype: str = "bfloat16", repetition_penalty: fl
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=getattr(torch, dtype))
     model.to("cuda" if torch.cuda.is_available() else "cpu").eval()
 
-    def generate(messages, max_tokens, temperature):
+    think_end = tok.convert_tokens_to_ids("</think>")
+
+    def generate(messages, max_tokens, temperature, thinking=False):
+        """thinking=False: Qwen3 thinking switched off. thinking=True: the model reasons first; only
+        the text after the last </think> is returned ('' if the reasoning was cut off)."""
         try:
             text = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True,
-                                           enable_thinking=False)
+                                           enable_thinking=thinking)
         except TypeError:                                 # template without that option
             text = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         inputs = tok(text, return_tensors="pt").to(model.device)
         kw = {"do_sample": True, "temperature": temperature, "top_p": 0.9} if temperature > 0 else {"do_sample": False}
         kw["repetition_penalty"] = repetition_penalty      # small models loop in Telugu without it
         with torch.no_grad():
-            out = model.generate(**inputs, max_new_tokens=min(max_tokens, 6000), **kw)
-        return tok.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+            out = model.generate(**inputs, max_new_tokens=min(max_tokens, max_new_tokens), **kw)
+        ids = out[0][inputs["input_ids"].shape[1]:].tolist()
+        if thinking and isinstance(think_end, int) and think_end >= 0:
+            if think_end not in ids:
+                return ""                                  # never finished reasoning: no answer
+            ids = ids[len(ids) - ids[::-1].index(think_end):]
+        return tok.decode(ids, skip_special_tokens=True)
     return generate
 
 
@@ -109,9 +120,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--port", type=int, default=8011)
     ap.add_argument("--dtype", default="bfloat16", choices=["bfloat16", "float16", "float32"])
     ap.add_argument("--repetition-penalty", type=float, default=1.1, help="1.0 = off (default 1.1)")
+    ap.add_argument("--max-new-tokens", type=int, default=12000, help="cap per reply (thinking needs thousands)")
     a = ap.parse_args(argv)
     print(f"loading {a.model} ...", flush=True)
-    gen = load_generate(a.model, a.dtype, a.repetition_penalty)
+    gen = load_generate(a.model, a.dtype, a.repetition_penalty, a.max_new_tokens)
     srv = make_server(gen, a.name or a.model, a.host, a.port)
     print(f"serving {a.name or a.model} at http://{a.host}:{a.port}/v1  (Ctrl-C to stop)", flush=True)
     try:

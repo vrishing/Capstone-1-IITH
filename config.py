@@ -76,6 +76,8 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GEMINI_MODEL_NAME = "gemini-3.6-flash"
 TOP_K = 10
 ANSWER_MAX_ATTEMPTS = 3      # generation attempts per question: 1 + 2 regenerations
+VERIFY_MODE = "locate_judge"  # locate the supporting words, then judge the claim on that short window (verify.py)
+VERIFIER_MAX_TOKENS = 3000
 ANSWER_REQUIRE_QUOTE = True   # the verifier must quote the supporting words; a quote not found in the passage = unsupported
 ANSWER_STRICT = True        # any unsupported sentence after the retries -> abstain
 ANSWER_CACHE_DIR = _p("data", "answers")
@@ -96,6 +98,8 @@ LLM_MODEL = os.environ.get("LLM_MODEL", "")
 LLM_VERIFIER_MODEL = os.environ.get("LLM_VERIFIER_MODEL", "")   # empty = same as LLM_MODEL
 LLM_API_KEY = os.environ.get("LLM_API_KEY") or None             # most local servers need none
 LLM_TIMEOUT_S = float(os.environ.get("LLM_TIMEOUT_S", "180"))    # shared GPUs can be slow
+# reasoning ("thinking") for the verifier role only; Qwen3 hybrid models on local_llm_server.py
+LLM_VERIFIER_THINKING = os.environ.get("LLM_VERIFIER_THINKING", "0").strip().lower() in ("1", "true", "yes")
 
 # Read by the verifier (not built yet).
 VERIFIER_MODEL = "gemini-3.6-flash"
